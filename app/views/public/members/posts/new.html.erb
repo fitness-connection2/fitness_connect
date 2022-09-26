@@ -1,0 +1,6 @@
+<h1>投稿フォーム</h1>
+  <%= form_with model: @post, url: members_posts_path do |f| %>
+      <%= f.file_field :image, accept: "image/*" %>
+      <%= f.text_field :description %>
+    <%= f.submit '投稿' %>
+  <% end %>
