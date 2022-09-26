@@ -1,0 +1,40 @@
+<h2>Sign up</h2>
+
+<%= form_with model: @member, url: member_registration_path do |f| %>
+  <%= render "public/members/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス" %>
+  </div>
+
+  <div class="field">
+    <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワード"  %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+  </div>
+
+  <div class="field">
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワード確認" %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :last_name, autofocus: true, placeholder: "(姓)" %>
+    <%= f.text_field :first_name, autofocus: true, placeholder: "(名)" %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :last_name_kana, autofocus: true, placeholder: "(セイ)" %>
+    <%= f.text_field :first_name_kana, autofocus: true, placeholder: "(メイ)" %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :telephone_number, autofocus: true, placeholder: "電話番号"  %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "新規登録" %>
+  </div>
+<% end %>
+
+<%= render "public/members/shared/links" %>
