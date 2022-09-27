@@ -1,0 +1,10 @@
+<h1>test</h1>
+
+<% @posts.each do |post| %>
+<div>
+  <%= image_tag post.get_image %>
+  <p>投稿ユーザー画像：<%= image_tag 'no_image.jpg' %></p>
+  <p>説明：<%= post.description %></p>
+  <p>ユーザーネーム：<%= post.member.last_name %> <%= post.member.first_name %></p>
+</div>
+<% end %>

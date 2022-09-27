@@ -1,30 +1,9 @@
 Rails.application.routes.draw do
-  namespace :public do
-    namespace :trainers do
-      get 'posts/new'
-      get 'posts/index'
-      get 'posts/show'
-      get 'posts/edit'
-    end
-  end
-  namespace :public do
-    namespace :members do
-      get 'posts/new'
-      get 'posts/index'
-      get 'posts/show'
-      get 'posts/edit'
-    end
-  end
-  scope module: :public do
 
-    namespace :trainers do
-    resources :posts, only:[:new, :index, :show, :edit]
-    end
+#全員のルーティング設定(投稿
+  resources :posts
+
 #会員側のルーティング設定
-    namespace :members do
-    resources :posts, only:[:new, :index, :show, :edit]
-    end
-  end
 
 #会員側のルーティング設定
   devise_for :members,skip: [:passwords], controllers: {
@@ -39,9 +18,6 @@ Rails.application.routes.draw do
 }
 
 #管理者側ののルーティング設定
-  namespace :admin do
-    resources :posts, only:[:index, :show]
-  end
 
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
