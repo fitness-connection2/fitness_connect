@@ -7,7 +7,13 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params) #投稿データの保存
-    @post.current_id = current_member.id | current_trainer.id
+    if member_signed_in? #会員がログインしている場合
+      @post.member_id = current_member.id
+    elsif trainer_signed_in? #トレーナーがログインしている場合
+      @post.trainer_id = current_trainer.id
+    else
+      render :new
+    end
     @post.save
     redirect_to posts_path
   end
@@ -17,10 +23,12 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
   end
 
   def edit
   end
+
   private
 
   def authenticated_any
