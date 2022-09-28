@@ -55,10 +55,8 @@ ActiveRecord::Schema.define(version: 2022_09_27_131039) do
   create_table "members", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "last_name", null: false
-    t.string "first_name", null: false
-    t.string "last_name_kana", null: false
-    t.string "first_name_kana", null: false
+    t.string "name", null: false
+    t.string "user_name", null: false
     t.string "telephone_number", null: false
     t.boolean "is_delete", default: false, null: false
     t.string "reset_password_token"
@@ -71,8 +69,8 @@ ActiveRecord::Schema.define(version: 2022_09_27_131039) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer "member_id", null: false
-    t.integer "trainer_id", null: false
+    t.integer "member_id"
+    t.integer "trainer_id"
     t.text "description", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -81,10 +79,8 @@ ActiveRecord::Schema.define(version: 2022_09_27_131039) do
   create_table "trainers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "last_name", null: false
-    t.string "first_name", null: false
-    t.string "last_name_kana", null: false
-    t.string "first_name_kana", null: false
+    t.string "name", null: false
+    t.string "user_name", null: false
     t.string "telephone_number", null: false
     t.boolean "is_delete", default: false, null: false
     t.string "reset_password_token"

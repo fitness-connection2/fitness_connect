@@ -1,2 +1,11 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<div>
+  <%= image_tag @post.get_image %>
+  <p>説明：<%= @post.description %></p>
+  <p>投稿ユーザー画像：<%= image_tag 'sample-author1.jpg' %></p>
+  <% if member_signed_in? %>
+    <p>ユーザーネーム：<%= @post.member.user_name %></p>
+  <% elsif trainer_signed_in? %>
+    <p>ユーザーネーム：<%= @post.trainer.user_name %></p>
+  <% end %>
+  <p>投稿日：<%= XXX.created_at.strftime('%Y/%m/%d') %></p>
+</div>
