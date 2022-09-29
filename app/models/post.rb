@@ -2,7 +2,7 @@ class Post < ApplicationRecord
   has_one_attached :image
   has_many :post_comments, dependent: :destroy
   has_many :post_likes, dependent: :destroy
-  belongs_to :member, optional: :true #ログインしていなくても投稿出来るようにする
+  belongs_to :member, optional: :true         #ログインしていなくても投稿出来るようにする
   belongs_to :trainer, optional: :true #ログインしていなくても投稿出来るようにする
   validate :required_either_member_or_trainer
 

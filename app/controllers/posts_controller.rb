@@ -27,6 +27,23 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:id])
+    if @post.member == current_member
+    elsif @post.trainer == current_trainer
+      render :edit
+    else
+      redirect_to books_path
+    end
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      flash[:notice] = "更新が完了しました。"
+      redirect_to post_path(@post.id)
+    else
+      render :edit
+    end
   end
 
   private
