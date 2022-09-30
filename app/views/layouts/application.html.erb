@@ -11,22 +11,28 @@
   </head>
 
   <body>
-    <ul class="navbar-nav ml-auto">
-      <% if admin_signed_in? %>
-        <li>トレーナー一覧</li>
-        <li>会員商品一覧</li>
-        <li>サブスク一覧</li>
-        <li>ログアウト</li>
-      <% elsif member_signed_in? %>
-        <li>投稿一覧</li>
-        <li>マイページ</li>
-        <li><%= link_to "ログアウト", destroy_member_session_path, method: :delete %></li>
-      <% elsif trainer_signed_in? %>
-        <li>投稿一覧</li>
-        <li>マイページ</li>
-        <li><%= link_to "ログアウト", destroy_trainer_session_path, method: :delete %></li>
+    <header>
+      <%= form_with url: posts_searches_path, method: :get, local: true do |f| %>
+        <%= f.text_field :keyword %>
+        <%= f.submit :検索 %>
       <% end %>
-    </ul>
+      <ul class="navbar-nav ml-auto">
+        <% if admin_signed_in? %>
+          <li>トレーナー一覧</li>
+          <li>会員商品一覧</li>
+          <li>サブスク一覧</li>
+          <li>ログアウト</li>
+        <% elsif member_signed_in? %>
+          <li>投稿一覧</li>
+          <li>マイページ</li>
+          <li><%= link_to "ログアウト", destroy_member_session_path, method: :delete %></li>
+        <% elsif trainer_signed_in? %>
+          <li>投稿一覧</li>
+          <li>マイページ</li>
+          <li><%= link_to "ログアウト", destroy_trainer_session_path, method: :delete %></li>
+        <% end %>
+      </ul>
+    </header>
   </body>
   <main>
     <%= yield %>
