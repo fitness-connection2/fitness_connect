@@ -24,6 +24,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @post_comment = PostComment.new
   end
 
   def edit
@@ -32,7 +33,7 @@ class PostsController < ApplicationController
     elsif @post.trainer == current_trainer
       render :edit
     else
-      redirect_to books_path
+      redirect_to posts_path
     end
   end
 

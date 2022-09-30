@@ -1,0 +1,9 @@
+<div>
+  <% @posts.each do |post| %>
+    <p><%= image_tag post.user.get_profile_image(50,50) %></p>
+    <p><%= post.user.name %></p>
+    <%= link_to post_path(post.id) do %>
+      <%= image_tag post.get_image(100,100) %>
+    <% end %>
+  <% end %>
+</div>

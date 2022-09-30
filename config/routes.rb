@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
 
 #全員のルーティング設定(投稿
-  resources :posts
+  post "/users/confirm" => "users#confirm"
+  get "/users/edit" => "users#edit"
+  get "/users" => "users#show"
+  patch "/users/withdraw" => "users#withdraw"
+  resources :users, only:[:update]
+  resources :posts do
+    resources :post_comments, only: [:create]
+  end
+  namespace :posts do
+    resources :searches, only: :index
+  end
 
 #会員側のルーティング設定
 
