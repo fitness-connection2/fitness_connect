@@ -1,0 +1,4 @@
+<h2>Search --> <%= params[:keyword].blank? ? '条件なし' : params[:keyword] %></h2> <!--検索結果が空の場合は条件なし、それ以外はビューを表示-->
+<% @posts.each do |post| %>
+  <%= post.description %>
+<% end %>

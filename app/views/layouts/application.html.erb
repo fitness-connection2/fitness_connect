@@ -12,8 +12,8 @@
 
   <body>
     <header>
-      <%= form_with url: posts_searches_path, method: :get, local: true do |f| %>
-        <%= f.text_field :keyword %>
+      <%= form_with url: searches_path, method: :get, local: true do |f| %>
+        <%= f.text_field :keyword, value: params[:keyword] %>
         <%= f.submit :検索 %>
       <% end %>
       <ul class="navbar-nav ml-auto">

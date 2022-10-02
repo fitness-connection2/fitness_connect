@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
 
-#全員のルーティング設定(投稿
+#全員のルーティング設定(投稿, 投稿検索,
   post "/users/confirm" => "users#confirm"
   get "/users/edit" => "users#edit"
   get "/users" => "users#show"
   patch "/users/withdraw" => "users#withdraw"
+  get 'searches' => 'searches#index' #検索はネストせず単一で作成
+
   resources :users, only:[:update]
   resources :posts do
-    resources :post_comments, only: [:create]
+    resources :post_comments, only: [:create, :destroy]
   end
-  namespace :posts do
-    resources :searches, only: :index
-  end
+
 
 #会員側のルーティング設定
 
