@@ -24,10 +24,10 @@ class Post < ApplicationRecord
   end
 
   def self.search(keyword)
-    if search
-      Post.where(['description LIKE ?', "%#{keyword}%"])
+    unless keyword.blank? 
+      where('description LIKE ?', "%#{keyword}%")
     else
-      Post.all
+      all
     end
   end
 
