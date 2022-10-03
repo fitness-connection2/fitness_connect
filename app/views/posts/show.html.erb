@@ -18,6 +18,20 @@
 </div>
 
 <div>
+  <% if @post.liked_by_member?(current_member) || @post.liked_by_trainer?(current_trainer) %>
+    <p>
+      <%= link_to post_post_likes_path(@post), method: :delete do %>
+        ♥<%= @post.post_likes.count %> いいね
+      <% end %>
+    </p>
+  <% else %>
+    <p>
+      <%= link_to post_post_likes_path(@post), method: :post do %>
+        ♡<%= @post.post_likes.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+
   <p>コメント件数：<%= @post.post_comments.count %></p>
     <% @post.post_comments.each do |post_comment| %>
       <% unless post_comment.member.nil? # nilでない場合、コメントに紐づいたメンバーの情報を引っ張る場合 %>
@@ -32,6 +46,9 @@
 
       <small><%= post_comment.created_at.strftime('%Y/%m/%d') %></small>
       <%= simple_format(post_comment.comment) %>
+      <% if post_comment.member == current_member || post_comment.trainer == current_trainer %> <!--現在のログインユーザーがコメントをした会員またはトレーナーの場合-->
+        <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
+      <% end %>
     <% end %>
 </div>
 <div>

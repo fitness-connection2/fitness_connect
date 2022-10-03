@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'trainers/index'
+    get 'trainers/show'
+    get 'trainers/edit'
+  end
+  namespace :admin do
+    get 'members/index'
+    get 'members/show'
+    get 'members/edit'
+  end
 #全員のルーティング設定(投稿, 投稿検索,
   post "/users/confirm" => "users#confirm"
   get "/users/edit" => "users#edit"
@@ -10,6 +20,7 @@ Rails.application.routes.draw do
   resources :users, only:[:update]
   resources :posts do
     resources :post_comments, only: [:create, :destroy]
+    resource :post_likes, only: [:create, :destroy] #idを含める必要がないので単数形
   end
 
 
