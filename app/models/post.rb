@@ -24,11 +24,18 @@ class Post < ApplicationRecord
   end
 
   def self.search(keyword)
-    unless keyword.blank? 
+    unless keyword.blank?
       where('description LIKE ?', "%#{keyword}%")
     else
       all
     end
   end
 
+  def liked_by_member?(member) #会員のいいね
+    post_likes.exists?(member_id: member.id)
+  end
+
+  def liked_by_trainer?(trainer) #トレーナーのいいね
+    post_likes.exists?(trainer_id: trainer.id)
+  end
 end
