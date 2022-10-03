@@ -18,7 +18,7 @@
 </div>
 
 <div>
-  <% if @post.liked_by_member?(current_member) || @post.liked_by_trainer?(current_trainer) %>
+  <% if (member_signed_in? && @post.liked_by_member?(current_member)) || (trainer_signed_in? && @post.liked_by_trainer?(current_trainer)) %> <!--会員がログイン、いいねを押しているか判断。falseなら右に-->
     <p>
       <%= link_to post_post_likes_path(@post), method: :delete do %>
         ♥<%= @post.post_likes.count %> いいね
@@ -39,7 +39,7 @@
         <%= post_comment.member.user_name %>
       <% end %>
 
-      <% unless post_comment.trainer.nil? # nilでない場合、コメントに紐づいたトレーナーの情報を引っ張る場合合 %>
+      <% unless post_comment.trainer.nil? # nilでない場合、コメントに紐づいたトレーナーの情報を引っ張る場合 %>
         <p><%= image_tag post_comment.trainer.get_profile_image(50,50) %></p>
         <%= post_comment.trainer.user_name %>
       <% end %>
