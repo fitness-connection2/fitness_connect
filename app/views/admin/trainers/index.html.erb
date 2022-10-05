@@ -1,2 +1,27 @@
-<h1>Admin::Trainers#index</h1>
-<p>Find me in app/views/admin/trainers/index.html.erb</p>
+<div>
+  <div>
+    <h4>トレーナー一覧</h4>
+  </div>
+
+  <div class="table">
+	  <div>
+		  <div>トレーナーID</div>
+		  <div>氏名</div>
+		  <div>ユーザーネーム</div>
+		  <div>ステータス</div>
+	  </div>
+	  <% @trainers.each do |trainer| %>
+	  <div>
+		  <div><%= trainer.id %></div>
+		  <div><%= link_to trainer.name, admin_trainer_path(trainer.id) %></div>
+		  <div><%= trainer.user_name %></div>
+		  <div>
+		    <% if trainer.is_delete %>
+          <div>退会</div>
+        <% else %>
+          <div>有効</div>
+        <% end %>
+      </div>
+	  </div>
+    <% end %>
+</div>

@@ -1,0 +1,23 @@
+<div>
+  <%= image_tag @trainer.get_profile_image(100,100) %>
+  <%= @trainer.user_name %>
+
+
+  <%= @trainer.posts.count %>
+
+  <% if @trainer == current_trainer %>
+    <%= link_to "編集", edit_trainer_path(@trainer) %>
+  <% end %>
+</div>
+
+<div>
+  <%= @trainer.introduction %>
+</div>
+
+<% @posts.each do |post| %>
+<div>
+  <%= link_to post_path(post.id) do %>
+    <%= image_tag post.get_image(100,100) %>
+  <% end %>
+</div>
+<% end %>

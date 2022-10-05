@@ -1,0 +1,23 @@
+<div>
+  <%= image_tag @member.get_profile_image(100,100) %>
+  <%= @member.user_name %>
+
+
+  <%= @member.posts.count %>
+
+  <% if @member == current_member %>
+  <%= link_to "編集", edit_member_path(@member) %>
+  <% end %>
+</div>
+
+<div>
+  <%= @member.introduction %>
+</div>
+
+<% @posts.each do |post| %>
+<div>
+  <%= link_to post_path(post.id) do %>
+    <%= image_tag post.get_image(100,100) %>
+  <% end %>
+</div>
+<% end %>
