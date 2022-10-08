@@ -3,7 +3,8 @@
   <%= @member.user_name %>
 
 
-  <%= @member.posts.count %>
+  <p>投稿数 <%= @member.posts.count %></P>
+  <p>氏名 <%= @member.name %></p>
 
   <% if @member == current_member %>
   <%= link_to "編集", edit_member_path(@member) %>

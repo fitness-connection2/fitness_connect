@@ -27,13 +27,13 @@ Rails.application.routes.draw do
       root to: "members/sessions#new"
     end
 
-    post "/members/confirm" => "members#confirm"
     patch "/members/withdraw" => "members#withdraw"
-
-    post "/trainers/confirm" => "trainers#confirm"
     patch "/trainers/withdraw" => "trainers#withdraw"
+    post "/members/confirm" => "members#confirm"
+    post "/trainers/confirm" => "trainers#confirm"
     resources :members, only:[:show, :edit, :update]
     resources :trainers, only:[:show, :edit, :update]
+
   end
 
 #管理者側ののルーティング設定

@@ -3,7 +3,8 @@
   <%= @trainer.user_name %>
 
 
-  <%= @trainer.posts.count %>
+  <p>投稿数 <%= @trainer.posts.count %></P>
+  <p>氏名 <%= @trainer.name %></p>
 
   <% if @trainer == current_trainer %>
     <%= link_to "編集", edit_trainer_path(@trainer) %>
