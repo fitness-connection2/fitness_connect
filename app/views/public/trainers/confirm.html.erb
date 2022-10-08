@@ -1,2 +1,11 @@
-<h1>Public::Trainers#confirm</h1>
-<p>Find me in app/views/public/trainers/confirm.html.erb</p>
+<div>
+    <div>
+      アカウントを削除すると全ての登録情報が消去されます。</br>
+      退会される場合は退会するをクリックしてください
+    </div>
+
+    <div>
+      <%= link_to "マイページへ戻る", trainer_path(@trainer.id) %>
+      <%= link_to "退会する", trainers_withdraw_path, method: :patch, "data-confirm" => "本当に退会しますか？" %>
+    </div>
+</div>

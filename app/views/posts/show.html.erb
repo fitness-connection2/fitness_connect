@@ -1,9 +1,10 @@
 <div>
   <p>
-    <%= image_tag 'no_image.jpg' %>
     <% if @post.member_id.present? %>      <!--投稿の投稿主が会員場合-->
+      <%= image_tag @post.member.get_profile_image(100,100) %>
     　<%= @post.member.user_name %>
     <% elsif @post.trainer_id.present? %>  <!--投稿の投稿主がトレーナー場合-->
+      <%= image_tag @post.trainer.get_profile_image(100,100) %>
       <%= @post.trainer.user_name %>
     <% end %>
   </p>
@@ -35,12 +36,12 @@
   <p>コメント件数：<%= @post.post_comments.count %></p>
     <% @post.post_comments.each do |post_comment| %>
       <% unless post_comment.member.nil? # nilでない場合、コメントに紐づいたメンバーの情報を引っ張る %>
-        <p><%= image_tag post_comment.member.get_profile_image(50,50) %></p>
+        <p><%= image_tag post_comment.member.get_profile_image(100,100) %></p>
         <%= post_comment.member.user_name %>
       <% end %>
 
       <% unless post_comment.trainer.nil? # nilでない場合、コメントに紐づいたトレーナーの情報を引っ張る %>
-        <p><%= image_tag post_comment.trainer.get_profile_image(50,50) %></p>
+        <p><%= image_tag post_comment.trainer.get_profile_image(100,100) %></p>
         <%= post_comment.trainer.user_name %>
       <% end %>
 
