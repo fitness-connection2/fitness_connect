@@ -8,6 +8,9 @@ class Public::TrainersController < ApplicationController
 
   def edit
    @trainer = Trainer.find(params[:id])
+      unless @trainer == current_trainer #現在のトレーナー以外はマイページ編集不可
+      redirect_to trainer_path(current_trainer)
+      end
   end
 
   def update
@@ -20,14 +23,19 @@ class Public::TrainersController < ApplicationController
   end
 
   def confirm
-    @trainer = current_member
+    @trainer = current_trainer
   end
 
   def withdraw
-    @trainer = Trainer.find(params[:id])
+    @trainer = current_trainer
     @trainer.update(is_delete: true)
     reset_session
     redirect_to root_path
+  end
+  
+  def likes
+    likes = Like.where(trainer_id: @trainer.id).pluck(:post_id)
+    @post_likes = Post.find(post_likes)
   end
 
   private

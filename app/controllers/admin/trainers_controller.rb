@@ -7,6 +7,7 @@ class Admin::TrainersController < ApplicationController
 
   def show
     @trainer = Trainer.find(params[:id])
+    @posts = @trainer.posts
   end
 
   def edit
@@ -14,8 +15,8 @@ class Admin::TrainersController < ApplicationController
   end
 
   def update
-    @customer = Customer.find(params[:id])
-    if @customer.update(customer_params)
+    @trainer = Trainer.find(params[:id])
+    if @trainer.update(trainer_params)
       redirect_to admin_trainers_path
     else
       render :edit

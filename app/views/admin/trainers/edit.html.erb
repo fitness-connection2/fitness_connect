@@ -1,2 +1,29 @@
-<h1>Admin::Trainers#edit</h1>
-<p>Find me in app/views/admin/trainers/edit.html.erb</p>
+<div>
+  <div>
+    <h4><%= @trainer.name %>さんの会員情報編集</h4>
+  </div>
+
+  <%= form_with model: @trainer, url: admin_trainer_path, local:true do |f| %>
+    <div>
+      <p>トレーナーID</p>
+      <p>氏名</p>
+      <p>ユーザーネーム</p>
+      <p>電話番号</p>
+      <p>メールアドレス</p>
+      <p>会員ステータス</p>
+    </div>
+
+    <div>
+      <p><%= @trainer.id %></p>
+      <p><%= f.text_field :name %></p>
+      <p><%= f.text_field :user_name %></p>
+      <p><%= f.text_field :telephone_number %></p>
+      <p><%= f.text_field :email %></p>
+      <p><%= f.radio_button :is_delete, false %>有効 <%= f.radio_button :is_delete, true %>退会</p>
+    </div>
+
+    <div>
+      <%= f.submit '変更を保存' %>
+    </div>
+  <% end %>
+</div>

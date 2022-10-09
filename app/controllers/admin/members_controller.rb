@@ -7,6 +7,7 @@ class Admin::MembersController < ApplicationController
 
   def show
     @member = Member.find(params[:id])
+    @posts = @member.posts
   end
 
   def edit
@@ -14,8 +15,8 @@ class Admin::MembersController < ApplicationController
   end
 
   def update
-    @customer = Customer.find(params[:id])
-    if @customer.update(customer_params)
+    @member = Member.find(params[:id])
+    if @member.update(member_params)
       redirect_to admin_members_path
     else
       render :edit

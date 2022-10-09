@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'searches' => 'searches#index' #検索はネストせず単一で作成
   resources :posts do
     resources :post_comments, only: [:create, :destroy]
-    resource :post_likes, only: [:create, :destroy] #idを含める必要がないので単数形
+    resource :post_likes, only: [:create, :index, :destroy] #idを含める必要がないので単数形
   end
 
 #会員側のルーティング設定
@@ -31,9 +31,16 @@ Rails.application.routes.draw do
     patch "/trainers/withdraw" => "trainers#withdraw"
     post "/members/confirm" => "members#confirm"
     post "/trainers/confirm" => "trainers#confirm"
-    resources :members, only:[:show, :edit, :update]
-    resources :trainers, only:[:show, :edit, :update]
-
+    resources :members, only:[:show, :edit, :update] do
+      member do
+        get :post_likes
+      end
+    end
+    resources :trainers, only:[:show, :edit, :update] do
+      member do
+        get :post_likes
+      end
+    end
   end
 
 #管理者側ののルーティング設定
