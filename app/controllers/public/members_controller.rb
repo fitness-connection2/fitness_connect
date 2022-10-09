@@ -33,6 +33,11 @@ class Public::MembersController < ApplicationController
     redirect_to root_path
   end
 
+  def post_likes
+    @member = Member.find(params[:id]) #会員のidデータの取得
+    @likes = PostLike.where(member_id: @member.id) #該当するのいいねのレコードを全て代入
+  end
+
   private
 
   def authenticated_any

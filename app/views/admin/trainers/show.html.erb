@@ -1,2 +1,43 @@
-<h1>Admin::Trainers#show</h1>
-<p>Find me in app/views/admin/trainers/show.html.erb</p>
+<div>
+  <%= image_tag @trainer.get_profile_image(100,100) %>
+  <%= @trainer.user_name %>
+</div>
+
+<div>
+  <p>投稿数</P>
+  <p>氏名</p>
+  <p>電話番号</p>
+  <p>メールアドレス</p>
+  <p>会員ステータス</p>
+</div>
+
+<div>
+  <p><%= @trainer.posts.count %></p>
+  <p><%= @trainer.name %></p>
+  <p><%= @trainer.telephone_number %></p>
+  <p><%= @trainer.email %></p>
+  <p>
+    <% if @trainer.is_delete %>
+      <div>退会</div>
+    <% else %>
+      <div>有効</div>
+    <% end %>
+  </p>
+</div>
+
+
+  <%= link_to "編集", edit_admin_trainer_path(@trainer) %>
+
+</div>
+
+<div>
+  <%= @trainer.introduction %>
+</div>
+
+<% @posts.each do |post| %>
+<div>
+  <%= link_to post_path(post.id) do %>
+    <%= image_tag post.get_image(100,100) %>
+  <% end %>
+</div>
+<% end %>
