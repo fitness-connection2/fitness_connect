@@ -1,0 +1,7 @@
+<% if trainer_signed_in? %>
+  いいね一覧
+  <% @likes.each do |like|%>
+    <%= image_tag like.post.get_image(100, 100) %>
+    <%= like.post.description %>
+  <% end %>
+<% end %>
