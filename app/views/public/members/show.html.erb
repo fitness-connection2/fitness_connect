@@ -7,7 +7,8 @@
   <p>氏名 <%= @member.name %></p>
 
   <% if @member == current_member %>
-  <%= link_to "編集", edit_member_path(@member) %>
+    <div><%= link_to "編集", edit_member_path(@member) %></div>
+    <div><%= link_to "いいね一覧", post_likes_member_path %></div>
   <% end %>
 </div>
 

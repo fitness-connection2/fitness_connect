@@ -32,10 +32,10 @@ class Public::TrainersController < ApplicationController
     reset_session
     redirect_to root_path
   end
-  
-  def likes
-    likes = Like.where(trainer_id: @trainer.id).pluck(:post_id)
-    @post_likes = Post.find(post_likes)
+
+  def post_likes
+    @trainer = Trainer.find(params[:id]) #トレーナーのidを取得
+    @likes = PostLike.where(trainer_id: @trainer.id) ##上記該当するトレーナーのいいねのレコードを代入
   end
 
   private

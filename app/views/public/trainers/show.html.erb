@@ -7,7 +7,8 @@
   <p>氏名 <%= @trainer.name %></p>
 
   <% if @trainer == current_trainer %>
-    <%= link_to "編集", edit_trainer_path(@trainer) %>
+    <div><%= link_to "編集", edit_trainer_path(@trainer) %></div>
+    <div><%= link_to "いいね一覧", post_likes_trainer_path %></div>
   <% end %>
 </div>
 
