@@ -38,6 +38,7 @@ class Public::MembersController < ApplicationController
     @likes = PostLike.where(member_id: @member.id) #上記該当する会員のいいねのレコードを代入
   end
 
+
   private
 
   def authenticated_any

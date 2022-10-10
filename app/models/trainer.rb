@@ -1,12 +1,17 @@
 class Trainer < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  USER_TYPE = {"Trainer": 0, "Member": 1} #定数でフォロー用のメソッドで定義
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :post_likes, dependent: :destroy
+  #has_many :relationships, class_name: "Relationship", foreign_key: "follower_id"
+  #has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id"
+  #has_many :followings, through: :relationships, source: :followed
+  #has_many :followers, through: :reverse_of_relationships, source: :follower
   has_one_attached :profile_image
 
   def get_profile_image(width, height)
@@ -16,4 +21,31 @@ class Trainer < ApplicationRecord
       end
       profile_image.variant(resize_to_limit: [width, height]).processed
   end
+
+  def follow(user)
+    relationship = Relationship.find_by(followed_type: USER_TYPE[:"#{user.class.name}"], followed_id: user.id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
+    relationship.create
+  end
+
+  def unfollow(user) #そのユーザーがフォローを外すときのメソッド
+    relationship = Relationship.find_by(followed_type: USER_TYPE[:"#{user.class.name}"], followed_id: user.id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
+    relationship.destroy
+  end
+
+  def following?(user) #そのユーザーがフォローしているか判定
+    Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"#{user.class.name}"]).pluck('follower_id').include?(user.id)
+  end
+
+  def get_follower_members #自分にフォローしている会員を取得。リレーションが使えないため、メソッドで定義。
+    Member.find(Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"Member"]).pluck('follower_id'))
+  end
+
+  def get_follower_trainers #自分にフォローしているトレーナーを取得
+    Trainer.find(Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"Trainer"]).pluck('follower_id'))
+  end
+
+  def get_followers
+    [get_follower_trainers, get_follower_members]
+  end
+
 end
