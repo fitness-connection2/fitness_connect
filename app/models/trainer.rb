@@ -28,7 +28,7 @@ class Trainer < ApplicationRecord
   end
 
   def unfollow(user) #そのユーザーがフォローを外すときのメソッド
-    relationship = Relationship.find_by(followed_type: USER_TYPE[:"#{user.class.name}"], followed_id: user.id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
+    relationship = Relationship.find_by(followed_type: USER_TYPE[:"#{user.class.name}"], followed_id: user.id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"]) #class.nameメソッドで
     relationship.destroy
   end
 
