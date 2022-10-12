@@ -16,6 +16,15 @@
   <%= @trainer.introduction %>
 </div>
 
+<div>
+<% if current_member.following?(@trainer.id) %>
+  <%= link_to "フォロー外す", member_relationships_path(@trainer.id), method: :delete %>
+<% else %>
+  <%= link_to "フォローする", member_relationships_path(@trainer.id), method: :post %>
+<% end %>
+
+</div>
+
 <% @posts.each do |post| %>
 <div>
   <%= link_to post_path(post.id) do %>
