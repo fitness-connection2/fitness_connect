@@ -32,11 +32,17 @@ Rails.application.routes.draw do
     post "/members/confirm" => "members#confirm"
     post "/trainers/confirm" => "trainers#confirm"
     resources :members, only:[:show, :edit, :update] do
+      resource :relationships, only: [:create, :destroy]
+      get "followings" => "relationships#followings", as: "followings"
+      get "followers" => "relationships#create", as: "followers"
       member do
         get :post_likes
       end
     end
     resources :trainers, only:[:show, :edit, :update] do
+      resource :relationships, only: [:create, :destroy]
+      get "followings" => "relationships#followings", as: "followings"
+      get "followers" => "relationships#create", as: "followers"
       member do
         get :post_likes
       end
