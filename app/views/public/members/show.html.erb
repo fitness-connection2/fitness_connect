@@ -17,7 +17,7 @@
 </div>
 
 <div>
-  <% if current_member != @member %>
+  <% if member_signed_in? && current_member != @member %>
     <% if current_member.following?(@member.id) %>
       <%= link_to "フォロー外す", member_relationships_path(@member.id), method: :delete %>
     <% else %>

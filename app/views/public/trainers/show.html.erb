@@ -17,12 +17,13 @@
 </div>
 
 <div>
-<% if current_member.following?(@trainer.id) %>
-  <%= link_to "フォロー外す", member_relationships_path(@trainer.id), method: :delete %>
-<% else %>
-  <%= link_to "フォローする", member_relationships_path(@trainer.id), method: :post %>
-<% end %>
-
+  <% if trainer_signed_in? && current_trainer != @trainer %>
+    <% if current_trainer.following?(@trainer.id) %>
+      <%= link_to "フォロー外す", trainer_relationships_path(@trainer.id), method: :delete %>
+    <% else %>
+      <%= link_to "フォローする", trainer_relationships_path(@trainer.id), method: :post %>
+    <% end %>
+  <% end %>
 </div>
 
 <% @posts.each do |post| %>

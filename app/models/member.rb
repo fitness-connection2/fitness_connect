@@ -23,17 +23,18 @@ class Member < ApplicationRecord
       profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
-  def follow(user)
-    relationship = Relationship.create(followed_type: USER_TYPE[:"Member"], followed_id: user, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
+  def follow(user_id)
+    Relationship.create(followed_type: USER_TYPE[:"Member"], followed_id: user_id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
   end
 
-  def unfollow(user) #そのユーザーがフォローを外すときのメソッド
-    relationship = Relationship.find_by(followed_type: USER_TYPE[:"Member"], followed_id: user, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
+  def unfollow(user_id) #そのユーザーがフォローを外すときのメソッド
+    relationship = Relationship.find_by(followed_type: USER_TYPE[:"Member"], followed_id: user_id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
     relationship.destroy
   end
 
-  def following?(user) #そのユーザーがフォローしているか判定
-    Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"Member"]).pluck('follower_id').include?(user)
+  def following?(user_id) #そのユーザーがフォローしているか判定
+  
+    Relationship.where(followed_id: user_id, follower_type: USER_TYPE[:"Member"]).pluck('follower_id').include?(self.id)
   end
 
   def get_follower_members #自分にフォローしている会員を取得。リレーションが使えないため、メソッドで定義。

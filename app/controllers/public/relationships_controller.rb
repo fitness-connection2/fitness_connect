@@ -19,12 +19,22 @@ class Public::RelationshipsController < ApplicationController
   end
 
   def followings
-    member = Member.find(params[:member_id])
-    @members = member.followings
+    if member_signed_in?
+      member = Member.find(params[:member_id])
+      @members = member.followings
+    elsif trainer_signed_in
+      trainer = Trainer.find(params[:trainer_id])
+      @trainers = trainer.followings
+    end
   end
 
   def followers
-    member = Member.find(params[:member_id])
-    @members = member.followers
+    if member_signed_in
+      member = Member.find(params[:member_id])
+      @members = member.followers
+    elsif trainer_signed_in
+      trainer = Trainer.find(params[:trainer_id])
+      @trainers = trainer.followers
+    end
   end
 end
