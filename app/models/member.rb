@@ -33,20 +33,24 @@ class Member < ApplicationRecord
   end
 
   def following?(user_id) #そのユーザーがフォローしているか判定
-  
+
     Relationship.where(followed_id: user_id, follower_type: USER_TYPE[:"Member"]).pluck('follower_id').include?(self.id)
+  end
+
+  def get_following_members
+   Member.find(Relationship.where(follower_id: self.id, followed_type: USER_TYPE[:"Member"]).pluck('followed_id'))
   end
 
   def get_follower_members #自分にフォローしている会員を取得。リレーションが使えないため、メソッドで定義。
     Member.find(Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"Member"]).pluck('follower_id'))
   end
 
-  def get_follower_trainers #自分にフォローしているトレーナーを取得
-    Trainer.find(Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"Trainer"]).pluck('follower_id'))
-  end
+  # def get_follower_trainers #自分にフォローしているトレーナーを取得
+  #   Trainer.find(Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"Trainer"]).pluck('follower_id'))
+  # end
 
-  def get_followers
-    [get_follower_trainers, get_follower_members]
-  end
+  # def get_followers
+  #   [get_follower_trainers, get_follower_members]
+  # end
 
 end

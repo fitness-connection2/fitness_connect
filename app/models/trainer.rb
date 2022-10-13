@@ -22,12 +22,12 @@ class Trainer < ApplicationRecord
       profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
-  def follow(user)
-    relationship = Relationship.create(followed_type: USER_TYPE[:"Trainer"], followed_id: user, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
+  def follow(user_id)
+    relationship = Relationship.create(followed_type: USER_TYPE[:"Trainer"], followed_id: user_id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
   end
 
-  def unfollow(user) #そのユーザーがフォローを外すときのメソッド
-    relationship = Relationship.find_by(followed_type: USER_TYPE[:"Trainer"], followed_id: user, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"]) #class.nameメソッドで
+  def unfollow(user_id) #そのユーザーがフォローを外すときのメソッド
+    relationship = Relationship.find_by(followed_type: USER_TYPE[:"Trainer"], followed_id: user_id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"]) #class.nameメソッドで
     relationship.destroy
   end
 
@@ -35,16 +35,20 @@ class Trainer < ApplicationRecord
     Relationship.where(followed_id: user_id, follower_type: USER_TYPE[:"Trainer"]).pluck('follower_id').include?(self.id)
   end
 
-  def get_follower_members #自分にフォローしている会員を取得。リレーションが使えないため、メソッドで定義。
-    Member.find(Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"Member"]).pluck('follower_id'))
+  # def get_follower_members #自分にフォローしている会員を取得。リレーションが使えないため、メソッドで定義。
+  #   Member.find(Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"Member"]).pluck('follower_id'))
+  # end
+
+  def get_following_trainers
+   Trainer.find(Relationship.where(follower_id: self.id, followed_type: USER_TYPE[:"Trainer"]).pluck('followed_id'))
   end
 
   def get_follower_trainers #自分にフォローしているトレーナーを取得
     Trainer.find(Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"Trainer"]).pluck('follower_id'))
   end
 
-  def get_followers
-    [get_follower_trainers, get_follower_members]
-  end
+  # def get_followers
+  #   [get_follower_trainers, get_follower_members]
+  # end
 
 end
