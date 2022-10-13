@@ -1,9 +1,13 @@
 <div>
-  <%= image_tag @trainer.get_profile_image(100,100) %>
-  <%= @trainer.user_name %>
+  <div>
+    <%= image_tag @trainer.get_profile_image(100,100) %>
+    <%= @trainer.user_name %>
+    <p>フォロワー <%= @trainer.get_follower_trainers.count %></p>
+    <p>フォロー中 <%= @trainer.get_following_trainers.count %></p>
+    <p>投稿数 <%= @trainer.posts.count %></P>
 
+  </div>
 
-  <p>投稿数 <%= @trainer.posts.count %></P>
   <p>氏名 <%= @trainer.name %></p>
 
   <% if @trainer == current_trainer %>
