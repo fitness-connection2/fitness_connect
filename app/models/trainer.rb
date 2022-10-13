@@ -23,16 +23,16 @@ class Trainer < ApplicationRecord
   end
 
   def follow(user)
-    relationship = Relationship.create(followed_type: USER_TYPE[:"#{user.class.name}"], followed_id: user.id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
+    relationship = Relationship.create(followed_type: USER_TYPE[:"Trainer"], followed_id: user, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
   end
 
   def unfollow(user) #そのユーザーがフォローを外すときのメソッド
-    relationship = Relationship.find_by(followed_type: USER_TYPE[:"#{user.class.name}"], followed_id: user.id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"]) #class.nameメソッドで
+    relationship = Relationship.find_by(followed_type: USER_TYPE[:"Trainer"], followed_id: user, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"]) #class.nameメソッドで
     relationship.destroy
   end
 
-  def following?(user) #そのユーザーがフォローしているか判定
-    Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"#{user.class.name}"]).pluck('follower_id').include?(user.id)
+  def following?(user_id) #そのユーザーがフォローしているか判定
+    Relationship.where(followed_id: user_id, follower_type: USER_TYPE[:"Trainer"]).pluck('follower_id').include?(self.id)
   end
 
   def get_follower_members #自分にフォローしている会員を取得。リレーションが使えないため、メソッドで定義。
