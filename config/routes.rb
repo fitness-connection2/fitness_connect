@@ -56,6 +56,6 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :members, only:[:index, :show, :edit, :update]
     resources :trainers, only:[:index, :show, :edit, :update]
-    resources :subscriptions, only:[:create, :index, :edit, :update, :destroy]
+    resources :subscription_plans, only:[:create, :index, :edit, :update, :destroy]
   end
 end

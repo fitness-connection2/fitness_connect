@@ -1,0 +1,25 @@
+<div>
+  <h4>サブスク一覧・追加</h4>
+    <p id="notice"><%= notice %></p>
+    <div>
+      <%= form_with model: @subscription_plan, url: admin_subscription_plans_path do |f| %>
+        <div>
+          <%= f.label :サブスク名 %>
+          <%= f.text_field :plan %>
+        </div>
+        <div>
+          <%= f.label :価格 %>
+          <%= f.text_field :price %>
+        </div>
+      <%= f.submit '新規登録' %>
+    <% end %>
+    </div>
+    <div>
+      <p>ジャンル</p>
+      <% @subscription_plans.each do |subscription_plan| %>
+        <%= subscription_plan.plan %>
+        <%= link_to "編集する", edit_admin_subscription_plan_path(subscription_plan.id) %></td>
+      <% end %>
+    </div>
+</div>
+
