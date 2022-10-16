@@ -1,2 +1,16 @@
-<h1>Admin::SubscriptionPlans#edit</h1>
-<p>Find me in app/views/admin/subscription_plans/edit.html.erb</p>
+<div>
+  <h4>ジャンル編集</h4>
+    <div>
+      <%= form_with model: @subscription_plan, url: admin_subscription_plan_path, local:true do |f| %>
+        <div>
+          <%= f.label :ジャンル名 %>
+          <%= f.text_field :plan %>
+        </div>
+        <div>
+          <%=f.label :価格 %>
+          <%= f.text_field :price %>円
+        </div>
+        <%= f.submit '変更を保存' %>
+      <% end %>
+    </div>
+</div>

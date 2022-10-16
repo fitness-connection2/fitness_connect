@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     patch "/trainers/withdraw" => "trainers#withdraw"
     post "/members/confirm" => "members#confirm"
     post "/trainers/confirm" => "trainers#confirm"
+    post "subscriptions/confirm" => "subscriptions#confirm"
     resources :members, only:[:show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
       get "followings" => "relationships#followings", as: "followings"
@@ -47,6 +48,7 @@ Rails.application.routes.draw do
         get :post_likes
       end
     end
+    resources :subscriptions, only:[:new, :create, :show, :index, :edit, :update, :destroy]
   end
 
 #管理者側ののルーティング設定

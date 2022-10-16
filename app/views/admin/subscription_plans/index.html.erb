@@ -1,8 +1,8 @@
 <div>
   <h4>サブスク一覧・追加</h4>
-    <p id="notice"><%= notice %></p>
+    <p id="notice"></p>
     <div>
-      <%= form_with model: @subscription_plan, url: admin_subscription_plans_path do |f| %>
+      <%= form_with model: @subscription_plan, url: admin_subscription_plans_path, method: :post do |f| %>
         <div>
           <%= f.label :サブスク名 %>
           <%= f.text_field :plan %>
@@ -18,7 +18,8 @@
       <p>ジャンル</p>
       <% @subscription_plans.each do |subscription_plan| %>
         <%= subscription_plan.plan %>
-        <%= link_to "編集する", edit_admin_subscription_plan_path(subscription_plan.id) %></td>
+        <%= subscription_plan.price.to_s(:delimited) %>円
+        <%= link_to "編集", edit_admin_subscription_plan_path(subscription_plan.id) %>
       <% end %>
     </div>
 </div>
