@@ -1,7 +1,8 @@
 class Subscription < ApplicationRecord
   belongs_to :member, optional: :true #ログインしていなくても投稿出来るようにする
   belongs_to :trainer, optional: :true #ログインしていなくても投稿出来るようにする
-  belongs_to :subscription_plans, optional: :true
+  belongs_to :subscription_plan, optional: :true
+  belongs_to :payment, optional: :true
   validate :required_either_member_or_trainer
 
   def required_either_member_or_trainer

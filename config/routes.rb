@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     patch "/trainers/withdraw" => "trainers#withdraw"
     post "/members/confirm" => "members#confirm"
     post "/trainers/confirm" => "trainers#confirm"
-    post "subscriptions/confirm" => "subscriptions#confirm"
+    post "/subscriptions/confirm" => "subscriptions#confirm"
     resources :members, only:[:show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
       get "followings" => "relationships#followings", as: "followings"
@@ -59,5 +59,6 @@ Rails.application.routes.draw do
     resources :members, only:[:index, :show, :edit, :update]
     resources :trainers, only:[:index, :show, :edit, :update]
     resources :subscription_plans, only:[:create, :index, :edit, :update, :destroy]
+    resources :payments, only:[:create, :index, :edit, :update, :destroy]
   end
 end
