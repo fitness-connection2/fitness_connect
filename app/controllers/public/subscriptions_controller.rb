@@ -3,6 +3,10 @@ class Public::SubscriptionsController < ApplicationController
 
   def new
     @subscription = Subscription.new
+    @subscription_plans = SubscriptionPlan.all
+  end
+
+  def create
   end
 
   def index

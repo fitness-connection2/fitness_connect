@@ -4,15 +4,14 @@
       <%= form_with model: @subscription, url: subscriptions_confirm_path, method: :post do |f| %>
         <div>
           <h5><strong>サブスクプラン</strong></h5>
-          <%= f.select :plan, options_from_collection_for_select(subscription_plans, :id, :plan) %>
+          <%= f.select :plan, options_from_collection_for_select(@subscription_plans, :id, :plan) %>
         </div>
         <div>
           <h5><strong>支払い方法</strong></h5>
-          
+          <%= f.select :payment, *[1..12], {include_blank: '期間選択'} %>ヶ月
         </div>
         <div>
           <h5><strong>サブスク期間</strong></h5>
-          <%= f.hidden_field :subscription_plan_id, :value => @subscription_plan.id %>
           <%= f.select :period, *[1..12], {include_blank: '期間選択'} %>ヶ月
         </div>
         <div>

@@ -1,0 +1,20 @@
+<div>
+  <h4>支払い方法一覧・追加</h4>
+    <p id="notice"></p>
+    <div>
+      <%= form_with model: @payment, url: admin_payments_path, method: :post do |f| %>
+        <div>
+          <%= f.label :支払い方法 %>
+          <%= f.text_field :payment_method %>
+        </div>
+      <%= f.submit '新規登録' %>
+    <% end %>
+    </div>
+    <div>
+      <p>支払い方法</p>
+      <% @payments.each do |payment| %>
+        <%= payment.payment_method %>
+        <%= link_to "編集", edit_admin_payment_path(payment.id) %>
+      <% end %>
+    </div>
+</div>

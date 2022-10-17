@@ -1,0 +1,5 @@
+class AddPeriodToSubscriptions < ActiveRecord::Migration[6.1]
+  def change
+    add_column :subscriptions, :period, :integer
+  end
+end

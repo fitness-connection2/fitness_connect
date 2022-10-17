@@ -10,7 +10,7 @@ class Admin::SubscriptionPlansController < ApplicationController
     @subscription_plan = SubscriptionPlan.new(subscription_plan_params)
     if @subscription_plan.save
       redirect_to admin_subscription_plans_path
-      flash[:notice] = "新しいジャンルを登録しました。"
+      flash[:notice] = "新しいプランを登録しました。"
     else
       @subscription_plans = SubscriptionPlan.all
       render :index
@@ -25,7 +25,7 @@ class Admin::SubscriptionPlansController < ApplicationController
     @subscription_plan = SubscriptionPlan.find(params[:id])
     if @subscription_plan.update(subscription_plan_params)
       redirect_to admin_subscription_plans_path
-      flash[:notice] = "ジャンル名を更新しました。"
+      flash[:notice] = "プランを更新しました。"
     else
       render :edit
     end

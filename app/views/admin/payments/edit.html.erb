@@ -1,0 +1,12 @@
+<div>
+  <h4>支払い方法編集</h4>
+    <div>
+      <%= form_with model: @payment, url: admin_payment_path, local:true do |f| %>
+        <div>
+          <%=f.label :支払い方法 %>
+          <%= f.text_field :payment_method %>
+        </div>
+        <%= f.submit '変更を保存' %>
+      <% end %>
+    </div>
+</div>
