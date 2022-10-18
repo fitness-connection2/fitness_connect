@@ -18,7 +18,7 @@ class Public::RelationshipsController < ApplicationController
       redirect_to request.referer
   end
 
-  def followings
+  def followings #フォロー一覧ページ用
     if member_signed_in?
       member = Member.find(params[:member_id])
       @members = member.followings
@@ -28,7 +28,7 @@ class Public::RelationshipsController < ApplicationController
     end
   end
 
-  def followers
+  def followers #フォロワー一覧ページ用
     if member_signed_in
       member = Member.find(params[:member_id])
       @members = member.followers

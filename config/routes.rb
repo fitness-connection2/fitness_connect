@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
 #全員のルーティング設定(投稿, 投稿検索, いいね機能、コメント機能
 
+  post "/subscriptions/confirm" => "subscriptions#confirm"
   get 'searches' => 'searches#index' #検索はネストせず単一で作成
+  resources :subscriptions, only:[:new, :create, :index, :show, :edit, :update, :destroy]
   resources :posts do
     resources :post_comments, only: [:create, :destroy]
     resource :post_likes, only: [:create, :index, :destroy] #idを含める必要がないので単数形
@@ -27,12 +29,10 @@ Rails.application.routes.draw do
       root to: "members/sessions#new"
     end
 
-    post "/subscriptions/confirm" => "subscriptions#confirm"
     patch "/members/withdraw" => "members#withdraw"
     patch "/trainers/withdraw" => "trainers#withdraw"
     post "/members/confirm" => "members#confirm"
     post "/trainers/confirm" => "trainers#confirm"
-    resources :subscriptions, only:[:new, :create, :index, :show, :edit, :update, :destroy]
     resources :members, only:[:show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
       get "followings" => "relationships#followings", as: "followings"

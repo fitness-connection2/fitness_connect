@@ -1,4 +1,4 @@
-class Public::SubscriptionsController < ApplicationController
+class SubscriptionsController < ApplicationController
   before_action :authenticated_any
 
   def new
@@ -38,7 +38,7 @@ class Public::SubscriptionsController < ApplicationController
   private
 
   def authenticated_any
-    member_signed_in? | trainer_signed_in? #いずれかログインしている場合にビューに遷移可能
+    member_signed_in? | admin_signed_in? | trainer_signed_in? #いずれかログインしている場合にビューに遷移可能
   end
 
   def subscription_params
