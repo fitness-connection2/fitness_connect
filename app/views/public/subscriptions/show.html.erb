@@ -1,2 +1,21 @@
-<h1>Public::Subscriptions#show</h1>
-<p>Find me in app/views/public/subscriptions/show.html.erb</p>
+<div>
+    <h5>サブスク詳細情報</h5>
+      <div>
+        <label>トレーナー名</label>
+        
+        <label>サブスクプラン</label>
+        <%= @subscription.subscription_plan.plan %>
+      </div>
+      <div>
+        <label>支払い方法</label>
+        <%= @subscription.payment.payment_method %>
+      </div>
+      <div>
+        <label>期間</label>
+        <%= @subscription.period %>ヶ月
+      </div>
+      <div>
+        <label>合計金額</label>
+        <%= @subscription.subtotal %>円
+      </div>
+</div>
