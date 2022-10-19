@@ -2,9 +2,14 @@ class SubscriptionsController < ApplicationController
   before_action :authenticated_any
 
   def new
-    @subscription = Subscription.new
-    @subscription_plans = SubscriptionPlan.all
-    @payments = Payment.all
+    if member_signed_in?
+      @subscription = Subscription.new
+      @subscription_plans = SubscriptionPlan.all
+      @payments = Payment.all
+      @trainer = Trainer.find(params[:trainer_id])
+    else
+      redirect_to posts_path
+    end
   end
 
   def confirm
@@ -20,10 +25,17 @@ class SubscriptionsController < ApplicationController
   end
 
   def index
+    if trainer_signed_in?
+      @subscriptions = current_trainer.subscriptions
+    else
+      redirect_to posts_path
+    end
   end
 
   def show
-    @subscription = Subscription.find(params[:id])
+    if member_signed_in?
+      @subscription = current_member.subscriptions.find(params[:id])
+    end
   end
 
   def edit
@@ -42,6 +54,6 @@ class SubscriptionsController < ApplicationController
   end
 
   def subscription_params
-    params.require(:subscription).permit(:period, :payment_id, :subscription_plan_id)
+    params.require(:subscription).permit(:period, :payment_id, :subscription_plan_id, :trainer_id)
   end
 end

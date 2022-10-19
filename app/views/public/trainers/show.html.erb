@@ -8,32 +8,44 @@
 
   </div>
 
+  <div>
   <p>氏名 <%= @trainer.name %></p>
-
-  <% if @trainer == current_trainer %>
-    <div><%= link_to "編集", edit_trainer_path(@trainer) %></div>
-    <div><%= link_to "いいね一覧", post_likes_trainer_path %></div>
-  <% end %>
-</div>
-
-<div>
   <%= @trainer.introduction %>
-</div>
+  </div>
 
-<div>
-  <% if trainer_signed_in? && current_trainer != @trainer %>
-    <% if current_trainer.following?(@trainer.id) %>
-      <%= link_to "フォロー外す", trainer_relationships_path(@trainer.id), method: :delete %>
-    <% else %>
-      <%= link_to "フォローする", trainer_relationships_path(@trainer.id), method: :post %>
+  <div>
+    <% if @trainer == current_trainer %>
+      <div><%= link_to "編集", edit_trainer_path(@trainer) %></div>
+      <div><%= link_to "いいね一覧", post_likes_trainer_path %></div>
     <% end %>
-  <% end %>
-</div>
+  </div>
 
-<% @posts.each do |post| %>
-<div>
-  <%= link_to post_path(post.id) do %>
-    <%= image_tag post.get_image(100,100) %>
+  <div>
+    <% if trainer_signed_in? && current_trainer != @trainer %>
+      <% if current_trainer.following?(@trainer.id) %>
+        <%= link_to "フォロー外す", trainer_relationships_path(@trainer.id), method: :delete %>
+      <% else %>
+        <%= link_to "フォローする", trainer_relationships_path(@trainer.id), method: :post %>
+      <% end %>
+    <% end %>
+  </div>
+  <div>
+    <% if member_signed_in? %>
+      <%= link_to "サブスク登録をする", subscriptions_new_path(@trainer.id) %>
+    <% end %>
+  </div>
+
+  <div>
+    <% if trainer_signed_in? && current_trainer = @trainer %>
+      <%= link_to "サブスク会員一覧", subscriptions_path %>
+    <% end %>
+  </div>
+
+  <% @posts.each do |post| %>
+  <div>
+    <%= link_to post_path(post.id) do %>
+      <%= image_tag post.get_image(100,100) %>
+    <% end %>
+  </div>
   <% end %>
 </div>
-<% end %>

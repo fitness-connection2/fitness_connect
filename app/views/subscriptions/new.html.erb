@@ -15,6 +15,11 @@
           <%= f.select :period, *[1..12], {include_blank: '期間選択'} %>ヶ月
         </div>
         <div>
+          <h5><strong>トレーナー名</strong></h5>
+          <p><%= @trainer.name %></p>
+          <%= f.hidden_field :trainer_id, value: @trainer.id %>
+        </div>
+        <div>
           <div><%= f.submit "確認画面に進む"%></div>
         </div>
       <% end %>

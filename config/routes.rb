@@ -2,9 +2,10 @@ Rails.application.routes.draw do
 
 #全員のルーティング設定(投稿, 投稿検索, いいね機能、コメント機能
 
+  get "/subscriptions/:trainer_id/new" => "subscriptions#new", as: "subscriptions_new"
   post "/subscriptions/confirm" => "subscriptions#confirm"
   get 'searches' => 'searches#index' #検索はネストせず単一で作成
-  resources :subscriptions, only:[:new, :create, :index, :show, :edit, :update, :destroy]
+  resources :subscriptions, only:[:create, :index, :show, :edit, :update, :destroy]
   resources :posts do
     resources :post_comments, only: [:create, :destroy]
     resource :post_likes, only: [:create, :index, :destroy] #idを含める必要がないので単数形

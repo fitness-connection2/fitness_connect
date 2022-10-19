@@ -8,6 +8,7 @@ class Member < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :post_likes, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
   #has_many :relationships, class_name: "Relationship", foreign_key: "follower_id" #同じモデル名でややこしいので、名前だけ変更
   #has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id" #同じモデル名でややこしいので、名前だけ変更
   #has_many :followings, through: :relationships, source: :followed #フォロー・フォロワーの表示するためRelationshipモデルから参照
