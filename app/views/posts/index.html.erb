@@ -1,5 +1,5 @@
-<% @posts.each do |post| %>
 <div>
+<% @posts.each do |post| %>
   <div>
     <% if post.member_id.present? %> <!--投稿の投稿主が会員場合-->
     　<%= link_to member_path(post.member) do %>
@@ -19,5 +19,5 @@
   <p>投稿内容：<%= simple_format(post.description) %></p>
   <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
   <p>投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></p>
-</div>
 <% end %>
+</div>
