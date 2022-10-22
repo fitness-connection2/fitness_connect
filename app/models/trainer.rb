@@ -48,6 +48,14 @@ class Trainer < ApplicationRecord
     Trainer.find(Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"Trainer"]).pluck('follower_id'))
   end
 
+  def self.search(keyword)
+    unless keyword.blank?
+      where('user_name LIKE ?', "%#{keyword}%")
+    else
+      all
+    end
+  end
+
   # def get_followers
   #   [get_follower_trainers, get_follower_members]
   # end
