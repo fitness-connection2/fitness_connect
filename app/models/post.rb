@@ -38,4 +38,12 @@ class Post < ApplicationRecord
   def liked_by_trainer?(trainer) #トレーナーのいいね
     post_likes.exists?(trainer_id: trainer.id)
   end
+
+  def enable_post?
+    # trainer_idがnilでなくて、trainerが有効である　または　member_idがnilでなくて、memberが有効である
+    # 上記の条件を満たせば、レコードを返す
+    unless (self.trainer_id.nil? == false && self.trainer.is_delete == false) || (self.member_id.nil? == false && self.member.is_delete == false)
+      self
+    end
+  end
 end

@@ -19,7 +19,7 @@
             <%= f.submit :検索 %>
           <% end %>
           <li><%= link_to "トレーナー一覧", admin_trainers_path %></li>
-          <li><%= link_to "会員商品一覧", admin_members_path %></li>
+          <li><%= link_to "会員一覧", admin_members_path %></li>
           <li><%= link_to "サブスク一覧", admin_subscription_plans_path %></li>
           <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
         <% elsif member_signed_in? %>
@@ -28,7 +28,7 @@
             <%= f.submit :検索 %>
           <% end %>
           <li><%= link_to "投稿一覧", posts_path %></li>
-          <li><%= link_to "マイページ", member_path(current_mamber) %></li>
+          <li><%= link_to "マイページ", member_path(current_member) %></li>
           <li><%= link_to "ログアウト", destroy_member_session_path, method: :delete %></li>
         <% elsif trainer_signed_in? %>
           <%= form_with url: searches_path, method: :get, local: true do |f| %>

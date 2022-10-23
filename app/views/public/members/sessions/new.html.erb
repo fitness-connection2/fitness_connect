@@ -1,15 +1,15 @@
-<h2>Log in</h2>
+<h2>会員用ログイン</h2>
 
 <%= flash[:alert] %>
 
 <%= form_with model: @member, url: member_session_path do |f| %>
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :メールアドレス %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= f.label :password %><br />
+    <%= f.label :パスワード %><br />
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
 
@@ -21,8 +21,12 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= f.submit "ログイン" %>
   </div>
 <% end %>
-
-<%= render "public/members/shared/links" %>
+<div>
+  アカウントをお持ちでない方は<%= render "public/members/shared/links" %>
+</div>
+<div>
+  トレーナーの方ですか？<%= link_to "トレーナーログイン", new_trainer_session_path %>
+</div>
