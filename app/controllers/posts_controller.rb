@@ -25,6 +25,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
+    redirect_to posts_path, notice: 'この記事は参照できません。' if @post.enable_post?
   end
 
   def edit
