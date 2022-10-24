@@ -3,6 +3,7 @@ class Subscription < ApplicationRecord
   belongs_to :trainer, optional: :true #ログインしていなくても投稿出来るようにする
   belongs_to :subscription_plan
   belongs_to :payment
+  has_one :notification, as: :subject, dependent: :destroy
   validate :required_either_member_or_trainer
 
   def required_either_member_or_trainer

@@ -25,7 +25,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
-    redirect_to posts_path, notice: 'この記事は参照できません。' if @post.enable_post?
+    redirect_to posts_path, notice: 'この記事は参照できません。' if @post.enable_post? #削除されたユーザーの投稿詳細を非公開
   end
 
   def edit
