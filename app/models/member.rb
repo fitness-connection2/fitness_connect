@@ -9,6 +9,7 @@ class Member < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :post_likes, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
+  has_many :notifications, dependent: :destroy
   #has_many :relationships, class_name: "Relationship", foreign_key: "follower_id" #同じモデル名でややこしいので、名前だけ変更
   #has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id" #同じモデル名でややこしいので、名前だけ変更
   #has_many :followings, through: :relationships, source: :followed #フォロー・フォロワーの表示するためRelationshipモデルから参照
@@ -34,7 +35,6 @@ class Member < ApplicationRecord
   end
 
   def following?(user_id) #そのユーザーがフォローしているか判定
-
     Relationship.where(followed_id: user_id, follower_type: USER_TYPE[:"Member"]).pluck('follower_id').include?(self.id)
   end
 
