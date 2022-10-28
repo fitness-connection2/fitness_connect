@@ -2,7 +2,8 @@ class PostLike < ApplicationRecord
   belongs_to :member, optional: :true #ログインしていなくても投稿出来るようにする
   belongs_to :trainer, optional: :true #ログインしていなくても投稿出来るようにする
   belongs_to :post
-  has_one :notification, as: :subject, dependent: :destroy
+
+  scope :new_likes, -> { where(is_read: false) }
 
   def required_either_member_or_trainer
     # 演算子 ^ で排他的論理和（XOR）にしています

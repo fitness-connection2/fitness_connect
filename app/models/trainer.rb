@@ -9,12 +9,19 @@ class Trainer < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :post_likes, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
-  has_many :notifications, dependent: :destroy
   #has_many :relationships, class_name: "Relationship", foreign_key: "follower_id"
   #has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id"
   #has_many :followings, through: :relationships, source: :followed
   #has_many :followers, through: :reverse_of_relationships, source: :follower
   has_one_attached :profile_image
+
+  def new_liked
+    PostLike.new_likes.joins(:post).distinct.where('post.trainer_id': self.id)
+  end
+  
+  # def new_subscriptions
+  #   Subscription.new_subs.where(teainer_id: seld.id)
+  # end
 
   def get_profile_image(width, height)
       unless profile_image.attached?

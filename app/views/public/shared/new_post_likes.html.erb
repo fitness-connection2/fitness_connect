@@ -1,0 +1,7 @@
+
+<% @post_likes.each do |post_like| %>
+  <ul>
+    <li><%= post_like.post.description %></li>
+    <li><%= link_to "show", post_path(post_like.post, post_like_id: post_like.id) %></li>
+  </ul>
+<% end %>

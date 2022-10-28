@@ -9,11 +9,14 @@ class Member < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :post_likes, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
-  has_many :notifications, dependent: :destroy
   #has_many :relationships, class_name: "Relationship", foreign_key: "follower_id" #同じモデル名でややこしいので、名前だけ変更
   #has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id" #同じモデル名でややこしいので、名前だけ変更
   #has_many :followings, through: :relationships, source: :followed #フォロー・フォロワーの表示するためRelationshipモデルから参照
   #has_many :followers, through: :reverse_of_relationships, source: :follower
+  
+  def new_liked
+    PostLike.new_likes.joins(:post).distinct.where('post.member_id': self.id)
+  end
 
   has_one_attached :profile_image
 

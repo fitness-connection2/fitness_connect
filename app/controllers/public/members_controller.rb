@@ -37,6 +37,12 @@ class Public::MembersController < ApplicationController
     @member = Member.find(params[:id]) #会員のidデータの取得
     @likes = PostLike.where(member_id: @member.id) #上記該当する会員のいいねのレコードを代入
   end
+  
+  def new_post_likes
+    @member = Member.find(params[:id])
+    @post_likes = @member.new_liked
+    render 'public/shared/new_post_likes'
+  end
 
   private
 
