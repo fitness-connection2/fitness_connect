@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "/subscriptions/:trainer_id/new" => "subscriptions#new", as: "subscriptions_new"
   post "/subscriptions/confirm" => "subscriptions#confirm"
   get 'searches' => 'searches#index' #検索はネストせず単一で作成
+  get "/subscription" => "subscriptions#show"
   resources :subscriptions, only:[:create, :index, :show, :edit, :update, :destroy]
   resources :posts do
     resources :post_comments, only: [:create, :destroy]
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
       member do
         get :post_likes
         get :new_post_likes
+        get :new_post_comments
       end
     end
     resources :trainers, only:[:show, :edit, :update] do
@@ -50,6 +52,8 @@ Rails.application.routes.draw do
       member do
         get :post_likes
         get :new_post_likes
+        get :new_post_comments
+        get :new_subscriptions
       end
     end
   end

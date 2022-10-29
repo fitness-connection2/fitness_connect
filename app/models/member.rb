@@ -8,17 +8,20 @@ class Member < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :post_likes, dependent: :destroy
-  has_many :subscriptions, dependent: :destroy
+  has_one :subscription, dependent: :destroy #サブスクは1つのみ登録可能
   #has_many :relationships, class_name: "Relationship", foreign_key: "follower_id" #同じモデル名でややこしいので、名前だけ変更
   #has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id" #同じモデル名でややこしいので、名前だけ変更
   #has_many :followings, through: :relationships, source: :followed #フォロー・フォロワーの表示するためRelationshipモデルから参照
   #has_many :followers, through: :reverse_of_relationships, source: :follower
-  
+  has_one_attached :profile_image
+
   def new_liked
     PostLike.new_likes.joins(:post).distinct.where('post.member_id': self.id)
   end
 
-  has_one_attached :profile_image
+  def new_commented
+    PostComment.new_comments.joins(:post).distinct.where('post.member_id': self.id)
+  end
 
   def get_profile_image(width, height)
       unless profile_image.attached?

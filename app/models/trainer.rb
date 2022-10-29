@@ -16,12 +16,16 @@ class Trainer < ApplicationRecord
   has_one_attached :profile_image
 
   def new_liked
-    PostLike.new_likes.joins(:post).distinct.where('post.trainer_id': self.id)
+    PostLike.new_likes.joins(:post).distinct.where('post.trainer_id': self.id) #ここのselfはtrainer自身
   end
-  
-  # def new_subscriptions
-  #   Subscription.new_subs.where(teainer_id: seld.id)
-  # end
+
+  def new_commented
+    PostComment.new_comments.joins(:post).distinct.where('post.trainer_id': self.id)
+  end
+
+  def new_subscribed
+    Subscription.new_subscriptions.where(trainer_id: self.id)
+  end
 
   def get_profile_image(width, height)
       unless profile_image.attached?

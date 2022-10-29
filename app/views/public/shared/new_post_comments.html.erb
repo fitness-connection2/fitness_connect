@@ -1,0 +1,6 @@
+<% @post_comments.each do |post_comment| %>
+  <ul>
+    <li><%= post_comment.post.description %></li>
+    <li><%= link_to "show", post_path(post_comment.post, post_comment_id: post_comment.id) %></li>
+  </ul>
+<% end %>

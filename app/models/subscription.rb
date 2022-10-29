@@ -3,8 +3,8 @@ class Subscription < ApplicationRecord
   belongs_to :trainer, optional: :true #ログインしていなくても投稿出来るようにする
   belongs_to :subscription_plan
   belongs_to :payment
-  has_one :notification, as: :subject, dependent: :destroy
   validate :required_either_member_or_trainer
+  scope :new_subscriptions, -> { where(is_read: false) } #複数のクエリをまとめる。未読のサブスク登録を呼ぶメソッド。
 
   def required_either_member_or_trainer
     # 演算子 ^ で排他的論理和（XOR）にしています
@@ -16,4 +16,5 @@ class Subscription < ApplicationRecord
   def subtotal
     (subscription_plan.price * period)
   end
+
 end

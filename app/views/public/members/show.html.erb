@@ -28,6 +28,10 @@
       <%= link_to "フォローする", member_relationships_path(@member.id), method: :post %>
     <% end %>
   <% end %>
+
+  <% if member_signed_in? && current_member == @member %>
+    <div><%= link_to "サブスク詳細", subscription_path %></div>
+  <% end %>
 </div>
 
 <% @posts.each do |post| %>

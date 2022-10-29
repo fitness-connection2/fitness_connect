@@ -4,6 +4,7 @@ class Public::MembersController < ApplicationController
   def show
     @member = Member.find(params[:id])
     @posts = @member.posts
+    @subscription = @member.subscription
   end
 
   def edit
@@ -37,11 +38,17 @@ class Public::MembersController < ApplicationController
     @member = Member.find(params[:id]) #会員のidデータの取得
     @likes = PostLike.where(member_id: @member.id) #上記該当する会員のいいねのレコードを代入
   end
-  
+
   def new_post_likes
     @member = Member.find(params[:id])
     @post_likes = @member.new_liked
     render 'public/shared/new_post_likes'
+  end
+
+  def new_post_comments
+    @member = Member.find(params[:id])
+    @post_comments = @member.new_commented
+    render 'public/shared/new_post_comments'
   end
 
   private
@@ -51,6 +58,6 @@ class Public::MembersController < ApplicationController
   end
 
   def member_params
-    params.require(:member).permit(:profile_image, :name, :user_name, :telephone_number, :email, :introduction, :is_deleted)
+    params.require(:member).permit(:profile_image, :name, :user_name, :telephone_number, :email, :introduction, :is_deleted, :subscription_id)
   end
 end
