@@ -1,7 +1,0 @@
-<% @subscriptions.each do |subscription| %>
-  <ul>
-    <li><%= subscription.member.name %></li>
-    <li><%= subscription.subscription_plan.plan %></li>
-    <li><%= link_to "show", subscription_path(subscription.id) %></li>
-  </ul>
-<% end %>

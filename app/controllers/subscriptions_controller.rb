@@ -27,6 +27,7 @@ class SubscriptionsController < ApplicationController
   def index
     if trainer_signed_in?
       @subscriptions = current_trainer.subscriptions
+      Subscription.update(is_read: true)
     else
       redirect_to posts_path
     end
