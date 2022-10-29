@@ -29,7 +29,8 @@
           <% end %>
           <li><%= link_to "投稿一覧", posts_path %></li>
           <li><%= link_to "マイページ", member_path(current_member) %></li>
-          <li><%= link_to "通知一覧", new_post_likes_member_path(current_member) %></li>
+          <li><%= link_to "通知一覧(いいね)", new_post_likes_member_path(current_member) %></li>
+          <li><%= link_to "通知一覧(コメント)", new_post_comments_member_path(current_member) %></li>
           <li><%= link_to "ログアウト", destroy_member_session_path, method: :delete %></li>
         <% elsif trainer_signed_in? %>
           <%= form_with url: searches_path, method: :get, local: true do |f| %>
@@ -38,7 +39,9 @@
           <% end %>
           <li><%= link_to "投稿一覧", posts_path %></li>
           <li><%= link_to "マイページ", trainer_path(current_trainer) %></li>
-          <li><%= link_to "通知一覧", new_post_likes_trainer_path(current_trainer) %></li>
+          <li><%= link_to "通知一覧(いいね)", new_post_likes_trainer_path(current_trainer) %></li>
+          <li><%= link_to "通知一覧(コメント)", new_post_comments_trainer_path(current_trainer) %></li>
+          <li><%= link_to "通知一覧(サブスク)", new_subscriptions_trainer_path(current_trainer) %></li>
           <li><%= link_to "ログアウト", destroy_trainer_session_path, method: :delete %></li>
         <% end %>
       </ul>

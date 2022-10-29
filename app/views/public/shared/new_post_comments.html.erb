@@ -1,6 +1,13 @@
 <% @post_comments.each do |post_comment| %>
   <ul>
-    <li><%= post_comment.post.description %></li>
-    <li><%= link_to "show", post_path(post_comment.post, post_comment_id: post_comment.id) %></li>
+    <li>投稿記事の内容：<%= post_comment.post.description %></li>
+    <li>
+      <% if post_comment.member.present? %>
+        ユーザーネーム：<%= post_comment.member.user_name %>
+      <% elsif post_like.trainer.present? %>
+        ユーザーネーム：<%= post_comment.trainer.user_name %>
+      <% end %>
+    </li>
+    <li><%= link_to "詳細", post_path(post_comment.post, post_comment_id: post_comment.id) %></li>
   </ul>
 <% end %>
