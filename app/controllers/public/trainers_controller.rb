@@ -37,12 +37,25 @@ class Public::TrainersController < ApplicationController
     @trainer = Trainer.find(params[:id]) #トレーナーのidを取得
     @likes = PostLike.where(trainer_id: @trainer.id) ##上記該当するトレーナーのいいねのレコードを代入
   end
-  
+
   def new_post_likes
     @trainer = Trainer.find(params[:id])
     @post_likes = @trainer.new_liked
     render 'public/shared/new_post_likes'
   end
+
+  def new_post_comments
+    @trainer = Trainer.find(params[:id])
+    @post_comments = @trainer.new_commented
+    render 'public/shared/new_post_comments'
+  end
+  
+  def new_subscriptions
+    @trainer = Trainer.find(params[:id])
+    @subscriptions = @trainer.new_subscribed
+    render 'public/shared/new_subscriptions'
+  end
+  
 
   private
 

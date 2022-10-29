@@ -34,7 +34,7 @@ class SubscriptionsController < ApplicationController
 
   def show
     if member_signed_in?
-      @subscription = current_member.subscriptions.find(params[:id])
+      @subscription = current_member.subscription
     end
   end
 
@@ -57,7 +57,4 @@ class SubscriptionsController < ApplicationController
     params.require(:subscription).permit(:period, :payment_id, :subscription_plan_id, :trainer_id)
   end
 
-  def create_notifications
-   Notification.create!(subject: self, member_id: subscription.member.id, trainer_id: subscription.trainer.id, action_type: Notification.action_types[:subscribed_you])
-  end
 end
