@@ -27,7 +27,6 @@ class PostsController < ApplicationController
     @post_comment = PostComment.new
     PostLike.find_by(id: params[:post_like_id])&.update(is_read: true) if @post.member == current_member || @post.trainer == current_trainer
     PostComment.find_by(id: params[:post_comment_id])&.update(is_read: true) if @post.member == current_member || @post.trainer == current_trainer
-    #Relationship.find_by(id: params[:relationship_id])&.update(is_read: true) if @relationship.member == current_member || @relationship.trainer == current_trainer
     redirect_to posts_path, notice: 'この記事は参照できません。' if @post.enable_post? #削除されたユーザーの投稿詳細を非公開
   end
 

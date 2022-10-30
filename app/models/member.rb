@@ -23,6 +23,10 @@ class Member < ApplicationRecord
     PostComment.new_comments.joins(:post).distinct.where('post.member_id': self.id)
   end
 
+  def new_followed
+    Relationship.new_relationships.where('followed_id': self.id)
+  end
+
   def get_profile_image(width, height)
       unless profile_image.attached?
         file_path = Rails.root.join('app/assets/images/no_image.jpg')

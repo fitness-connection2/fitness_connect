@@ -5,6 +5,7 @@ class Public::MembersController < ApplicationController
     @member = Member.find(params[:id])
     @posts = @member.posts
     @subscription = @member.subscription
+    Relationship.find_by(id: params[:relationship_id])&.update(is_read: true) if @member == current_member
   end
 
   def edit
@@ -39,16 +40,30 @@ class Public::MembersController < ApplicationController
     @likes = PostLike.where(member_id: @member.id) #上記該当する会員のいいねのレコードを代入
   end
 
-  def new_post_likes
+  # def new_post_likes
+  #   @member = Member.find(params[:id])
+  #   @post_likes = @member.new_liked
+  #   render 'public/shared/new_post_likes'
+  # end
+
+  # def new_post_comments
+  #   @member = Member.find(params[:id])
+  #   @post_comments = @member.new_commented
+  #   render 'public/shared/new_post_comments'
+  # end
+
+  # def new_relationships
+  #   @member = Member.find(params[:id])
+  #   @relationships = @member.new_followed
+  #   render 'public/shared/new_relationships'
+  # end
+
+  def new_notifications
     @member = Member.find(params[:id])
     @post_likes = @member.new_liked
-    render 'public/shared/new_post_likes'
-  end
-
-  def new_post_comments
-    @member = Member.find(params[:id])
     @post_comments = @member.new_commented
-    render 'public/shared/new_post_comments'
+    @relationships = @member.new_followed
+    render 'public/shared/new_notifications' #Turbolinksを解除すると戻るで更新
   end
 
   private

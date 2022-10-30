@@ -41,8 +41,7 @@ Rails.application.routes.draw do
       get "followers" => "relationships#create", as: "followers"
       member do
         get :post_likes
-        get :new_post_likes
-        get :new_post_comments
+        get :new_notifications
       end
     end
     resources :trainers, only:[:show, :edit, :update] do
@@ -51,9 +50,7 @@ Rails.application.routes.draw do
       get "followers" => "relationships#create", as: "followers"
       member do
         get :post_likes
-        get :new_post_likes
-        get :new_post_comments
-        get :new_subscriptions
+        get :new_notifications
       end
     end
   end

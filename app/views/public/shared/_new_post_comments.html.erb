@@ -1,4 +1,5 @@
-<% @post_comments.each do |post_comment| %>
+<% post_comments.each do |post_comment| %>
+  <strong>新規コメント</strong>
   <ul>
     <li>投稿記事の内容：<%= post_comment.post.description %></li>
     <li>
