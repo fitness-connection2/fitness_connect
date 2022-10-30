@@ -1,0 +1,14 @@
+<% relationships.each do |relationship| %>
+  <strong>新規フォロー</strong>
+  <ul>
+    <li>
+      <% if member_signed_in? %>
+        ユーザーネーム：<%= Member.find(relationship.follower_id).user_name %>があなたをフォローしました。
+        <%= link_to "詳細", member_path(relationship.followed_id, relationship_id: relationship.id) %>
+      <% elsif trainer_signed_in? %>
+        ユーザーネーム：<%= Trainer.find(relationship.follower_id).user_name %>があなたをフォローしました
+        <%= link_to "詳細", trainer_path(relationship.followed_id, relationship_id: relationship.id) %>。
+      <% end %>
+    </li>
+  </ul>
+<% end %>

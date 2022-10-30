@@ -1,4 +1,5 @@
-<% @post_likes.each do |post_like| %>
+<% post_likes.each do |post_like| %>
+  <strong>新規いいね</strong>
   <ul>
     <li>投稿記事の内容：<%= post_like.post.description %></li>
     <li>

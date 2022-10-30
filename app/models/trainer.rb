@@ -23,6 +23,10 @@ class Trainer < ApplicationRecord
     PostComment.new_comments.joins(:post).distinct.where('post.trainer_id': self.id)
   end
 
+  def new_followed
+    Relationship.new_relationships.where('followed_id': self.id)
+  end
+
   def new_subscribed
     Subscription.new_subscriptions.where(trainer_id: self.id)
   end

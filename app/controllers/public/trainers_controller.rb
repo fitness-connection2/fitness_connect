@@ -4,6 +4,7 @@ class Public::TrainersController < ApplicationController
   def show
     @trainer = Trainer.find(params[:id])
     @posts = @trainer.posts
+    Relationship.find_by(id: params[:relationship_id])&.update(is_read: true) if @trainer == current_trainer
   end
 
   def edit
@@ -38,24 +39,38 @@ class Public::TrainersController < ApplicationController
     @likes = PostLike.where(trainer_id: @trainer.id) ##上記該当するトレーナーのいいねのレコードを代入
   end
 
-  def new_post_likes
+  # def new_post_likes
+  #   @trainer = Trainer.find(params[:id])
+  #   @post_likes = @trainer.new_liked
+  #   render 'public/shared/new_post_likes'
+  # end
+
+  # def new_post_comments
+  #   @trainer = Trainer.find(params[:id])
+  #   @post_comments = @trainer.new_commented
+  #   render 'public/shared/new_post_comments'
+  # end
+
+  # def new_relationships
+  #   @trainer = Trainer.find(params[:id])
+  #   @relationships = @trainer.new_followed
+  #   render 'public/shared/new_relationships'
+  # end
+
+  # def new_subscriptions
+  #   @trainer = Trainer.find(params[:id])
+  #   @subscriptions = @trainer.new_subscribed
+  #   render 'public/shared/new_subscriptions'
+  # end
+
+  def new_notifications
     @trainer = Trainer.find(params[:id])
     @post_likes = @trainer.new_liked
-    render 'public/shared/new_post_likes'
-  end
-
-  def new_post_comments
-    @trainer = Trainer.find(params[:id])
     @post_comments = @trainer.new_commented
-    render 'public/shared/new_post_comments'
-  end
-  
-  def new_subscriptions
-    @trainer = Trainer.find(params[:id])
+    @relationships = @trainer.new_followed
     @subscriptions = @trainer.new_subscribed
-    render 'public/shared/new_subscriptions'
+    render 'public/shared/new_notifications' #Turbolinksを解除すると戻るで
   end
-  
 
   private
 
