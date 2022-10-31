@@ -13,3 +13,6 @@
  *= require_tree .
  *= require_self
  */
+.delete_underline{
+  text-decoration: none;
+}
