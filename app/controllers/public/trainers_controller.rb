@@ -69,7 +69,7 @@ class Public::TrainersController < ApplicationController
     @post_comments = @trainer.new_commented
     @relationships = @trainer.new_followed
     @subscriptions = @trainer.new_subscribed
-    render 'public/shared/new_notifications' #Turbolinksを解除すると戻るで
+    render 'public/shared/new_notifications' #Turbolinksを解除すると戻るで更新
   end
 
   private

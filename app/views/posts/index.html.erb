@@ -1,25 +1,28 @@
 <div>
 <% @posts.each do |post| %>
-  <% unless post.enable_post? %>
   <div>
-    <% if post.member_id.present? %> <!--投稿の投稿主が会員場合-->
-    　<%= link_to member_path(post.member) do %>
+  <% unless post.enable_post? %><%# 投稿の投稿主が退会している場合は非表示　%>
+    <% if post.member_id.present? %><%# 投稿の投稿主が会員の場合　%>
+      <%= link_to member_path(post.member), class: "delete_underline" do %>
         <%= image_tag post.member.get_profile_image(100,100) %>
-    　<% end %>
+      <% end %>
       <%= post.member.user_name %>
-    <% elsif post.trainer_id.present? %> <!--投稿の投稿主がトレーナー場合-->
-      <%= link_to trainer_path(post.trainer) do %>
+    <% elsif post.trainer_id.present? %><%# 投稿の投稿主がトレーナーの場合　%>
+      <%= link_to trainer_path(post.trainer), class: "delete_underline" do %>
         <%= image_tag post.trainer.get_profile_image(100,100) %>
       <% end %>
       <%= post.trainer.user_name %>
-    <% end %>
+  <% end %>
   </div>
+
+  <div>
   <%= link_to post_path(post.id) do %>
-    <%= image_tag post.get_image(100, 100) %>
+    <%= image_tag post.get_image(100,100) %>
   <% end %>
   <p>投稿内容：<%= simple_format(post.description) %></p>
   <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
   <p>投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></p>
   <% end %>
+  </div>
 <% end %>
 </div>
