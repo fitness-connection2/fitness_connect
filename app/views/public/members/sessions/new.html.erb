@@ -3,24 +3,24 @@
 <%= flash[:alert] %>
 
 <%= form_with model: @member, url: member_session_path do |f| %>
-  <div class="field">
+  <div>
     <%= f.label :メールアドレス %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-  <div class="field">
+  <div>
     <%= f.label :パスワード %><br />
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
 
   <% if devise_mapping.rememberable? %>
-    <div class="field">
+    <div>
       <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>
     </div>
   <% end %>
 
-  <div class="actions">
+  <div>
     <%= f.submit "ログイン" %>
   </div>
 <% end %>

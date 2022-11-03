@@ -1,28 +1,36 @@
-<div>
-<% @posts.each do |post| %>
-  <div>
-  <% unless post.enable_post? %><%# 投稿の投稿主が退会している場合は非表示　%>
-    <% if post.member_id.present? %><%# 投稿の投稿主が会員の場合　%>
-      <%= link_to member_path(post.member), class: "delete_underline" do %>
-        <%= image_tag post.member.get_profile_image(100,100) %>
-      <% end %>
-      <%= post.member.user_name %>
-    <% elsif post.trainer_id.present? %><%# 投稿の投稿主がトレーナーの場合　%>
-      <%= link_to trainer_path(post.trainer), class: "delete_underline" do %>
-        <%= image_tag post.trainer.get_profile_image(100,100) %>
-      <% end %>
-      <%= post.trainer.user_name %>
-  <% end %>
-  </div>
+<div class="card container">
+  <% @posts.each do |post| %>
+    <div class="card w-50 mx-auto mt-4 shadow-lg">
+        <% unless post.enable_post? %><%# 投稿の投稿主が退会している場合は非表示 %>
+          <% if post.member_id.present? %><%# 投稿の投稿主が会員の場合 %>
+            <div>
+            <%= link_to member_path(post.member), class: "text-decoration-none p-1" do %>
+              <%= image_tag post.member.get_profile_image(50,50), class: "p-2 rounded-circle" %>
+            <% end %>
+            <%= link_to member_path(post.member), class: "p-1 postLink" do %>
+              <%= post.member.user_name %>
+            <% end %>
+            </div>
+          <% elsif post.trainer_id.present? %><%# 投稿の投稿主がトレーナーの場合 %>
+            <div>
+            <%= link_to trainer_path(post.trainer), class: "text-decoration-none p-1" do %>
+              <%= image_tag post.trainer.get_profile_image(50,50), class: "p-2 rounded-circle" %>
+            <% end %>
+            <%= link_to trainer_path(post.trainer), class: "p-1 postLink" do %>
+              <%= post.trainer.user_name %>
+            <% end %>
+            </div>
+          <% end %>
 
-  <div>
-  <%= link_to post_path(post.id) do %>
-    <%= image_tag post.get_image(100,100) %>
+          <%= link_to post_path(post.id) do %>
+            <%= image_tag post.get_image(300,450), class: "card-img-top mt-3" %>
+          <% end %>
+          <div class="mt-2 ml-2">
+            <p>投稿内容：<%= simple_format(post.description) %></p>
+            <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
+            <p>投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></p>
+          </div>
+        <% end %>
+    </div>
   <% end %>
-  <p>投稿内容：<%= simple_format(post.description) %></p>
-  <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
-  <p>投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></p>
-  <% end %>
-  </div>
-<% end %>
 </div>

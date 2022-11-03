@@ -13,21 +13,44 @@
  *= require_tree .
  *= require_self
  */
-.delete_underline{
-  text-decoration: none;
+
+.fieldAdmin {
+  width: 300px;
+  height: 40px;
 }
 
-input[type="email"] {
-        width: 300px;
-        height: 40px;
+.actionsAdmin {
+  width: 300px;
+  height: 40px;
 }
 
-input[type="password"] {
-        width: 300px;
-        height: 40px;
+.navGlay {
+  background-color: #EEEEEE;
 }
 
-input[type="submit"] {
-        width: 300px;
-        height: 40px;
+.navOrange {
+  background-color: #FFCC99;
+}
+
+.navBlue {
+  background-color: #99CCFF;
+}
+
+.navItem {
+  background-color: #FFFFFF;
+  font-size: 125%;
+}
+
+.searchField {
+  width: 300px;
+  height: 30px;
+}
+
+.searchClick {
+  width: 50px;
+  height: 30px;
+}
+
+.postLink {
+  color: #000000;
 }
