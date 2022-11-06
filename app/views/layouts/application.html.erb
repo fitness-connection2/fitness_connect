@@ -47,8 +47,9 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav ">
+            <ul class="navbar-nav">
               <% if admin_signed_in? %>
+                <li class="nav-item border border-1 mx-2 navItem"><%= link_to "投稿一覧", posts_path, class: 'nav-link text-dark' %></li>
                 <li class="nav-item border border-1 mx-2 navItem"><%= link_to "トレーナー一覧", admin_trainers_path, class: 'nav-link text-dark' %></li>
                 <li class="nav-item border border-1 mx-2 navItem"><%= link_to "会員一覧", admin_members_path, class: 'nav-link text-dark' %></li>
                 <li class="nav-item border border-1 mx-2 navItem"><%= link_to "サブスク一覧", admin_subscription_plans_path, class: 'nav-link text-dark' %></li>

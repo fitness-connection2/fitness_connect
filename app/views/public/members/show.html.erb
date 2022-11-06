@@ -1,11 +1,10 @@
-<div>
-  <div>
+<div class="container">
+  <div class="row">
     <%= image_tag @member.get_profile_image(100,100) %>
     <%= @member.user_name %>
-    <p>フォロワー <%= @member.get_follower_members.count %></p>
-    <p>フォロー中 <%= @member.get_following_members.count %></p>
-    <p>投稿数 <%= @member.posts.count %></P>
-
+    <span>フォロワー <%= @member.get_follower_members.count %></span>
+    <span>フォロー中 <%= @member.get_following_members.count %></span>
+    <span>投稿数 <%= @member.posts.count %></span>
   </div>
 
   <p>氏名 <%= @member.name %></p>

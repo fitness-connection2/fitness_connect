@@ -1,3 +1,4 @@
+<div class="container">
 <h3>会員情報編集</h3>
 <%= form_with model: @member do |f| %>
   <label for="inputImage">アイコン画像</label>
@@ -15,3 +16,4 @@
   <%= f.submit "変更を保存" %>
   <%= link_to "退会する", members_confirm_path, method: :post %>
 <% end %>
+</div>
