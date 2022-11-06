@@ -54,3 +54,25 @@
 .postLink {
   color: #000000;
 }
+
+.commentBox {
+  width: 100%
+}
+
+.thead_member {
+  background: #FFCC99;
+}
+
+.member_first_line {
+  text-align: center;
+  height: 90px;
+  padding-top: 30px;
+}
+
+#padding {
+  padding-top: 10px;
+}
+
+.member_second_line {
+  margin-top: 100px;
+}

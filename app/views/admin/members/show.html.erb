@@ -1,43 +1,50 @@
 <div>
-  <%= image_tag @member.get_profile_image(100,100) %>
-  <%= @member.user_name %>
-</div>
+  <div class="row d-flex justify-content-center member_first_line">
+    <div><%= image_tag @member.get_profile_image(100,100), class: "rounded-circle" %></div>
+    <div class="pt-4 ml-3"><%= @member.user_name %></div>
+    <div class="pt-4 col-sm-2"><%= @member.get_follower_members.count %><br>
+      <div id="padding"></div>フォロワー
+    </div>
+    <div class="pt-4 col-sm-2"><%= @member.get_following_members.count %><br>
+      <div id="padding">フォロー中</div>
+    </div>
+    <div class="pt-4 col-sm-2"><%= @member.posts.count %>
+      <div id="padding">投稿数</div>
+    </div>
+    <div class="pt-4"><%= link_to "編集", edit_admin_member_path(@member) %></div>
+  </div>
 
-<div>
-  <p>投稿数</P>
-  <p>氏名</p>
-  <p>電話番号</p>
-  <p>メールアドレス</p>
-  <p>会員ステータス</p>
-</div>
+  <div class="row offset-5 member_second_line">
+    <div>
+      <p>会員ステータス</p>
+      <p>氏名</p>
+      <p>電話番号</p>
+      <p>メールアドレス</p>
+      <p>会員ステータス</p>
+    </div>
 
-<div>
-  <p><%= @member.posts.count %></p>
-  <p><%= @member.name %></p>
-  <p><%= @member.telephone_number %></p>
-  <p><%= @member.email %></p>
-  <p>
-    <% if @member.is_delete %>
-      <div>退会</div>
-    <% else %>
-      <div>有効</div>
+    <div class="offset-3">
+      <p><%= @member.id %></p>
+      <p><%= @member.name %></p>
+      <p><%= @member.telephone_number %></p>
+      <p><%= @member.email %></p>
+      <p>
+      <% if @member.is_delete %>
+        <div>退会</div>
+      <% else %>
+        <div>有効</div>
+      <% end %>
+      </p>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <% @posts.each do |post| %>
+      <div>
+        <%= link_to post_path(post.id) do %>
+          <%= image_tag post.get_image(100,100) %>
+        <% end %>
+      </div>
     <% end %>
-  </p>
+  </div>
 </div>
-
-
-  <%= link_to "編集", edit_admin_member_path(@member) %>
-
-</div>
-
-<div>
-  <%= @member.introduction %>
-</div>
-
-<% @posts.each do |post| %>
-<div>
-  <%= link_to post_path(post.id) do %>
-    <%= image_tag post.get_image(100,100) %>
-  <% end %>
-</div>
-<% end %>

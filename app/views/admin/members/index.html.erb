@@ -1,27 +1,35 @@
-<div>
-  <div>
-    <h4>会員一覧</h4>
-  </div>
+<div class="container">
+	<div class="row">
+		<div class="border border-dark my-5 p-2">
+  		<h4>会員一覧</h4>
+		</div>
+	</div>
 
-  <div class="table">
-	  <div>
-		  <div>会員ID</div>
-		  <div>氏名</div>
-		  <div>ユーザーネーム</div>
-		  <div>ステータス</div>
-	  </div>
-	  <% @members.each do |member| %>
-	  <div>
-		  <div><%= member.id %></div>
-		  <div><%= link_to member.name, admin_member_path(member.id) %></div>
-		  <div><%= member.user_name %></div>
-		  <div>
-		    <% if member.is_delete %>
-          <div>退会</div>
-        <% else %>
-          <div>有効</div>
-        <% end %>
-      </div>
-	  </div>
-    <% end %>
+	<div class="row">
+		<table class="table table-bordered">
+			<thead class="thead_member">
+				<tr>
+					<th>会員ID</th>
+					<th>氏名</th>
+					<th>ユーザーネーム</th>
+					<th>ステータス</th>
+				</tr>
+			</thead>
+
+			<tboady>
+				<% @members.each do |member| %>
+					<tr>
+						<td><%= member.id %></td>
+		  			<td><%= link_to member.name, admin_member_path(member.id) %></td>
+		  			<td><%= member.user_name %></td>
+		    		<% if member.is_delete %>
+        			<td>退会</td>
+        		<% else %>
+        			<td>有効</td>
+        		<% end %>
+    			</tr>
+    		<% end %>
+			</tbody>
+		</table>
+	</div>
 </div>
