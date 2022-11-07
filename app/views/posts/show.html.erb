@@ -58,7 +58,7 @@
           <small><%= post_comment.created_at.strftime('%Y/%m/%d') %></small>
           <%= simple_format(post_comment.comment) %>
           <% if post_comment.member == current_member || post_comment.trainer == current_trainer %> <!--現在のログインユーザーがコメントをした会員またはトレーナーの場合-->
-            <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
+            <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, "data-confirm" => "本当に削除しますか？" %>
           <% end %>
         <% end %>
 
