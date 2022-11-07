@@ -1,26 +1,50 @@
-<div>
-  <h4>サブスク一覧・追加</h4>
+<div class="container">
+  <div class="row">
+    <div class="border border-dark my-5 p-1">
+      <h4>サブスク一覧・追加</h4>
+    </div>
+  </div>
+
+  <%= form_with model: @subscription_plan, url: admin_subscription_plans_path, method: :post do |f| %>
+  <div class="row">
     <p id="notice"></p>
-    <div>
-      <%= form_with model: @subscription_plan, url: admin_subscription_plans_path, method: :post do |f| %>
-        <div>
-          <%= f.label :サブスク名 %>
-          <%= f.text_field :plan %>
-        </div>
-        <div>
-          <%= f.label :価格 %>
-          <%= f.text_field :price %>
-        </div>
-      <%= f.submit '新規登録' %>
-    <% end %>
+      <div class="col-sm-2">
+        <p><%= f.label :サブスク名 %></p>
+        <p><%= f.label :価格 %></p>
+      </div>
+
+      <div class="col-sm-6">
+        <p><%= f.text_field :plan %></p>
+        <p><%= f.text_field :price %></p>
+      </div>
+
+      <div>
+        <table class="table table-bordered">
+          <% @subscription_plans.each do |subscription_plan| %>
+            <thead class="thead_sub">
+              <tr>
+                <th>サブスク名</th>
+                <th>料金</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= subscription_plan.plan %></td>
+                <td><%= subscription_plan.price.to_s(:delimited) %>円</td>
+                <td><%= link_to "編集", edit_admin_subscription_plan_path(subscription_plan.id) %></td>
+              </tr>
+            </tbody>
+          <% end %>
+        </table>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <%= f.submit '新規登録', class: "btn btn-success" %>
     </div>
-    <div>
-      <p>ジャンル</p>
-      <% @subscription_plans.each do |subscription_plan| %>
-        <%= subscription_plan.plan %>
-        <%= subscription_plan.price.to_s(:delimited) %>円
-        <%= link_to "編集", edit_admin_subscription_plan_path(subscription_plan.id) %>
-      <% end %>
-    </div>
+  <% end %>
+  </div>
 </div>
 

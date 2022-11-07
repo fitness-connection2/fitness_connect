@@ -1,27 +1,35 @@
-<div>
-  <div>
-    <h4>トレーナー一覧</h4>
+<div class="container">
+	<div class="row">
+		<div class="border border-dark my-5 p-2">
+    	<h4>トレーナー一覧</h4>
+    </div>
   </div>
 
-  <div class="table">
-	  <div>
-		  <div>トレーナーID</div>
-		  <div>氏名</div>
-		  <div>ユーザーネーム</div>
-		  <div>ステータス</div>
-	  </div>
-	  <% @trainers.each do |trainer| %>
-	  <div>
-		  <div><%= trainer.id %></div>
-		  <div><%= link_to trainer.name, admin_trainer_path(trainer.id) %></div>
-		  <div><%= trainer.user_name %></div>
-		  <div>
-		    <% if trainer.is_delete %>
-          <div>退会</div>
-        <% else %>
-          <div>有効</div>
-        <% end %>
-      </div>
-	  </div>
-    <% end %>
+	<div class="row">
+		<table class="table table-bordered">
+			<thead class="thead_member">
+	  		<tr>
+		  		<th>トレーナーID</th>
+		  		<th>氏名</th>
+		  		<th>ユーザーネーム</th>
+		  		<th>ステータス</th>
+	  		</tr>
+	  	</thead>
+
+	  	<tbody>
+	  		<% @trainers.each do |trainer| %>
+	  			<tr>
+		  			<td><%= trainer.id %></td>
+		  			<td><%= link_to trainer.name, admin_trainer_path(trainer.id) %></td>
+		  			<td><%= trainer.user_name %></td>
+		    		<% if trainer.is_delete %>
+          		<td>退会</td>
+        		<% else %>
+          		<td>有効</td>
+        		<% end %>
+      		</tr>
+      	<% end %>
+	  	</tbody>
+		</table>
+	</div>
 </div>
