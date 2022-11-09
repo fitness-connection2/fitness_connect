@@ -80,3 +80,19 @@
 .thead_sub {
   background: #FFCC99;
 }
+
+.actionsMember {
+  width: 189px;
+}
+
+.memberLogin {
+  text-align: center;
+}
+
+.trainerLogin {
+  text-align: center;
+}
+
+.actionsTrainer {
+  width: 189px;
+}
