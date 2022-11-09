@@ -96,3 +96,20 @@
 .actionsTrainer {
   width: 189px;
 }
+
+.submit_post {
+  width: 190px;
+}
+
+.textPost {
+  width: 300px;
+  height: 100px;
+}
+
+.textPost::placeholder {
+  text-align: start;
+}
+
+.memberPost {
+  text-align: end;
+}
