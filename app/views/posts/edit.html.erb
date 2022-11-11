@@ -1,19 +1,27 @@
-<p>
-  <% if @post.member_id.present? %>      <!--投稿の投稿主が会員場合-->
-    <%= image_tag @post.member.get_profile_image(100,100) %>
-    <%= @post.member.user_name %>
-  <% elsif @post.trainer_id.present? %>  <!--投稿の投稿主がトレーナー場合-->
-    <%= image_tag @post.trainer.get_profile_image(100,100) %>
-    <%= @post.trainer.user_name %>
-  <% end %>
-</p>
+<div class="card-list container">
+  <div class="card w-50 mx-auto mt-4 shadow-lg">
+    <div>
+      <% if @post.member_id.present? %>      <!--投稿の投稿主が会員場合-->
+        <%= image_tag @post.member.get_profile_image(50,50), class: "p-2 rounded-circle" %>
+        <%= @post.member.user_name %>
+      <% elsif @post.trainer_id.present? %>  <!--投稿の投稿主がトレーナー場合-->
+        <%= image_tag @post.trainer.get_profile_image(50,50), class: "p-2 rounded-circle" %>
+        <%= @post.trainer.user_name %>
+      <% end %>
+      <% if @post.member == current_member || @post.trainer == current_trainer %>
+        <%= link_to "削除", post_path, method: :delete, "data-confirm" => "本当に削除しますか？" %>
+      <% end %>
+    </div>
 
-<%= image_tag @post.get_image(100, 100) %>
-  <%= form_with model: @post, url: post_path, local: true do |f| %>
-  <div class="form-group">
-    <p><%= f.text_area :description %></p>
+    <%= image_tag @post.get_image(300, 400), class: "card-img-top mt-3" %>
+    <%= form_with model: @post, url: post_path, local: true do |f| %>
+      <div class="form-group mt-2">
+        <p><%= f.text_area :description, rows: '5', class: "descriptionBox" %></p>
+      </div>
+      <div class="form-group d-flex justify-content-center">
+        <%= f.submit '変更を保存する', class: "btn btn-success edit_post" %>
+      </div>
+    <% end %>
   </div>
-  <div class="form-group">
-    <%= f.submit '変更を保存する' %>
-  </div>
-  <% end %>
+</div>
+

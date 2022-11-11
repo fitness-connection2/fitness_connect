@@ -113,3 +113,11 @@
 .memberPost {
   text-align: end;
 }
+
+.descriptionBox {
+  width: 100%;
+}
+
+.edit_post {
+  width: 190px;
+}
