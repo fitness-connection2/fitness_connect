@@ -2,10 +2,10 @@
   <div class="row d-flex justify-content-center member_first_line">
     <div><%= image_tag @member.get_profile_image(100,100), class: "rounded-circle" %></div>
     <div class="pt-4 ml-3"><%= @member.user_name %></div>
-    <div class="pt-4 col-sm-2"><%= @member.get_follower_members.count %>
+      <div><%= @member.follower_count %></div>
       <div id="padding">フォロワー</div>
     </div>
-    <div class="pt-4 col-sm-2"><%= @member.get_following_members.count %>
+      <div><%= @member.following_count %></div>
       <div id="padding">フォロー中</div>
     </div>
     <div class="pt-4 col-sm-2"><%= @member.posts.count %>
@@ -32,13 +32,24 @@
   </div>
 
   <div class="row mt-5 d-flex justify-content-center">
-    <% if member_signed_in? && current_member != @member %>
-      <% if current_member.following?(@member.id) %>
-        <%= link_to "フォロー外す", member_relationships_path(@member.id), method: :delete %>
-      <% else %>
-        <%= link_to "フォローする", member_relationships_path(@member.id), method: :post %>
-      <% end %>
-    <% end %>
+    <% if current_member %>
+      <% if current_trainer != @trainer %>
+        <% if current_member.following?(@member, 1 ) %>
+          <%= link_to "フォロー外す", trainer_relationships_path(@member.id, target: 1), method: :delete %>
+        <% else %>
+          <%= link_to "フォローする", trainer_relationships_path(@member.id, target: 1), method: :post %>
+        <% end %>
+      <%end%>
+
+    <%else%>
+
+        <% if current_trainer.following?(@trainer.id) %>
+          <%= link_to "フォロー外す", trainer_relationships_path(@trainer.id, target: 0), method: :delete %>
+        <% else %>
+          <%= link_to "フォローする", trainer_relationships_path(@trainer.id, target: 0), method: :post %>
+        <% end %>
+
+    <%end%>
 
     <% if @subscription.present? %>
       <% if member_signed_in? && current_member == @member %>
@@ -56,3 +67,4 @@
     </div>
   <% end %>
   </div>
+</div>

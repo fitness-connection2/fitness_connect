@@ -1,5 +1,5 @@
-<div>
-  <div>
+<div class="container">
+  <div class="row d-flex justify-content-center">
     <h5>サブスク情報確認</h5>
     <%= @subscription.trainer.name %>
     <%= @subscription.subscription_plan.plan %>
@@ -20,4 +20,5 @@
     <div>
       <p><%= link_to "情報入力画面へ戻る", subscriptions_new_path(@subscription.trainer_id) %></p>
     </div>
+  </div>
 </div>

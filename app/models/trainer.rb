@@ -39,29 +39,43 @@ class Trainer < ApplicationRecord
       profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
-  def follow(user_id)
-    relationship = Relationship.create(followed_type: USER_TYPE[:"Trainer"], followed_id: user_id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
+  def follow(user_id, target)
+    Relationship.create(followed_type: target, followed_id: user_id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
   end
 
-  def unfollow(user_id) #そのユーザーがフォローを外すときのメソッド
-    relationship = Relationship.find_by(followed_type: USER_TYPE[:"Trainer"], followed_id: user_id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"]) #class.nameメソッドで
+  def unfollow(user_id, target) #そのユーザーがフォローを外すときのメソッド
+    relationship =  Relationship.find_by(followed_type: target, followed_id: user_id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
     relationship.destroy
   end
 
-  def following?(user_id) #そのユーザーがフォローしているか判定
-    Relationship.where(followed_id: user_id, follower_type: USER_TYPE[:"Trainer"]).pluck('follower_id').include?(self.id)
+  def following?(user, target) #そのユーザーがフォローしているか判定
+    relationships.any? do |relationship|
+      relationship.followed_id == user.id && relationship.followed_type == target
+    end
   end
 
-  # def get_follower_members #自分にフォローしている会員を取得。リレーションが使えないため、メソッドで定義。
-  #   Member.find(Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"Member"]).pluck('follower_id'))
-  # end
+  def following_count
+    get_following_members.count + get_following_trainers.count
+  end
+
+  def get_following_members
+    Member.find(Relationship.where(follower_id: self.id, followed_type: USER_TYPE[:"Member"]).pluck('followed_id'))
+  end
 
   def get_following_trainers
-   Trainer.find(Relationship.where(follower_id: self.id, followed_type: USER_TYPE[:"Trainer"]).pluck('followed_id'))
+    Trainer.find(Relationship.where(follower_id: self.id, followed_type: USER_TYPE[:"Trainer"]).pluck('followed_id'))
   end
 
-  def get_follower_trainers #自分にフォローしているトレーナーを取得
-    Trainer.find(Relationship.where(followed_id: self.id, follower_type: USER_TYPE[:"Trainer"]).pluck('follower_id'))
+  def follower_count
+    get_followed_members.count + get_followed_trainers.count
+  end
+
+  def get_followed_members
+    Member.find(Relationship.where(followed_id: self.id, followed_type: USER_TYPE[:"Member"]).pluck('follower_id'))
+  end
+
+  def get_followed_trainers
+    Trainer.find(Relationship.where(followed_id: self.id, followed_type: USER_TYPE[:"Trainer"]).pluck('follower_id'))
   end
 
   def self.search(keyword)
