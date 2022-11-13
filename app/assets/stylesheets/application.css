@@ -121,3 +121,8 @@
 .edit_post {
   width: 190px;
 }
+
+.delete_member {
+  height: 400px;
+  align-items: center;
+}

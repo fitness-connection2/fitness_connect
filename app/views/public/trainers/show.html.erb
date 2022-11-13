@@ -2,8 +2,8 @@
   <div>
     <%= image_tag @trainer.get_profile_image(100,100) %>
     <%= @trainer.user_name %>
-    <p>フォロワー <%= @trainer.get_follower_trainers.count %></p>
-    <p>フォロー中 <%= @trainer.get_following_trainers.count %></p>
+    <p>フォロワー <%= @trainer.follower_count %></p>
+    <p>フォロー中 <%= @trainer.following_count %></p>
     <p>投稿数 <%= @trainer.posts.count %></P>
 
   </div>
@@ -21,13 +21,22 @@
   </div>
 
   <div>
-    <% if trainer_signed_in? && current_trainer != @trainer %>
-      <% if current_trainer.following?(@trainer.id) %>
-        <%= link_to "フォロー外す", trainer_relationships_path(@trainer.id), method: :delete %>
+    <% if current_member %>
+      <% if current_member.following?(@trainer, 0 ) %>
+        <%= link_to "フォロー外す", trainer_relationships_path(@trainer.id, target: 0), method: :delete %>
       <% else %>
-        <%= link_to "フォローする", trainer_relationships_path(@trainer.id), method: :post %>
+        <%= link_to "フォローする", trainer_relationships_path(@trainer.id, target: 0), method: :post %>
       <% end %>
-    <% end %>
+
+    <%else%>
+      <% if current_trainer != @trainer %>
+        <% if current_trainer.following?(@trainer.id) %>
+          <%= link_to "フォロー外す", trainer_relationships_path(@trainer.id, target: 0), method: :delete %>
+        <% else %>
+          <%= link_to "フォローする", trainer_relationships_path(@trainer.id, target: 0), method: :post %>
+        <% end %>
+      <% end %>
+    <%end%>
   </div>
   <div>
     <% if member_signed_in? %>
