@@ -3,6 +3,7 @@ class Public::TrainersController < ApplicationController
 
   def show
     @trainer = Trainer.find(params[:id])
+ # byebug
     @posts = @trainer.posts
     Relationship.find_by(id: params[:relationship_id])&.update(is_read: true) if @trainer == current_trainer
   end

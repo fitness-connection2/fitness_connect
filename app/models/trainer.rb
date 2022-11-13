@@ -2,6 +2,7 @@ class Trainer < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   USER_TYPE = {"Trainer": 0, "Member": 1} #定数でフォロー用のメソッドで定義
+  HOGE = "HOGE"
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -9,8 +10,8 @@ class Trainer < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :post_likes, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
-  #has_many :relationships, class_name: "Relationship", foreign_key: "follower_id"
-  #has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id"
+  has_many :relationships, class_name: "Relationship", foreign_key: "follower_id"
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id"
   #has_many :followings, through: :relationships, source: :followed
   #has_many :followers, through: :reverse_of_relationships, source: :follower
   has_one_attached :profile_image

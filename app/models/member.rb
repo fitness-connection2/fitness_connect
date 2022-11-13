@@ -2,7 +2,7 @@ class Member < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   USER_TYPE = {"Trainer": 0, "Member": 1}
-HOGE = "HOGE"
+  HOGE = "HOGE"
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
