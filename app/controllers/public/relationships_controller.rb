@@ -2,19 +2,19 @@ class Public::RelationshipsController < ApplicationController
 
   def create
     if current_member
-      if  params[:target].to_i == 0
+      if params[:target].to_i == 0
         current_member.follow(params[:trainer_id], params[:target] )
       else
         current_member.follow(params[:trainer_id], params[:target] )
       end
     else
-      if  params[:target].to_i == 0
+      if params[:target].to_i == 0
         current_trainer.follow(params[:trainer_id], params[:target] )
       else
         current_trainer.follow(params[:trainer_id], params[:target] )
       end
     end
-      redirect_to request.referer
+    redirect_to request.referer
   end
 
   def destroy
@@ -30,7 +30,8 @@ class Public::RelationshipsController < ApplicationController
       else
         current_trainer.unfollow(params[:trainer_id], params[:target] )
       end
-      redirect_to request.referer
+    end
+    redirect_to request.referer
   end
 
   def followings #フォロー一覧ページ用

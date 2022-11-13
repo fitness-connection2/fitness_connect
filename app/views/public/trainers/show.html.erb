@@ -21,22 +21,21 @@
   </div>
 
   <div>
-    <% if current_member %>
-      <% if current_member.following?(@trainer, 0 ) %>
-        <%= link_to "フォロー外す", trainer_relationships_path(@trainer.id, target: 0), method: :delete %>
-      <% else %>
-        <%= link_to "フォローする", trainer_relationships_path(@trainer.id, target: 0), method: :post %>
-      <% end %>
-
-    <%else%>
+    <% if current_trainer %>
       <% if current_trainer != @trainer %>
-        <% if current_trainer.following?(@trainer.id) %>
+        <% if current_trainer.following?(@trainer, 0 ) %>
           <%= link_to "フォロー外す", trainer_relationships_path(@trainer.id, target: 0), method: :delete %>
         <% else %>
           <%= link_to "フォローする", trainer_relationships_path(@trainer.id, target: 0), method: :post %>
         <% end %>
       <% end %>
-    <%end%>
+    <% else %>
+      <% if current_member.following?(@trainer, 1) %>
+        <%= link_to "フォロー外す", trainer_relationships_path(@trainer.id, target: 1), method: :delete %>
+      <% else %>
+        <%= link_to "フォローする", trainer_relationships_path(@trainer.id, target: 1), method: :post %>
+      <% end %>
+    <% end %>
   </div>
   <div>
     <% if member_signed_in? %>
