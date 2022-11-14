@@ -31,9 +31,9 @@
       <% end %>
     <% else %>
       <% if current_member.following?(@trainer, 1) %>
-        <%= link_to "フォロー外す", trainer_relationships_path(@trainer.id, target: 1), method: :delete %>
+        <%= link_to "フォロー外す", member_relationships_path(@trainer.id, target: 1), method: :delete %>
       <% else %>
-        <%= link_to "フォローする", trainer_relationships_path(@trainer.id, target: 1), method: :post %>
+        <%= link_to "フォローする", member_relationships_path(@trainer.id, target: 1), method: :post %>
       <% end %>
     <% end %>
   </div>
