@@ -126,3 +126,18 @@
   height: 400px;
   align-items: center;
 }
+
+.trainer_first_line {
+  text-align: center;
+  height: 90px;
+  padding-top: 30px;
+}
+
+.trainer_second_line {
+  margin-top: 100px;
+}
+
+.delete_trainer {
+  height: 400px;
+  align-items: center;
+}

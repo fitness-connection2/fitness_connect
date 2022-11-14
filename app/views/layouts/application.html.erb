@@ -66,10 +66,10 @@
                 <li class="nav-item border border-1 mx-2 navItem"><%= link_to "通知一覧", new_notifications_member_path(current_member), class: 'nav-link text-dark' %></li>
                 <li class="nav-item border border-1 mx-2 navItem"><%= link_to "ログアウト", destroy_member_session_path, method: :delete, class: 'nav-link text-dark' %></li>
               <% elsif trainer_signed_in? %>
-                <li class="nav-item border border-1 mx-1 navItem"><%= link_to "投稿一覧", posts_path %></li>
-                <li class="nav-item border border-1 mx-1 navItem"><%= link_to "マイページ", trainer_path(current_trainer) %></li>
-                <li class="nav-item border border-1 mx-1 navItem"><%= link_to "通知一覧", new_notifications_trainer_path(current_trainer) %></li>
-                <li class="nav-item border border-1 mx-1 navItem"><%= link_to "ログアウト", destroy_trainer_session_path, method: :delete %></li>
+                <li class="nav-item border border-1 mx-1 navItem"><%= link_to "投稿一覧", posts_path, class: 'nav-link text-dark' %></li>
+                <li class="nav-item border border-1 mx-1 navItem"><%= link_to "マイページ", trainer_path(current_trainer), class: 'nav-link text-dark' %></li>
+                <li class="nav-item border border-1 mx-1 navItem"><%= link_to "通知一覧", new_notifications_trainer_path(current_trainer), class: 'nav-link text-dark' %></li>
+                <li class="nav-item border border-1 mx-1 navItem"><%= link_to "ログアウト", destroy_trainer_session_path, method: :delete, class: 'nav-link text-dark' %></li>
               <% end %>
             </ul>
           </div>

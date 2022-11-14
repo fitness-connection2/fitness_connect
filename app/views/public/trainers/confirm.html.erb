@@ -1,11 +1,11 @@
-<div>
-    <div>
-      アカウントを削除すると全ての登録情報が消去されます。</br>
-      退会される場合は退会するをクリックしてください
-    </div>
+<div class="container">
+  <div class="row d-flex justify-content-center font-weight-bolder delete_trainer">
+    アカウントを削除すると全ての登録情報が消去されます。</br>
+    退会される場合は退会するをクリックしてください。
+  </div>
 
-    <div>
-      <%= link_to "マイページへ戻る", trainer_path(@trainer.id) %>
+  <div class="row d-flex justify-content-center">
+    <%= link_to "マイページへ戻る", trainer_path(@trainer.id) %>
       <%= link_to "退会する", trainers_withdraw_path, method: :patch, "data-confirm" => "本当に退会しますか？" %>
-    </div>
+  </div>
 </div>
