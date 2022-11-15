@@ -15,26 +15,26 @@
 
       <div class="col-sm-6">
         <p><%= f.text_field :plan %></p>
-        <p><%= f.text_field :price %></p>
+        <p><%= f.text_field :price %> 円</p>
       </div>
 
       <div>
         <table class="table table-bordered">
+          <thead class="thead_sub">
+            <tr>
+              <th>サブスク名</th>
+              <th>料金</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
           <% @subscription_plans.each do |subscription_plan| %>
-            <thead class="thead_sub">
-              <tr>
-                <th>サブスク名</th>
-                <th>料金</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><%= subscription_plan.plan %></td>
-                <td><%= subscription_plan.price.to_s(:delimited) %>円</td>
-                <td><%= link_to "編集", edit_admin_subscription_plan_path(subscription_plan.id) %></td>
-              </tr>
-            </tbody>
+            <tr>
+              <td><%= subscription_plan.plan %></td>
+              <td><%= subscription_plan.price.to_s(:delimited) %>円</td>
+              <td><%= link_to "編集", edit_admin_subscription_plan_path(subscription_plan.id) %></td>
+            </tr>
+          </tbody>
           <% end %>
         </table>
       </div>

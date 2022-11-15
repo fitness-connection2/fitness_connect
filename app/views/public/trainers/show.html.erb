@@ -38,25 +38,25 @@
     <% if current_trainer %>
       <% if current_trainer != @trainer %>
         <% if current_trainer.following?(@trainer, 0 ) %>
-          <%= link_to "フォロー外す", trainer_relationships_path(@trainer.id, target: 0), method: :delete %>
+          <%= link_to "フォロー外す", trainer_relationships_path(@trainer.id, target: 0), method: :delete, class: "btn btn-primary" %>
         <% else %>
-          <%= link_to "フォローする", trainer_relationships_path(@trainer.id, target: 0), method: :post %>
+          <%= link_to "フォローする", trainer_relationships_path(@trainer.id, target: 0), method: :post, class: "btn btn-primary" %>
         <% end %>
       <% end %>
     <% else %>
       <% if current_member.following?(@trainer, 1) %>
-        <%= link_to "フォロー外す", member_relationships_path(@trainer.id, target: 1), method: :delete %>
+        <%= link_to "フォロー外す", member_relationships_path(@trainer.id, target: 1), method: :delete, class: "btn btn-primary" %>
       <% else %>
-        <%= link_to "フォローする", member_relationships_path(@trainer.id, target: 1), method: :post %>
+        <%= link_to "フォローする", member_relationships_path(@trainer.id, target: 1), method: :post, class: "btn btn-primary" %>
       <% end %>
     <% end %>
 
     <% if member_signed_in? %>
-      <div><%= link_to "サブスク登録をする", subscriptions_new_path(@trainer.id) %></div>
+      <%= link_to "サブスク登録をする", subscriptions_new_path(@trainer.id), class: "offset-1 btn btn-warning" %>
     <% end %>
 
     <% if trainer_signed_in? && current_trainer = @trainer %>
-      <div><%= link_to "サブスク会員一覧", subscriptions_path %></div>
+      <%= link_to "サブスク会員一覧", subscriptions_path, class: "btn btn-warning" %>
     <% end %>
   </div>
 

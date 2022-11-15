@@ -38,16 +38,16 @@
     <% if current_member %>
       <% if current_member != @member %>
         <% if current_member.following?(@member, 1 ) %>
-          <%= link_to "フォロー外す", member_relationships_path(@member.id, target: 1), method: :delete %>
+          <%= link_to "フォロー外す", member_relationships_path(@member.id, target: 1), method: :delete, class: "btn btn-primary" %>
         <% else %>
-          <%= link_to "フォローする", member_relationships_path(@member.id, target: 1), method: :post %>
+          <%= link_to "フォローする", member_relationships_path(@member.id, target: 1), method: :post, class: "btn btn-primary" %>
         <% end %>
       <% end %>
     <% else %>
       <% if current_trainer.following?(@member, 0) %>
-        <%= link_to "フォロー外す", trainer_relationships_path(@member.id, target: 0), method: :delete %>
+        <%= link_to "フォロー外す", trainer_relationships_path(@member.id, target: 0), method: :delete, class: "btn btn-primary" %>
       <% else %>
-        <%= link_to "フォローする", trainer_relationships_path(@member.id, target: 0), method: :post %>
+        <%= link_to "フォローする", trainer_relationships_path(@member.id, target: 0), method: :post, class: "btn btn-primary" %>
       <% end %>
     <% end %>
 

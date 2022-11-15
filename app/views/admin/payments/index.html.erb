@@ -1,20 +1,45 @@
-<div>
-  <h4>支払い方法一覧・追加</h4>
+<div class="container">
+  <div class="row">
+    <div class="border border-dark my-5 p-1">
+      <h4>支払い方法一覧・追加</h4>
+    </div>
+  </div>
+
+  <%= form_with model: @payment, url: admin_payments_path, method: :post do |f| %>
+  <div class="row">
     <p id="notice"></p>
-    <div>
-      <%= form_with model: @payment, url: admin_payments_path, method: :post do |f| %>
-        <div>
-          <%= f.label :支払い方法 %>
-          <%= f.text_field :payment_method %>
-        </div>
-      <%= f.submit '新規登録' %>
-    <% end %>
+      <div class="col-sm-2">
+        <p><%= f.label :支払い方法 %></p>
+      </div>
+
+      <div class="col-sm-5">
+        <%= f.text_field :payment_method %>
+      </div>
+
+      <div>
+        <table class="table table-bordered">
+          <thead class="thead_sub">
+            <tr>
+              <th>支払い方法</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @payments.each do |payment| %>
+            <tr>
+              <td><%= payment.payment_method %></td>
+              <td><%= link_to "編集", edit_admin_payment_path(payment.id) %></td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+      </div>
     </div>
-    <div>
-      <p>支払い方法</p>
-      <% @payments.each do |payment| %>
-        <%= payment.payment_method %>
-        <%= link_to "編集", edit_admin_payment_path(payment.id) %>
-      <% end %>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <%= f.submit '新規登録', class: "btn btn-success" %>
     </div>
+  <% end %>
+  </div>
 </div>
