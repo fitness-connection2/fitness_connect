@@ -1,14 +1,23 @@
-<% post_comments.each do |post_comment| %>
-  <strong>新規コメント</strong>
-  <ul>
-    <li>投稿記事の内容：<%= post_comment.post.description %></li>
-    <li>
-      <% if post_comment.member.present? %>
-        ユーザーネーム：<%= post_comment.member.user_name %>
-      <% elsif post_like.trainer.present? %>
-        ユーザーネーム：<%= post_comment.trainer.user_name %>
+<div class="container">
+  <div class="row offset-4">
+    <div>
+      <strong>新規コメント</strong>
+    </div>
+
+    <div>
+      <% post_comments.each do |post_comment| %>
+          <ul>
+            <li>投稿記事の内容：<%= post_comment.post.description %></li>
+            <li>
+              <% if post_comment.member.present? %>
+                ユーザーネーム：<%= post_comment.member.user_name %>
+              <% elsif post_like.trainer.present? %>
+                ユーザーネーム：<%= post_comment.trainer.user_name %>
+              <% end %>
+            </li>
+            <li><%= link_to "詳細", post_path(post_comment.post, post_comment_id: post_comment.id) %></li>
+          </ul>
       <% end %>
-    </li>
-    <li><%= link_to "詳細", post_path(post_comment.post, post_comment_id: post_comment.id) %></li>
-  </ul>
-<% end %>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,21 @@
-<% relationships.each do |relationship| %>
-  <strong>新規フォロー</strong>
-  <ul>
-    <li>
-      <% if member_signed_in? %>
-        ユーザーネーム：<%= Member.find(relationship.follower_id).user_name %>があなたをフォローしました。
-        <%= link_to "詳細", member_path(relationship.followed_id, relationship_id: relationship.id) %>
-      <% elsif trainer_signed_in? %>
-        ユーザーネーム：<%= Trainer.find(relationship.follower_id).user_name %>があなたをフォローしました
-        <%= link_to "詳細", trainer_path(relationship.followed_id, relationship_id: relationship.id) %>。
+<div class="container">
+  <div class="row offset-4">
+    <div>
+      <strong>新規フォロー</strong>
+    </div>
+
+    <div>
+      <% relationships.each do |relationship| %>
+        <ul>
+          <% if member_signed_in? %>
+            <li>ユーザーネーム：<%= Member.find(relationship.follower_id).user_name %></li>
+            <li><%= link_to "詳細", member_path(relationship.followed_id, relationship_id: relationship.id) %><li>
+          <% elsif trainer_signed_in? %>
+            <li>ユーザーネーム：<%= Trainer.find(relationship.follower_id).user_name %></li>
+            <li><%= link_to "詳細", trainer_path(relationship.followed_id, relationship_id: relationship.id) %></li>
+          <% end %>
+        </ul>
       <% end %>
-    </li>
-  </ul>
-<% end %>
+    </div>
+  </div>
+</div>

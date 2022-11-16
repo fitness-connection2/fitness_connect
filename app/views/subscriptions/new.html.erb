@@ -1,27 +1,30 @@
-<div>
-  <h4>サブスク情報入力</h4>
-    <div>
-      <%= form_with model: @subscription, url: subscriptions_confirm_path, method: :post do |f| %>
-        <div>
-          <h5><strong>サブスクプラン</strong></h5>
-          <%= f.select :subscription_plan_id, options_from_collection_for_select(@subscription_plans, :id, :plan) %>
-        </div>
-        <div>
-          <h5><strong>支払い方法</strong></h5>
-          <%= f.select :payment_id, options_from_collection_for_select(@payments, :id, :payment_method) %>
-        </div>
-        <div>
-          <h5><strong>サブスク期間</strong></h5>
-          <%= f.select :period, *[1..12], {include_blank: '期間選択'} %>ヶ月
-        </div>
-        <div>
-          <h5><strong>トレーナー名</strong></h5>
-          <p><%= @trainer.name %></p>
-          <%= f.hidden_field :trainer_id, value: @trainer.id %>
-        </div>
-        <div>
-          <div><%= f.submit "確認画面に進む"%></div>
-        </div>
-      <% end %>
+<div class="container">
+  <div class="row">
+    <div class="border border-dark my-5 p-2">
+      <h4>サブスク情報入力</h4>
     </div>
+  </div>
+
+  <%= form_with model: @subscription, url: subscriptions_confirm_path, method: :post do |f| %>
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-3">
+      <p><strong><%= f.label :サブスクプラン %></strong></p>
+      <p><strong><%= f.label :支払い方法 %></strong></p>
+      <p><strong><%= f.label :サブスク期間 %></strong></p>
+      <p><strong><%= f.label :トレーナー名 %></strong></p>
+    </div>
+
+    <div>
+      <p><%= f.select :subscription_plan_id, options_from_collection_for_select(@subscription_plans, :id, :plan) %></p>
+      <p class="mt-4"><%= f.select :payment_id, options_from_collection_for_select(@payments, :id, :payment_method) %></p>
+      <p class="mt-4"><%= f.select :period, *[1..12], {include_blank: '期間選択'} %>ヶ月</p>
+      <p class="mt-4"><%= @trainer.name %></p>
+    </div>
+      <%= f.hidden_field :trainer_id, value: @trainer.id %>
+  </div>
+
+  <div class="row mt-5 d-flex justify-content-center">
+    <div><%= f.submit "確認画面に進む", class: "btn btn-success" %></div>
+  </div>
+  <% end %>
 </div>

@@ -1,6 +1,6 @@
-<%= render 'public/shared/new_post_likes', post_likes: @post_likes %>
-<%= render 'public/shared/new_post_comments', post_comments: @post_comments %>
-<%= render 'public/shared/new_relationships', relationships: @relationships %>
+<div class="my-5"><%= render 'public/shared/new_post_likes', post_likes: @post_likes %></div>
+<div class="my-5"><%= render 'public/shared/new_post_comments', post_comments: @post_comments %></div>
+<div class="my-5"><%= render 'public/shared/new_relationships', relationships: @relationships %></div>
 <% if trainer_signed_in? %>
-  <%= render 'public/shared/new_subscriptions', subscriptions: @subscriptions %>
+  <div class="my-5"><%= render 'public/shared/new_subscriptions', subscriptions: @subscriptions %></div>
 <% end %>
