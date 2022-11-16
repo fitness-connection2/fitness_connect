@@ -1,23 +1,25 @@
-<div>
-    <h5>サブスク詳細情報</h5>
-      <div>
-        <label>トレーナー名</label>
-        <%= @subscription.trainer.name %>
-      </div>
-      <div>
-        <label>サブスクプラン</label>
-        <%= @subscription.subscription_plan.plan %>
-      </div>
-      <div>
-        <label>支払い方法</label>
-        <%= @subscription.payment.payment_method %>
-      </div>
-      <div>
-        <label>期間</label>
-        <%= @subscription.period %>ヶ月
-      </div>
-      <div>
-        <label>合計金額</label>
-        <%= @subscription.subtotal %>円
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="border border-dark my-5 p-2">
+      <h4>サブスク詳細情報</h4>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-2">
+      <p><strong>トレーナー名</strong></p>
+      <p><strong>サブスクプラン</strong></p>
+      <p><strong>支払い方法</strong></p>
+      <p><strong>期間</strong></p>
+      <p><strong>合計金額</strong></p>
+    </div>
+
+    <div>
+      <p><%= @subscription.trainer.name %></p>
+      <p><%= @subscription.subscription_plan.plan %></p>
+      <p><%= @subscription.payment.payment_method %></p>
+      <p><%= @subscription.period %>ヶ月</p>
+      <p><%= @subscription.subtotal %>円</p>
+    </div>
+  </div>
 </div>
