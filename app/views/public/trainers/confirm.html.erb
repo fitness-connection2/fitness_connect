@@ -5,7 +5,7 @@
   </div>
 
   <div class="row d-flex justify-content-center">
-    <%= link_to "マイページへ戻る", trainer_path(@trainer.id) %>
-      <%= link_to "退会する", trainers_withdraw_path, method: :patch, "data-confirm" => "本当に退会しますか？" %>
+    <%= link_to "マイページへ戻る", trainer_path(@trainer.id), class: "btn btn-info" %>
+      <%= link_to "退会する", trainers_withdraw_path, method: :patch, "data-confirm" => "本当に退会しますか？", class: "offset-2 btn btn-danger" %>
   </div>
 </div>

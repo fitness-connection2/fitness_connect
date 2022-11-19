@@ -33,8 +33,8 @@ Rails.application.routes.draw do
 
     patch "/members/withdraw" => "members#withdraw"
     patch "/trainers/withdraw" => "trainers#withdraw"
-    post "/members/confirm" => "members#confirm"
-    post "/trainers/confirm" => "trainers#confirm"
+    get "/members/confirm" => "members#confirm"
+    get "/trainers/confirm" => "trainers#confirm"
     resources :members, only:[:show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
       get "followings" => "relationships#followings", as: "followings"
