@@ -9,7 +9,7 @@
           <%= @post.member.user_name %>
         <% end %>
         <% if member_signed_in? && @post.member == current_member %>
-          <%= link_to "編集", edit_post_path(@post) %>
+          <%= link_to "編集", edit_post_path(@post) , class: "post_show mt-3 mr-3" %>
         <% end %>
         <%= image_tag @post.get_image(300,400), class: "card-img-top mt-3" %>
 

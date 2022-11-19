@@ -59,12 +59,14 @@
   </div>
 
   <div class="row mt-5 d-flex justify-content-center">
-  <% @posts.each do |post| %>
-    <div>
-      <%= link_to post_path(post.id) do %>
-        <%= image_tag post.get_image(100,100) %>
+    <div class="post_images">
+      <% @posts.each do |post| %>
+        <div>
+          <%= link_to post_path(post.id) do %>
+            <%= image_tag post.get_image(300,300) %>
+          <% end %>
+        </div>
       <% end %>
     </div>
-  <% end %>
   </div>
 </div>

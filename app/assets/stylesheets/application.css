@@ -141,3 +141,16 @@
   height: 400px;
   align-items: center;
 }
+
+.post_show {
+  float: right;
+}
+
+.post_images {
+  display: flex;
+  flex-wrap: wrap;
+  width: 900px;
+}
+
+.post_position {
+}
