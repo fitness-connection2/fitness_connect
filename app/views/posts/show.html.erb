@@ -8,7 +8,7 @@
         <%= link_to member_path(@post.member), class: "p-1 postLink" do %>
           <%= @post.member.user_name %>
         <% end %>
-        <% if member_signed_in? && @post.member == current_member %>
+        <% if member_signed_in? && @post.member == current_member || admin_signed_in? %>
           <%= link_to "編集", edit_post_path(@post), class: "post_show mt-3 mr-3" %>
         <% end %>
         <%= image_tag @post.get_image(300,400), class: "card-img-top mt-3" %>
@@ -20,7 +20,7 @@
         <%= link_to trainer_path(@post.trainer), class: "p-1 postLink" do %>
           <%= @post.trainer.user_name %>
         <% end %>
-        <% if trainer_signed_in? && @post.trainer == current_trainer %>
+        <% if trainer_signed_in? && @post.trainer == current_trainer || admin_signed_in? %>
           <%= link_to "編集", edit_post_path(@post), class: "post_show mt-3 mr-3" %>
         <% end %>
         <%= image_tag @post.get_image(300,400), class: "card-img-top mt-3" %>

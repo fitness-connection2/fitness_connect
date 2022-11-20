@@ -2,10 +2,10 @@
   <div class="row d-flex justify-content-center member_first_line">
     <div><%= image_tag @member.get_profile_image(100,100), class: "rounded-circle" %></div>
     <div class="pt-4 ml-3"><%= @member.user_name %></div>
-    <div class="pt-4 col-sm-2"><%= @member.get_follower_members.count %><br>
+    <div class="pt-4 col-sm-2"><%= @member.follower_count %><br>
       <div id="padding">フォロワー</div>
     </div>
-    <div class="pt-4 col-sm-2"><%= @member.get_following_members.count %><br>
+    <div class="pt-4 col-sm-2"><%= @member.following_count %><br>
       <div id="padding">フォロー中</div>
     </div>
     <div class="pt-4 col-sm-2"><%= @member.posts.count %>
@@ -38,13 +38,15 @@
     </div>
   </div>
 
-  <div class="row d-flex justify-content-center">
-    <% @posts.each do |post| %>
-      <div>
-        <%= link_to post_path(post.id) do %>
-          <%= image_tag post.get_image(100,100) %>
-        <% end %>
-      </div>
-    <% end %>
+  <div class="row mt-5 d-flex justify-content-center">
+    <div class="post_images">
+      <% @posts.each do |post| %>
+        <div>
+          <%= link_to post_path(post.id) do %>
+            <%= image_tag post.get_image(300,300) %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
