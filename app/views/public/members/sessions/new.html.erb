@@ -9,7 +9,9 @@
     <h4>会員用ログイン</h4>
   </div>
 
-  <%= flash[:alert] %>
+  <div class="row mt-4 d-flex justify-content-center">
+    <%= flash[:alert] %>
+  </div>
 
   <div class="row mt-3 d-flex justify-content-center">
     <%= form_with model: @member, url: member_session_path do |f| %>
