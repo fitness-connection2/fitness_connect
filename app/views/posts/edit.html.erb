@@ -9,7 +9,7 @@
         <%= @post.trainer.user_name %>
       <% end %>
       <% if @post.member == current_member || @post.trainer == current_trainer %>
-        <%= link_to "削除", post_path, method: :delete, "data-confirm" => "本当に削除しますか？" %>
+        <%= link_to "削除", post_path, method: :delete, "data-confirm" => "本当に削除しますか？", class: "post_show mt-3 mr-3" %>
       <% end %>
     </div>
 

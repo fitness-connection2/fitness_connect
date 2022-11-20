@@ -9,7 +9,9 @@
     <h4>トレーナー用ログイン</h4>
   </div>
 
-  <%= flash[:alert] %>
+  <div class="row mt-4 d-flex justify-content-center">
+    <%= flash[:alert] %>
+  </div>
 
   <div class="row mt-3 d-flex justify-content-center">
     <%= form_with model: @trainer, url: trainer_session_path do |f| %>
@@ -25,7 +27,7 @@
     <% if devise_mapping.rememberable? %>
       <div class="my-2">
         <%= f.check_box :remember_me %>
-        <%= f.label :ログイン情報を保持す %>
+        <%= f.label :ログイン情報を保持する%>
       </div>
     <% end %>
 
