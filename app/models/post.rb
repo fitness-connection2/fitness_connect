@@ -5,6 +5,9 @@ class Post < ApplicationRecord
   belongs_to :member, optional: :true #ログインしていなくても投稿出来るようにする
   belongs_to :trainer, optional: :true #ログインしていなくても投稿出来るようにする
   validate :required_either_member_or_trainer
+  
+  validates :image, presence: true
+  validates :description, presence: true
 
   def get_image(width, height)
     unless image.attached?

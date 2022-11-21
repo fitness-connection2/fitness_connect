@@ -5,11 +5,24 @@
     </div>
   </div>
 
+  <p id="notice"><strong><%= notice %></strong></p>
+    <div>
+      <% if @payment.errors.any? %>
+      <%= @payment.errors.count %>件のエラーが発生しました
+      <ul>
+        <% @payment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+      <% end %>
+    </div>
+
   <%= form_with model: @payment, url: admin_payments_path, method: :post do |f| %>
   <div class="row">
     <p id="notice"></p>
       <div class="col-sm-2">
         <p><%= f.label :支払い方法 %></p>
+        <p><%= f.submit '新規登録', class: "btn btn-success" %></p>
       </div>
 
       <div class="col-sm-5">
@@ -34,11 +47,6 @@
           <% end %>
         </table>
       </div>
-    </div>
-
-  <div class="row">
-    <div class="col-sm-2">
-      <%= f.submit '新規登録', class: "btn btn-success" %>
     </div>
   <% end %>
   </div>

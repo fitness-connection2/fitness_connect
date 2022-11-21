@@ -7,12 +7,18 @@ ja:
       member:
         email: メールアドレス
         password: パスワード
-        name: フルネーム
+        name: 氏名
         user_name: ユーザーネーム
         telephone_number: 電話番号
       trainer:
         email: メールアドレス
         password: パスワード
-        name: フルネーム
+        name: 氏名
         user_name: ユーザーネーム
         telephone_number: 電話番号
+      subscription_plan:
+        plan: サブスクプラン
+        price: 価格
+      payment:
+        payment_method: 支払い方法
+

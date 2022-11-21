@@ -5,10 +5,19 @@
     </div>
   </div>
 
+    <% if @payment.errors.any? %>
+    <%= @payment.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @payment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <% end %>
+
   <%= form_with model: @payment, url: admin_payment_path, local:true do |f| %>
   <div class="row d-flex justify-content-center">
     <div class="col-sm-2">
-      <p><%=f.label :支払い方法 %></p>
+      <p>支払い方法</p>
     </div>
     <div>
       <p><%= f.text_field :payment_method %></p>
