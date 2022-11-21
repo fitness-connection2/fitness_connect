@@ -3,6 +3,16 @@
     <h4>会員情報編集</h4>
   </div>
 
+  <p id="notice"><strong><%= notice %></strong></p>
+  <% if @member.errors.any? %>
+    <%= @member.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @member.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <%= form_with model: @member do |f| %>
   <div class="row d-flex justify-content-center">
     <div class="col-sm-4 mt-1">

@@ -10,7 +10,7 @@ class Admin::PaymentsController < ApplicationController
     @payment = Payment.new(payment_params)
     if @payment.save
       redirect_to admin_payments_path
-      flash[:notice] = "新しい支払い方法を登録しました。"
+      flash[:notice] = "支払い方法を登録しました。"
     else
       @payments = Payment.all
       render :index

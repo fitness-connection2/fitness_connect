@@ -5,10 +5,19 @@
     </div>
   </div>
 
+    <% if @subscription_plan.errors.any? %>
+      <%= @subscription_plan.errors.count %>件のエラーが発生しました
+      <ul>
+        <% @subscription_plan.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
   <%= form_with model: @subscription_plan, url: admin_subscription_plan_path, local:true do |f| %>
   <div class="row d-flex justify-content-center">
     <div class="col-sm-2">
-      <p><%= f.label :サブスク名 %></p>
+      <p><%= f.label :サブスクプラン %></p>
       <p><%=f.label :価格 %></p>
     </div>
     <div>

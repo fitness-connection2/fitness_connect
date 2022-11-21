@@ -1,5 +1,16 @@
 <div class="container">
   <h4 class="mt-3"><%= @member.name %>さんの会員情報編集</h4>
+
+    <p id="notice"><strong><%= notice %></strong></p>
+    <% if @member.errors.any? %>
+      <%= @member.errors.count %>件のエラーが発生しました
+      <ul>
+        <% @member.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
     <%= form_with model: @member, url: admin_member_path, local:true do |f| %>
       <div class="row mt-5 d-flex justify-content-center">
         <div class="col-sm-3">

@@ -16,6 +16,11 @@ class Member < ApplicationRecord
   #has_many :followers, through: :reverse_of_relationships, source: :follower
   has_one_attached :profile_image
 
+  validates :name, presence: true
+  validates :user_name, presence: true
+  validates :email, uniqueness: true, presence: true
+  validates :telephone_number, presence: true
+
   def new_liked
     PostLike.new_likes.joins(:post).distinct.where('post.member_id': self.id)
   end
