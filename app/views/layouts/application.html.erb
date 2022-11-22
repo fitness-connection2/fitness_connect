@@ -18,12 +18,13 @@
       <div class="offset-1">
         <%= image_tag "logo.jpg", size: '75x75' %>
       </div>
-      <div class="col-sm-5 ml-3">
+      <div class="col-sm-4 ml-3">
         <%= form_with url: searches_path, method: :get, local: true do |f| %>
           <%= f.text_field :keyword, value: params[:keyword], class: "offset-sm-1 searchField" %>
           <%= f.submit :検索, class: "btn-primary rounded searchClick" %>
         <% end %>
       </div>
+      <p id="notice"><strong><%= notice %></strong></p>
     <% elsif member_signed_in? %>
       <div class="header-all shadow-sm">
       <nav class="navbar navbar-expand-lg navbar-light p-4 navOrange">
@@ -36,6 +37,9 @@
           <%= f.submit :検索, class: "bg-info" %>
         <% end %>
       </div>
+      <div>
+        <p id="notice"><strong><%= notice %></strong></p>
+      </div>
     <% elsif trainer_signed_in? %>
       <div class="header-all shadow-sm">
       <nav class="navbar navbar-expand-lg navbar-light p-4 navBlue">
@@ -47,6 +51,9 @@
           <%= f.text_field :keyword, value: params[:keyword], class: "offset-sm-1 searchField" %>
           <%= f.submit :検索, class: "bg-info" %>
         <% end %>
+      </div>
+      <div>
+        <p id="notice"><strong><%= notice %></strong></p>
       </div>
     <% end %>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

@@ -21,4 +21,7 @@ ja:
         price: 価格
       payment:
         payment_method: 支払い方法
+      post:
+        image: 画像
+        description: 投稿内容
 

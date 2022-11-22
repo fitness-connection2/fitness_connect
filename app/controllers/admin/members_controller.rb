@@ -12,6 +12,7 @@ class Admin::MembersController < ApplicationController
 
   def edit
     @member = Member.find(params[:id])
+    @source = Member.find(params[:id])
   end
 
   def update
@@ -20,6 +21,7 @@ class Admin::MembersController < ApplicationController
       redirect_to edit_admin_member_path
       flash[:notice] = "情報を更新しました。"
     else
+      @source = Member.find(params[:id])
       render :edit
     end
   end
