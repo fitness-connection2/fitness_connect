@@ -14,9 +14,12 @@ class PostsController < ApplicationController
     else
       render :new
     end
-    @post.save
-    redirect_to posts_path
-    flash[:notice] = "投稿しました。"
+    if @post.save
+      redirect_to posts_path
+      flash[:notice] = "投稿しました。"
+    else
+      render :new
+    end
   end
 
   def index

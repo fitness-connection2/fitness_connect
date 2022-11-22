@@ -12,6 +12,7 @@ class Admin::TrainersController < ApplicationController
 
   def edit
     @trainer = Trainer.find(params[:id])
+    @source = Trainer.find(params[:id])
   end
 
   def update
@@ -20,6 +21,7 @@ class Admin::TrainersController < ApplicationController
       redirect_to edit_admin_trainer_path
       flash[:notice] = "情報を更新しました。"
     else
+      @source = Trainer.find(params[:id])
       render :edit
     end
   end

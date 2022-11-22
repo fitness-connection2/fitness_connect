@@ -53,8 +53,10 @@ ja:
       new:
         sign_up: "アカウント登録"
     sessions:
-      customer:
+      member:
         signed_in: "ログインしました。"
+      trainer:
+        signed_in: "ログインしました"
       admin:
         signed_in: "ログインしました。"
       new:
