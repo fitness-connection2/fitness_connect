@@ -53,7 +53,7 @@
 
     <% if @subscription.present? %>
       <% if member_signed_in? && current_member == @member %>
-        <div><%= link_to "サブスク詳細", subscription_path %></div>
+        <div><%= link_to "サブスク詳細", subscription_path, class: "btn btn-warning" %></div>
       <% end %>
     <% end %>
   </div>

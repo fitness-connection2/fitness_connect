@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   post "/subscriptions/confirm" => "subscriptions#confirm"
   get 'searches' => 'searches#index' #検索はネストせず単一で作成
   get "/subscription" => "subscriptions#show" #idを含める必要がないので単一で記述
-  resources :subscriptions, only:[:create, :index, :show, :edit, :update, :destroy]
+  delete "/subscriptions/:id" => "subscriptions#destroy", as: "subscriptions_destroy"
+  resources :subscriptions, only:[:create, :index, :show, :edit, :update]
   resources :posts do
     resources :post_comments, only: [:create, :destroy]
     resource :post_likes, only: [:create, :index, :destroy] #idを含める必要がないので単数形

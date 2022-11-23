@@ -1,3 +1,4 @@
+<% post_comments.each do |post_comment| %>
 <div class="container">
   <div class="row offset-4">
     <div>
@@ -5,19 +6,18 @@
     </div>
 
     <div>
-      <% post_comments.each do |post_comment| %>
-          <ul>
-            <li>投稿記事の内容：<%= post_comment.post.description %></li>
-            <li>
-              <% if post_comment.member.present? %>
-                ユーザーネーム：<%= post_comment.member.user_name %>
-              <% elsif post_like.trainer.present? %>
-                ユーザーネーム：<%= post_comment.trainer.user_name %>
-              <% end %>
-            </li>
-            <li><%= link_to "詳細", post_path(post_comment.post, post_comment_id: post_comment.id) %></li>
-          </ul>
-      <% end %>
+      <ul>
+        <li>投稿記事の内容：<%= post_comment.post.description %></li>
+        <li>
+          <% if post_comment.member.present? %>
+            ユーザーネーム：<%= post_comment.member.user_name %>
+          <% elsif post_comment.trainer.present? %>
+            ユーザーネーム：<%= post_comment.trainer.user_name %>
+          <% end %>
+        </li>
+        <li><%= link_to "詳細", post_path(post_comment.post, post_comment_id: post_comment.id) %></li>
+      </ul>
     </div>
   </div>
 </div>
+<% end %>

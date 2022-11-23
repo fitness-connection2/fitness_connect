@@ -8,7 +8,7 @@ class SubscriptionsController < ApplicationController
       @payments = Payment.all
       @trainer = Trainer.find(params[:trainer_id])
     else
-      redirect_to posts_path
+      redirect_to subscription_path(subscription.id)
     end
   end
 
@@ -21,6 +21,7 @@ class SubscriptionsController < ApplicationController
     @subscription = Subscription.new(subscription_params)
     @subscription.member_id = current_member.id
     @subscription.save
+    flash[:notice] = "サブスクを登録しました。"
     redirect_to subscription_path(@subscription)
   end
 
@@ -46,6 +47,15 @@ class SubscriptionsController < ApplicationController
   end
 
   def destroy
+    @subscription = Subscription.find(params[:id])
+    @subscription.destroy
+    if member_signed_in?
+      flash[:notice] = "サブスクを削除しました。"
+      redirect_to member_path(current_member)
+    elsif trainer_signed_in?
+      flash[:notice] = "サブスクを削除しました。"
+      redirect_to trainer_path(current_trainer)
+    end
   end
 
   private

@@ -1,3 +1,4 @@
+<% post_likes.each do |post_like| %>
 <div class="container">
   <div class="row offset-4">
     <div>
@@ -5,19 +6,18 @@
     </div>
 
     <div>
-      <% post_likes.each do |post_like| %>
-        <ul>
-          <li>投稿記事の内容：<%= post_like.post.description %></li>
-          <li>
-            <% if post_like.member.present? %>
-              ユーザーネーム：<%= post_like.member.user_name %>
-            <% elsif post_like.trainer.present? %>
-              ユーザーネーム：<%= post_like.trainer.user_name %>
-            <% end %>
-          </li>
-          <li><%= link_to "詳細", post_path(post_like.post, post_like_id: post_like.id) %></li>
-        </ul>
-      <% end %>
+      <ul>
+        <li>投稿記事の内容：<%= post_like.post.description %></li>
+        <li>
+          <% if post_like.member.present? %>
+            ユーザーネーム：<%= post_like.member.user_name %>
+          <% elsif post_like.trainer.present? %>
+            ユーザーネーム：<%= post_like.trainer.user_name %>
+          <% end %>
+        </li>
+        <li><%= link_to "詳細", post_path(post_like.post, post_like_id: post_like.id) %></li>
+      </ul>
     </div>
   </div>
 </div>
+<% end %>

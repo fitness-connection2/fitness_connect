@@ -1,3 +1,4 @@
+<% relationships.each do |relationship| %>
 <div class="container">
   <div class="row offset-4">
     <div>
@@ -5,17 +6,16 @@
     </div>
 
     <div>
-      <% relationships.each do |relationship| %>
-        <ul>
-          <% if member_signed_in? %>
-            <li>ユーザーネーム：<%= Member.find(relationship.follower_id).user_name %></li>
-            <li><%= link_to "詳細", member_path(relationship.followed_id, relationship_id: relationship.id) %><li>
-          <% elsif trainer_signed_in? %>
-            <li>ユーザーネーム：<%= Trainer.find(relationship.follower_id).user_name %></li>
-            <li><%= link_to "詳細", trainer_path(relationship.followed_id, relationship_id: relationship.id) %></li>
-          <% end %>
-        </ul>
-      <% end %>
+      <ul>
+        <% if member_signed_in? %>
+          <li>ユーザーネーム：<%= Member.find(relationship.follower_id).user_name %></li>
+          <li><%= link_to "詳細", member_path(relationship.followed_id, relationship_id: relationship.id) %><li>
+        <% elsif trainer_signed_in? %>
+          <li>ユーザーネーム：<%= Trainer.find(relationship.follower_id).user_name %></li>
+          <li><%= link_to "詳細", trainer_path(relationship.followed_id, relationship_id: relationship.id) %></li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </div>
+<% end %>
