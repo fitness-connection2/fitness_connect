@@ -22,4 +22,8 @@
       <p><%= @subscription.subtotal %>円</p>
     </div>
   </div>
+
+  <div class="row d-flex justify-content-center">
+    <%= link_to "削除", subscriptions_destroy_path(@subscription.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "mt-2 btn btn-danger" %>
+  </div>
 </div>

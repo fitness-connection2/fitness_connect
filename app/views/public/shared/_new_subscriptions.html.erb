@@ -1,3 +1,4 @@
+<% subscriptions.each do |subscription| %>
 <div class="container">
   <div class="row offset-4">
     <div>
@@ -5,14 +6,13 @@
     </div>
 
     <div>
-      <% subscriptions.each do |subscription| %>
-        <ul>
-          <li>氏名：<%= subscription.member.name %></li>
-          <li>サブスクプラン：<%= subscription.subscription_plan.plan %></li>
-          <li>契約期間：<%= subscription.period %>ヶ月</li>
-          <li><%= link_to "詳細", subscriptions_path %></li>
-        </ul>
-      <% end %>
+      <ul>
+        <li>氏名：<%= subscription.member.name %></li>
+        <li>サブスクプラン：<%= subscription.subscription_plan.plan %></li>
+        <li>契約期間：<%= subscription.period %>ヶ月</li>
+        <li><%= link_to "詳細", subscriptions_path %></li>
+      </ul>
     </div>
   </div>
 </div>
+<% end %>
