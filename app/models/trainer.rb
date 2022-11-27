@@ -15,7 +15,7 @@ class Trainer < ApplicationRecord
   #has_many :followings, through: :relationships, source: :followed
   #has_many :followers, through: :reverse_of_relationships, source: :follower
   has_one_attached :profile_image
-  
+
   validates :name, presence: true
   validates :user_name, presence: true
   validates :email, uniqueness: true, presence: true
@@ -72,6 +72,10 @@ class Trainer < ApplicationRecord
     Trainer.find(Relationship.where(follower_id: self.id, followed_type: USER_TYPE[:"Trainer"]).pluck('followed_id'))
   end
 
+  def get_following_users
+    get_following_members + get_following_trainers
+  end
+
   def follower_count
     get_followed_members.count + get_followed_trainers.count
   end
@@ -82,6 +86,10 @@ class Trainer < ApplicationRecord
 
   def get_followed_trainers
     Trainer.find(Relationship.where(followed_id: self.id, followed_type: USER_TYPE[:"Trainer"]).pluck('follower_id'))
+  end
+
+  def get_followed_users
+    get_followed_members + get_followed_trainers
   end
 
   def self.search(keyword)

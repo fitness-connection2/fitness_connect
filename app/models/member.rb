@@ -67,6 +67,10 @@ class Member < ApplicationRecord
   def get_following_trainers
     Trainer.find(Relationship.where(follower_id: self.id, followed_type: USER_TYPE[:"Trainer"]).pluck('followed_id'))
   end
+  
+  def get_following_users
+    get_following_members + get_following_trainers
+  end
 
   def follower_count
     get_followed_members.count + get_followed_trainers.count
@@ -78,6 +82,10 @@ class Member < ApplicationRecord
 
   def get_followed_trainers
     Trainer.find(Relationship.where(followed_id: self.id, followed_type: USER_TYPE[:"Trainer"]).pluck('follower_id'))
+  end
+  
+  def get_followed_users
+    get_followed_members + get_followed_trainers
   end
 
   # def get_follower_members #自分にフォローしている会員を取得。リレーションが使えないため、メソッドで定義。
