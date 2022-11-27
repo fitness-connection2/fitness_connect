@@ -38,8 +38,8 @@ Rails.application.routes.draw do
     get "/trainers/confirm" => "trainers#confirm"
     resources :members, only:[:show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
-      get "followings" => "relationships#followings", as: "followings"
-      get "followers" => "relationships#create", as: "followers"
+      get "followings" => "members#followings", as: "followings"
+      get "followers" => "members#followers", as: "followers"
       member do
         get :post_likes
         get :new_notifications
@@ -47,8 +47,8 @@ Rails.application.routes.draw do
     end
     resources :trainers, only:[:show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
-      get "followings" => "relationships#followings", as: "followings"
-      get "followers" => "relationships#create", as: "followers"
+      get "followings" => "trainers#followings", as: "followings"
+      get "followers" => "trainers#followers", as: "followers"
       member do
         get :post_likes
         get :new_notifications

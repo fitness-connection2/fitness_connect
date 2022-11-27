@@ -40,6 +40,16 @@ class Public::MembersController < ApplicationController
     @likes = PostLike.where(member_id: @member.id) #上記該当する会員のいいねのレコードを代入
   end
 
+  def followings #フォロー一覧ページ用
+    @member = Member.find(params[:member_id])
+    @users = @member.get_following_users
+  end
+
+  def followers
+    @member = Member.find(params[:member_id])
+    @users = @member.get_followed_users
+  end
+
   # def new_post_likes
   #   @member = Member.find(params[:id])
   #   @post_likes = @member.new_liked

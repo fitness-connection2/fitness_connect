@@ -1,0 +1,18 @@
+<% @users.each do |user| %>
+  <table>
+    <thead>
+      <tr>
+        <th>名前</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= user.name %></td>
+        <td>フォロー数: <%= user.following_count %></td>
+        <td>フォロワー数: <%= user.follower_count %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
