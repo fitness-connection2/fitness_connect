@@ -39,7 +39,9 @@ ja:
         forgot_your_password: "パスワードを忘れましたか?"
         send_me_reset_password_instructions: "パスワードの再設定方法を送信する"
     registrations:
-      customer:
+      member:
+        signed_up: "登録を完了しました。"
+      trainer:
         signed_up: "登録を完了しました。"
       edit:
         are_you_sure: "本当に良いですか?"

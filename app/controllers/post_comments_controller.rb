@@ -1,4 +1,5 @@
 class PostCommentsController < ApplicationController
+  before_action :authenticated_any
 
   def create
     post = Post.find(params[:post_id])
@@ -22,5 +23,11 @@ class PostCommentsController < ApplicationController
 
   def post_comment_params
     params.require(:post_comment).permit(:comment)
+  end
+
+  def authenticated_any
+    unless member_signed_in? | admin_signed_in? | trainer_signed_in? #いずれかログインしている場合にビューに遷移可能
+      redirect_to posts_path
+    end
   end
 end
