@@ -1,4 +1,5 @@
 class Public::RelationshipsController < ApplicationController
+  before_action :authenticated_any
 
   def create
     if current_member #現在の会員の場合
@@ -35,5 +36,12 @@ class Public::RelationshipsController < ApplicationController
   end
 
   private
+
+  def authenticated_any
+    unless member_signed_in? || trainer_signed_in? #いずれかログインしている場合にビューに遷移可能
+      flash[:notice] = "ログインが必要です。"
+      redirect_to posts_path
+    end
+  end
 
 end

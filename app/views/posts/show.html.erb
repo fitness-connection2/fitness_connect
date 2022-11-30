@@ -29,18 +29,20 @@
 
     <div class="my-2 ml-2">
       <p>投稿内容：<%= @post.description %></p>
-      <% if (member_signed_in? && @post.liked_by_member?(current_member)) || (trainer_signed_in? && @post.liked_by_trainer?(current_trainer)) %> <!--会員がログイン、いいねを押しているか判断。falseなら右に移る-->
-        <p>
-          <%= link_to post_post_likes_path(@post), method: :delete do %>
-            ♥<%= @post.post_likes.count %> いいね
-          <% end %>
-        </p>
-      <% else %>
-        <p>
-          <%= link_to post_post_likes_path(@post), method: :post do %>
-            ♡<%= @post.post_likes.count %> いいね
-          <% end %>
-        </p>
+      <% unless admin_signed_in? %>
+        <% if (member_signed_in? && @post.liked_by_member?(current_member)) || (trainer_signed_in? && @post.liked_by_trainer?(current_trainer)) %> <!--会員がログイン、いいねを押しているか判断。falseなら右に移る-->
+          <p>
+            <%= link_to post_post_likes_path(@post), method: :delete do %>
+              ♥<%= @post.post_likes.count %> いいね
+            <% end %>
+          </p>
+        <% else %>
+          <p>
+            <%= link_to post_post_likes_path(@post), method: :post do %>
+              ♡<%= @post.post_likes.count %> いいね
+            <% end %>
+          </p>
+        <% end %>
       <% end %>
 
       <div class="my-2">コメント件数：<%= @post.post_comments.count %></div>

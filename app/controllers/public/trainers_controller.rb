@@ -39,7 +39,7 @@ class Public::TrainersController < ApplicationController
     @trainer = Trainer.find(params[:id]) #トレーナーのidを取得
     @likes = PostLike.where(trainer_id: @trainer.id) ##上記該当するトレーナーのいいねのレコードを代入
   end
-  
+
   def followings #フォロー一覧ページ用
     @trainer = Trainer.find(params[:trainer_id])
     @users = @trainer.get_following_users
@@ -86,7 +86,10 @@ class Public::TrainersController < ApplicationController
   private
 
   def authenticated_any
-    member_signed_in? || trainer_signed_in? #いずれかログインしている場合にビューに遷移可能
+    unless member_signed_in? || trainer_signed_in? #いずれかログインしている場合にビューに遷移可能
+      flash[:notice] = "ログインが必要です。"
+      redirect_to posts_path
+    end
   end
 
   def trainer_params
