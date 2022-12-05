@@ -5,6 +5,11 @@
     </div>
   </div>
 
+  <div>
+    <p id="notice"><strong><%= notice %></strong></p>
+  </div>
+
+
   <%= form_with model: @subscription, url: subscriptions_confirm_path, method: :post do |f| %>
   <div class="row d-flex justify-content-center">
     <div class="col-sm-3">
@@ -17,7 +22,7 @@
     <div>
       <p><%= f.select :subscription_plan_id, options_from_collection_for_select(@subscription_plans, :id, :plan) %></p>
       <p class="mt-4"><%= f.select :payment_id, options_from_collection_for_select(@payments, :id, :payment_method) %></p>
-      <p class="mt-4"><%= f.select :period, *[1..12], {include_blank: '期間選択'} %>ヶ月</p>
+      <p class="mt-4"><%= f.select :period, *[1..12], {selected: 6}%>ヶ月</p>
       <p class="mt-4"><%= @trainer.name %></p>
     </div>
       <%= f.hidden_field :trainer_id, value: @trainer.id %>

@@ -49,6 +49,8 @@ Rails.application.routes.draw do
       resource :relationships, only: [:create, :destroy]
       get "followings" => "trainers#followings", as: "followings"
       get "followers" => "trainers#followers", as: "followers"
+      post "follow_trainer" => "trainers#follow_trainer", as: "follow_trainer"
+      patch "unfollow_trainer" => "trainers#unfollow_trainer", as: "unfollow_trainer"
       member do
         get :post_likes
         get :new_notifications

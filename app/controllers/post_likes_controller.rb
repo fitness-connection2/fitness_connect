@@ -2,9 +2,9 @@ class PostLikesController < ApplicationController
   before_action :authenticated_any
 
   def create
-    post = Post.find(params[:post_id])
+    post = Post.find(params[:post_id]) #postの全ての情報を取得
     if member_signed_in? #会員がログインしている場合
-      like = current_member.post_likes.new(post_id: post.id)
+      like = current_member.post_likes.new(post_id: post.id) #postのidのみを入れる
     elsif trainer_signed_in?
       like = current_trainer.post_likes.new(post_id: post.id)
     end
@@ -13,9 +13,9 @@ class PostLikesController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:post_id])
+    post = Post.find(params[:post_id]) #主キーの取得
     if member_signed_in?
-      like = current_member.post_likes.find_by(post_id: post.id)
+      like = current_member.post_likes.find_by(post_id: post.id) #主キー以外のカラム内容を
     elsif trainer_signed_in?
       like = current_trainer.post_likes.find_by(post_id: post.id)
     end

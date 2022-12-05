@@ -12,6 +12,8 @@ class Trainer < ApplicationRecord
   has_many :subscriptions, dependent: :destroy
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id"
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id"
+  has_many :members, through: :member_trainers, dependent: :destroy
+  has_many :member_trainers, dependent: :destroy
   #has_many :followings, through: :relationships, source: :followed
   #has_many :followers, through: :reverse_of_relationships, source: :follower
   has_one_attached :profile_image
@@ -58,6 +60,15 @@ class Trainer < ApplicationRecord
     relationships.any? do |relationship|
       relationship.followed_id == user.id && relationship.followed_type == target
     end
+  end
+  
+  def follow_member
+  end
+  
+  def unfollow_member
+  end
+  
+  def following_member?
   end
 
   def following_count

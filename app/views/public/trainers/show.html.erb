@@ -44,15 +44,17 @@
         <% end %>
       <% end %>
     <% else %>
-      <% if current_member.following?(@trainer, 1) %>
-        <%= link_to "フォロー外す", member_relationships_path(@trainer.id, target: 1), method: :delete, class: "btn btn-primary mr-5" %>
+      <% if MemberTrainer.exists?(member_id: current_member.id, trainer_id: @trainer.id) %>
+        <%= link_to "フォロー外す", trainer_follow_trainer_path(trainer_id: @trainer), method: :delete, class: "btn btn-primary mr-5" %>
       <% else %>
-        <%= link_to "フォローする", member_relationships_path(@trainer.id, target: 1), method: :post, class: "btn btn-primary mr-5" %>
+        <%= link_to "フォローする", trainer_unfollow_trainer_path(trainer_id: @trainer), method: :post, class: "btn btn-primary mr-5" %>
       <% end %>
     <% end %>
 
     <% if member_signed_in? %>
-      <%= link_to "サブスク登録をする", subscriptions_new_path(@trainer.id), class: "offset-1 btn btn-warning" %>
+      <% unless current_member.subscription.present? %>
+        <%= link_to "サブスク登録をする", subscriptions_new_path(@trainer.id), class: "offset-1 btn btn-warning" %>
+      <% end %>
     <% end %>
 
     <% if trainer_signed_in? && current_trainer = @trainer %>

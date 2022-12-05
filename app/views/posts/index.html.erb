@@ -1,5 +1,8 @@
 <div class="card container">
-<p id="notice"><strong><%= notice %></strong></p>
+  <% unless member_signed_in? | admin_signed_in? | trainer_signed_in? %>
+    <p id="notice"><strong><%= notice %></strong></p>
+    <%= link_to "ログイン画面へ", member_session_path  %>
+  <% end %>
   <% @posts.each do |post| %>
     <div class="card w-50 mx-auto mt-4 shadow-lg">
         <% unless post.enable_post? %><%# 投稿の投稿主が退会している場合は非表示 %>

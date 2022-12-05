@@ -12,6 +12,8 @@ class Member < ApplicationRecord
   has_one :subscription, dependent: :destroy #サブスクは1つのみ登録可能
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id" #同じモデル名でややこしいので、名前だけ変更
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id" #同じモデル名でややこしいので、名前だけ変更
+  has_many :trainers, through: :member_trainers, dependent: :destroy
+  has_many :member_trainers, dependent: :destroy
   #has_many :followings, through: :relationships, source: :followed #フォロー・フォロワーの表示するためRelationshipモデルから参照
   #has_many :followers, through: :reverse_of_relationships, source: :follower
   has_one_attached :profile_image
@@ -52,12 +54,40 @@ class Member < ApplicationRecord
 
   def following?(user, target) #そのユーザーがフォローしているか判定
     relationships.any? do |relationship|
+      # followed_id = フォローされるメンバー
       relationship.followed_id == user.id && relationship.followed_type == target
     end
   end
 
+
+  def follow_trainer
+    member = current_member
+    trainer = Trainer.find(params[:id]) #詳細ページでのみ有効
+    MemberTrainer.create(member_id: member.id, trainer_id: trainer.id) #会員とトレーナーのidのみを取得してモデルに保存する
+  end
+
+
+  def unfollow_trainer
+    member = current_member
+    trainer = Trainer.find(params[:id]) #詳細ページでのみ有効
+    member_trainer = MemberTrainer.find_by(member_id: member.id, trainer_id: trainer.id) #membertrainer内のカラムを取得
+    member_trainer.destroy
+  end
+
+  # def following_trainer? #フォローしてるかされていないかの判断
+  #   member = current_member
+  #   trainer = Trainer.find(params:[:id]) #詳細ページでのみ有効
+  #   member_trainer = MemberTrainer.find_by(member_id: member.id, trainer_id: trainer.id)
+  #   member_trainer.exists? #trueかfalseを返す
+  # end
+
+
   def following_count
     get_following_members.count + get_following_trainers.count
+  end
+
+  def member_following_count
+    get_following_members.count
   end
 
   def get_following_members
@@ -67,7 +97,7 @@ class Member < ApplicationRecord
   def get_following_trainers
     Trainer.find(Relationship.where(follower_id: self.id, followed_type: USER_TYPE[:"Trainer"]).pluck('followed_id'))
   end
-  
+
   def get_following_users
     get_following_members + get_following_trainers
   end
@@ -78,12 +108,28 @@ class Member < ApplicationRecord
 
   def get_followed_members
     Member.find(Relationship.where(followed_id: self.id, followed_type: USER_TYPE[:"Member"]).pluck('follower_id'))
+    # followed_id = followされてる人
+    # follower_id = followしている人
+    # followed_type = followされてる人のタイプ
+
+    # result = Relationship.where(followed_id: 2, followed_type: 1).pluck('follower_id','follower_type')
+    # follower_id = result[0][0]
+    # follower_type = result[0][1]
+
+    # if follower_type == 0
+    #   Trainer.find(follower_id)
+    # else
+    #   Member.find(follower_id)
+    # end
+
+    #Member.find(Relationship.where(followed_id: 2, followed_type: 1).pluck('follower_id'))
   end
 
   def get_followed_trainers
     Trainer.find(Relationship.where(followed_id: self.id, followed_type: USER_TYPE[:"Trainer"]).pluck('follower_id'))
+  #   Trainer.find(Relationship.where(followed_id: 2, followed_type: 1).pluck('follower_id'))
   end
-  
+
   def get_followed_users
     get_followed_members + get_followed_trainers
   end

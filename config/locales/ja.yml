@@ -24,4 +24,8 @@ ja:
       post:
         image: 画像
         description: 投稿内容
+      subscription:
+        period: 期間
+        payment_id: 支払い方法
+        subscription_plan_id: サブスクプラン
 
