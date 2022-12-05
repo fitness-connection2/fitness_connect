@@ -2,6 +2,7 @@ class Public::RelationshipsController < ApplicationController
   before_action :authenticated_any
 
   def create
+    #binding.pry
     if current_member #現在の会員の場合
       if params[:target].to_i == 0 #ターゲットがトレーナーの場合
         current_member.follow(params[:trainer_id], params[:target] ) #会員がトレーナーをフォロー
@@ -9,7 +10,8 @@ class Public::RelationshipsController < ApplicationController
         current_member.follow(params[:member_id], params[:target] ) #会員が会員をフォロー
       end
     else #現在の会員以外の場合
-      if params[:target].to_i == 0 #ターゲットがトレーナーの場合
+    #binding.pry
+      if params[:target].to_i == 0  #ターゲットがトレーナーの場合
         current_trainer.follow(params[:trainer_id], params[:target] ) #トレーナーがトレーナーをフォロー
       else #ターゲットがトレーナー以外の場合
         current_trainer.follow(params[:member_id], params[:target] ) #トレーナーが会員をフォロー

@@ -7,7 +7,7 @@
   </div>
   <% @likes.each do |like|%>
     <div class="card w-50 mx-auto shadow-lg my-3">
-      <%= link_to image_tag(like.post.get_image(300, 300), class: "card-img-top"), post_path %>
+      <%= link_to image_tag(like.post.get_image(300, 300), class: "card-img-top"), post_path(like.post) %>
     </div>
   <% end %>
 <% end %>

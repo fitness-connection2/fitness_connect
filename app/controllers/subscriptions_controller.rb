@@ -8,7 +8,7 @@ class SubscriptionsController < ApplicationController
       @payments = Payment.all
       @trainer = Trainer.find(params[:trainer_id])
     else
-      redirect_to subscription_path(subscription.id)
+      redirect_to subscriptions_new_path
     end
   end
 
