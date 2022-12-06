@@ -1,8 +1,6 @@
 class Trainer < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  USER_TYPE = {"Trainer": 0, "Member": 1} #定数でフォロー用のメソッドで定義
-  HOGE = "HOGE"
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -11,7 +9,11 @@ class Trainer < ApplicationRecord
   has_many :post_likes, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id"
+  has_many :following_trainers, -> { follower_type_trainer.followed_type_trainer }, class_name: "Relationship", foreign_key: "follower_id"
+  has_many :following_members, -> { follower_type_trainer.followed_type_member }, class_name: "Relationship", foreign_key: "follower_id"
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id"
+  has_many :followed_trainers, -> { followed_type_trainer.follower_type_trainer }, class_name: "Relationship", foreign_key: "followed_id"
+  has_many :followed_members, -> { followed_type_trainer.follower_type_member }, class_name: "Relationship", foreign_key: "followed_id"
   has_many :members, through: :member_trainers, dependent: :destroy
   has_many :member_trainers, dependent: :destroy
   #has_many :followings, through: :relationships, source: :followed
@@ -47,60 +49,50 @@ class Trainer < ApplicationRecord
       profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
-  def follow(user_id, target)
-    Relationship.create(followed_type: target, followed_id: user_id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
+  def follow_trainer(trainer_id)
+    Relationship.create(followed_id: trainer_id, follower_id: self.id, followed_type: :trainer, follower_type: :trainer)
   end
 
-  def unfollow(user_id, target) #そのユーザーがフォローを外すときのメソッド
-    relationship =  Relationship.find_by(followed_type: target, followed_id: user_id, follower_id: self.id, follower_type: USER_TYPE[:"#{self.class.name}"])
+  def follow_member(member_id)
+    Relationship.create(followed_id: member_id, follower_id: self.id, followed_type: :member, follower_type: :trainer)
+  end
+
+  def unfollow_trainer(trainer_id) #そのユーザーがフォローを外すときのメソッド
+    relationship = Relationship.find_by(followed_id: trainer_id, follower_id: self.id, followed_type: :trainer, follower_type: :trainer)
     relationship.destroy
   end
 
-  def following?(user, target) #そのユーザーがフォローしているか判定
-    relationships.any? do |relationship|
-      relationship.followed_id == user.id && relationship.followed_type == target
+  def unfollow_member(member_id) #そのユーザーがフォローを外すときのメソッド
+    relationship = Relationship.find_by(followed_id: member_id, follower_id: self.id, followed_type: :member, follower_type: :trainer)
+    relationship.destroy
+  end
+
+  def following?(user) #そのユーザーがフォローしているか判定
+    if user.instance_of?(Member)
+      following_members.where(followed_id: user.id).exists?
+    elsif user.instance_of?(Trainer)
+      following_trainers.where(followed_id: user.id).exists?
     end
-  end
-  
-  def follow_member
-  end
-  
-  def unfollow_member
-  end
-  
-  def following_member?
   end
 
   def following_count
-    get_following_members.count + get_following_trainers.count
-  end
-
-  def get_following_members
-    Member.find(Relationship.where(follower_id: self.id, followed_type: USER_TYPE[:"Member"]).pluck('followed_id'))
-  end
-
-  def get_following_trainers
-    Trainer.find(Relationship.where(follower_id: self.id, followed_type: USER_TYPE[:"Trainer"]).pluck('followed_id'))
+    following_members.count + following_trainers.count
   end
 
   def get_following_users
-    get_following_members + get_following_trainers
+    members = Member.where(id: following_members.pluck(:followed_id))
+    trainers = Trainer.where(id: following_trainers.pluck(:followed_id))
+    members + trainers
   end
 
   def follower_count
-    get_followed_members.count + get_followed_trainers.count
-  end
-
-  def get_followed_members
-    Member.find(Relationship.where(followed_id: self.id, followed_type: USER_TYPE[:"Member"]).pluck('follower_id'))
-  end
-
-  def get_followed_trainers
-    Trainer.find(Relationship.where(followed_id: self.id, followed_type: USER_TYPE[:"Trainer"]).pluck('follower_id'))
+    followed_members.count + followed_trainers.count
   end
 
   def get_followed_users
-    get_followed_members + get_followed_trainers
+    members = Member.where(id: followed_members.pluck(:follower_id))
+    trainers = Trainer.where(id: followed_trainers.pluck(:follower_id))
+    members + trainers
   end
 
   def self.search(keyword)
