@@ -2,47 +2,54 @@ class Public::RelationshipsController < ApplicationController
   before_action :authenticated_any
 
   def create
-    #binding.pry
-    if current_member #現在の会員の場合
-      if params[:target].to_i == 0 #ターゲットがトレーナーの場合
-        current_member.follow(params[:trainer_id], params[:target] ) #会員がトレーナーをフォロー
-      else #ターゲットがトレーナー以外の場合
-        current_member.follow(params[:member_id], params[:target] ) #会員が会員をフォロー
-      end
-    else #現在の会員以外の場合
-    #binding.pry
-      if params[:target].to_i == 0  #ターゲットがトレーナーの場合
-        current_trainer.follow(params[:trainer_id], params[:target] ) #トレーナーがトレーナーをフォロー
-      else #ターゲットがトレーナー以外の場合
-        current_trainer.follow(params[:member_id], params[:target] ) #トレーナーが会員をフォロー
-      end
+    if trainer_to_member?
+      current_trainer.follow_member(params[:member_id])
+    elsif trainer_to_trainer?
+      current_trainer.follow_trainer(params[:trainer_id])
+    elsif member_to_member?
+      current_member.follow_member(params[:member_id])
+    elsif member_to_trainer?
+      current_member.follow_trainer(params[:trainer_id])
     end
+
     redirect_to request.referer
   end
 
   def destroy
-    if current_member
-      if params[:target].to_i == 0
-        current_member.unfollow(params[:trainer_id], params[:target] )
-      else
-        current_member.unfollow(params[:member_id], params[:target] )
-      end
-    else
-      if params[:target].to_i == 0
-        current_trainer.unfollow(params[:trainer_id], params[:target] )
-      else
-        current_trainer.unfollow(params[:member_id], params[:target] )
-      end
+    if trainer_to_member?
+      current_trainer.unfollow_member(params[:member_id])
+    elsif trainer_to_trainer?
+      current_trainer.unfollow_trainer(params[:trainer_id])
+    elsif member_to_member?
+      current_member.unfollow_member(params[:member_id])
+    elsif member_to_trainer?
+      current_member.unfollow_trainer(params[:trainer_id])
     end
+
     redirect_to request.referer
   end
 
   private
 
+  def trainer_to_member?
+    params[:follower_type] == "trainer" && params[:member_id].present?
+  end
+
+  def trainer_to_trainer?
+    params[:follower_type] == "trainer" && params[:trainer_id].present?
+  end
+
+  def member_to_member?
+    params[:follower_type] == "member" && params[:member_id].present?
+  end
+
+  def member_to_trainer?
+    params[:follower_type] == "member" && params[:trainer_id].present?
+  end
+
   def authenticated_any
     unless member_signed_in? || trainer_signed_in? #いずれかログインしている場合にビューに遷移可能
-      flash[:notice] = "ログインが必要です。"
-      redirect_to posts_path
+      redirect_to posts_path, notice: "ログインが必要です。"
     end
   end
 

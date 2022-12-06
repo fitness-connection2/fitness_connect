@@ -5,8 +5,8 @@ class Public::TrainersController < ApplicationController
     @trainer = Trainer.find(params[:id])
     @posts = @trainer.posts
     Relationship.find_by(id: params[:relationship_id])&.update(is_read: true) if @trainer == current_trainer
-    @member = current_member
-    @member_trainer = MemberTrainer.find_by(member_id: @member.id, trainer_id: @trainer.id)
+    #@member = current_member
+    #@member_trainer = MemberTrainer.find_by(member_id: @member.id, trainer_id: @trainer.id)
   end
 
   def edit
@@ -51,20 +51,20 @@ class Public::TrainersController < ApplicationController
     @users = @trainer.get_followed_users
   end
 
-  def follow_trainer
-    @member = current_member
-    @trainer = Trainer.find(params[:id]) #詳細ページでのみ有効
-    MemberTrainer.create(member_id: @member.id, trainer_id: @trainer.id) #会員とトレーナーのidのみを取得してモデルに保存する
-    redirect_to trainer_path(@trainer.id)
-  end
+  # def follow_trainer
+  #   @member = current_member
+  #   @trainer = Trainer.find(params[:id]) #詳細ページでのみ有効
+  #   MemberTrainer.create(member_id: @member.id, trainer_id: @trainer.id) #会員とトレーナーのidのみを取得してモデルに保存する
+  #   redirect_to trainer_path(@trainer.id)
+  # end
 
-  def unfollow_trainer
-    @member = current_member
-    @trainer = Trainer.find(params[:id]) #詳細ページでのみ有効
-    member_trainer = MemberTrainer.find_by(member_id: @member.id, trainer_id: @trainer.id) #membertrainer内のカラムを取得
-    member_trainer.destroy
-    redirect_to trainer_path(@trainer.id)
-  end
+  # def unfollow_trainer
+  #   @member = current_member
+  #   @trainer = Trainer.find(params[:id]) #詳細ページでのみ有効
+  #   member_trainer = MemberTrainer.find_by(member_id: @member.id, trainer_id: @trainer.id) #membertrainer内のカラムを取得
+  #   member_trainer.destroy
+  #   redirect_to trainer_path(@trainer.id)
+  # end
 
   # def new_post_likes
   #   @trainer = Trainer.find(params[:id])

@@ -38,20 +38,18 @@ Rails.application.routes.draw do
     get "/trainers/confirm" => "trainers#confirm"
     resources :members, only:[:show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
-      get "followings" => "members#followings", as: "followings"
-      get "followers" => "members#followers", as: "followers"
       member do
+        get :followings
+        get :followers
         get :post_likes
         get :new_notifications
       end
     end
     resources :trainers, only:[:show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
-      get "followings" => "trainers#followings", as: "followings"
-      get "followers" => "trainers#followers", as: "followers"
-      post "follow_trainer" => "trainers#follow_trainer", as: "follow_trainer"
-      patch "unfollow_trainer" => "trainers#unfollow_trainer", as: "unfollow_trainer"
       member do
+        get :followings
+        get :followers
         get :post_likes
         get :new_notifications
       end

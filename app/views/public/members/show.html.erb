@@ -5,7 +5,7 @@
       <div class="pt-4 col-sm-2">
         <%= @member.follower_count %>
         <%#binding.pry%>
-        <div id="padding"><%= link_to "フォロワー", member_followers_path(member_id: @member) %></div>
+        <div id="padding"><%= link_to "フォロワー", followers_member_path(member_id: @member) %></div>
       </div>
       <div class="pt-4 col-sm-2">
         <%#binding.pry %>
@@ -14,7 +14,7 @@
         <%# else %>
           <%= @member.following_count %>
         <%# end %>
-        <div id="padding"><%= link_to "フォロー中", member_followings_path(member_id: @member) %></div>
+        <div id="padding"><%= link_to "フォロー中", followings_member_path(member_id: @member) %></div>
       </div>
       <div class="pt-4 col-sm-2">
         <%= @member.posts.count %>
@@ -41,23 +41,17 @@
   </div>
 
   <div class="row mt-5 d-flex justify-content-center">
-    <%#binding.pry%>
-    <% if current_member %>
-      <% if current_member != @member %>
-        <% if current_member.following?(@member, 1 ) %>
-          <%= link_to "会員のフォロー外す", member_relationships_path(@member.id, target: 1), method: :delete, class: "btn btn-primary mr-5" %>
-        <% else %>
-          <%= link_to "会員のフォローする", member_relationships_path(@member.id, target: 1), method: :post, class: "btn btn-primary mr-5" %>
-        <% end %>
+    <% if member_signed_in? && current_member != @member %>
+      <% if current_member.following?(@member) %>
+        <%= link_to "会員のフォロー外す", member_relationships_path(@member, follower_type: :member), method: :delete, class: "btn btn-primary mr-5" %>
+      <% else %>
+        <%= link_to "会員のフォローする", member_relationships_path(@member, follower_type: :member), method: :post, class: "btn btn-primary mr-5" %>
       <% end %>
-    <% else %>
-      <%#binding.pry%>
-      <% if current_trainer && @member.present? %>
-        <% if current_trainer.following?(@member, 1 ) %>
-          <%= link_to "会員のフォロー外す", member_relationships_path(@member.id, target: 1), method: :delete, class: "btn btn-primary mr-5" %>
-        <% else %>
-          <%= link_to "会員のフォローする", member_relationships_path(@member.id, target: 1), method: :post, class: "btn btn-primary mr-5" %>
-        <% end %>
+    <% elsif trainer_signed_in? %>
+      <% if current_trainer.following?(@member) %>
+        <%= link_to "会員のフォロー外す", member_relationships_path(@member, follower_type: :trainer), method: :delete, class: "btn btn-primary mr-5" %>
+      <% else %>
+        <%= link_to "会員のフォローする", member_relationships_path(@member, follower_type: :trainer), method: :post, class: "btn btn-primary mr-5" %>
       <% end %>
     <% end %>
 
