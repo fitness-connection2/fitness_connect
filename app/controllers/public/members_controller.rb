@@ -29,7 +29,7 @@ class Public::MembersController < ApplicationController
   end
 
   def withdraw
-    @member = current_member　#退会するのは現在の会員以外ないので、current_userでok
+    @member = current_member #退会するのは現在の会員以外ないので、current_memberでok
     @member.update(is_delete: true)
     reset_session
     redirect_to root_path
