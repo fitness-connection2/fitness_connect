@@ -55,8 +55,10 @@
       <% end %>
     <% end %>
 
-    <% if trainer_signed_in? && current_trainer = @trainer %>
-      <%= link_to "サブスク会員一覧", subscriptions_path, class: "btn btn-warning" %>
+    <% if trainer_signed_in? %>
+      <% unless current_trainer != @trainer %>
+        <%= link_to "サブスク会員一覧", subscriptions_path, class: "btn btn-warning" %>
+      <% end %>
     <% end %>
   </div>
 

@@ -33,7 +33,7 @@ class Public::TrainersController < ApplicationController
     @trainer = current_trainer
     @trainer.update(is_delete: true)
     reset_session
-    redirect_to root_path
+    redirect_to new_trainer_session_path
   end
 
   def post_likes
