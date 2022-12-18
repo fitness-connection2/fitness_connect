@@ -1,0 +1,76 @@
+<div>
+  <div class="row d-flex justify-content-center trainer_first_line">
+    <div><%= image_tag @trainer.get_profile_image(100,100), class: "rounded-circle" %></div>
+      <div class="pt-4 ml-3"><%= @trainer.user_name %></div>
+      <div class="pt-4 col-sm-2">
+        <%= @trainer.follower_count %>
+        <div id="padding"><%= link_to "フォロワー", followers_trainer_path(trainer_id: @trainer) %></div>
+      </div>
+      <div class="pt-4 col-sm-2">
+        <%= @trainer.following_count %>
+        <div id="padding"><%= link_to "フォロー中", followings_trainer_path(trainer_id: @trainer) %></div>
+      </div>
+      <div class="pt-4 col-sm-2">
+        <%= @trainer.posts.count %>
+        <div id="padding">投稿数</div>
+      </div>
+    <% if @trainer == current_trainer %>
+      <div class="mt-3">
+        <%= link_to "プロフィール編集", edit_trainer_path(@trainer) %>
+        <div class="mt-3"><%= link_to "いいね一覧", post_likes_trainer_path %></div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row d-flex justify-content-center trainer_second_line">
+  　<div>
+      <p><strong>氏名</strong></p>
+      <p><strong>自己紹介</strong></p>
+    </div>
+
+    <div class="offset-1">
+      <p><%= @trainer.name %></p>
+      <p><%= @trainer.introduction %></p>
+    </div>
+  </div>
+
+  <div class="row mt-5 d-flex justify-content-center">
+    <% if trainer_signed_in? && current_trainer != @trainer %>
+      <% if current_trainer.following?(@trainer) %>
+        <%= link_to "フォロー外す", trainer_relationships_path(@trainer, follower_type: :trainer), method: :delete, class: "btn btn-primary mr-5" %>
+      <% else %>
+        <%= link_to "フォローする", trainer_relationships_path(@trainer, follower_type: :trainer), method: :post, class: "btn btn-primary mr-5" %>
+      <% end %>
+    <% elsif member_signed_in? %>
+      <% if current_member.following?(@trainer) %>
+        <%= link_to "フォロー外す", trainer_relationships_path(@trainer, follower_type: :member), method: :delete, class: "btn btn-primary mr-5" %>
+      <% else %>
+        <%= link_to "フォローする", trainer_relationships_path(@trainer, follower_type: :member), method: :post, class: "btn btn-primary mr-5" %>
+      <% end %>
+    <% end %>
+
+    <% if member_signed_in? %>
+      <% unless current_member.subscription.present? %>
+        <%= link_to "サブスク登録をする", subscriptions_new_path(@trainer.id), class: "offset-1 btn btn-warning" %>
+      <% end %>
+    <% end %>
+
+    <% if trainer_signed_in? %>
+      <% unless current_trainer != @trainer %>
+        <%= link_to "サブスク会員一覧", subscriptions_path, class: "btn btn-warning" %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="row mt-5 d-flex justify-content-center">
+    <div class="post_images">
+      <% @posts.each do |post| %>
+        <div>
+          <%= link_to post_path(post.id) do %>
+            <%= image_tag post.get_image(300,300) %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

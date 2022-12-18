@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="border border-dark my-5 p-1">
+      <h4>支払い方法一覧・追加</h4>
+    </div>
+  </div>
+
+  <p id="notice"><strong><%= notice %></strong></p>
+    <div>
+      <% if @payment.errors.any? %>
+      <%= @payment.errors.count %>件のエラーが発生しました
+      <ul>
+        <% @payment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+      <% end %>
+    </div>
+
+  <%= form_with model: @payment, url: admin_payments_path, method: :post do |f| %>
+  <div class="row">
+    <p id="notice"></p>
+      <div class="col-sm-2">
+        <p><%= f.label :支払い方法 %></p>
+        <p><%= f.submit '新規登録', class: "btn btn-success" %></p>
+      </div>
+
+      <div class="col-sm-5">
+        <%= f.text_field :payment_method %>
+      </div>
+
+      <div>
+        <table class="table table-bordered">
+          <thead class="thead_sub">
+            <tr>
+              <th>支払い方法</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @payments.each do |payment| %>
+            <tr>
+              <td><%= payment.payment_method %></td>
+              <td><%= link_to "編集", edit_admin_payment_path(payment.id) %></td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>

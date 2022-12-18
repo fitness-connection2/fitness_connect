@@ -1,0 +1,52 @@
+<div>
+  <div class="row d-flex justify-content-center member_first_line">
+    <div><%= image_tag @trainer.get_profile_image(100,100), class: "rounded-circle" %></div>
+    <div class="pt-4 ml-3"><%= @trainer.user_name %></div>
+    <div class="pt-4 col-sm-2"><%= @trainer.follower_count %><br>
+      <div id="padding"></div>フォロワー
+    </div>
+    <div class="pt-4 col-sm-2"><%= @trainer.following_count %><br>
+      <div id="padding">フォロー中</div>
+    </div>
+    <div class="pt-4 col-sm-2"><%= @trainer.posts.count %>
+      <div id="padding">投稿数</div>
+    </div>
+    <div class="pt-4"><%= link_to "編集", edit_admin_trainer_path(@trainer) %></div>
+  </div>
+
+  <div class="row offset-5 member_second_line">
+    <div>
+      <p>トレーナーステータス</p>
+      <p>氏名</p>
+      <p>電話番号</p>
+      <p>メールアドレス</p>
+      <p>会員ステータス</p>
+    </div>
+
+    <div class="offset-3">
+      <p><%= @trainer.id %></p>
+      <p><%= @trainer.name %></p>
+      <p><%= @trainer.telephone_number %></p>
+      <p><%= @trainer.email %></p>
+      <p>
+      <% if @trainer.is_delete %>
+        <div>退会</div>
+      <% else %>
+        <div>有効</div>
+      <% end %>
+      </p>
+    </div>
+  </div>
+
+  <div class="row mt-5 d-flex justify-content-center">
+    <div class="post_images">
+      <% @posts.each do |post| %>
+        <div>
+          <%= link_to post_path(post.id) do %>
+            <%= image_tag post.get_image(300,300) %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

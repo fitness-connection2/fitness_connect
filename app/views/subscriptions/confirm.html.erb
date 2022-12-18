@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="border border-dark my-5 p-1">
+      <h5>サブスク情報確認</h5>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-3">
+      <p><strong>トレーナー名</strong></p>
+      <p><strong>サブスクプラン</strong></p>
+      <p><strong>支払い方法</strong></p>
+      <p><strong>期間</strong></p>
+      <p><strong>合計金額</strong></p>
+    </div>
+
+    <div>
+      <p><%= @subscription.trainer.name %></p>
+      <p><%= @subscription.subscription_plan.plan %></p>
+      <p><%= @subscription.payment.payment_method %></p>
+      <p><%= @subscription.period %>ヶ月</p>
+      <p><%= @subscription.subtotal %>円</p>
+    </div>
+    <%= form_with model: @subscription, url: subscriptions_path, method: :post, local:true do |f| %>
+    <div>
+        <%= f.hidden_field :subscription_plan_id %>
+        <%= f.hidden_field :payment_id %>
+        <%= f.hidden_field :period %>
+        <%= f.hidden_field :trainer_id %>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-4">
+    <p><%= link_to "情報入力画面へ戻る", subscriptions_new_path(@subscription.trainer_id), class: "btn btn-primary" %></p>
+    <p class="offset-1"><%= f.submit 'サブスクを確定する', class: "btn btn-success" %></p>
+    <% end %>
+  </div>
+</div>

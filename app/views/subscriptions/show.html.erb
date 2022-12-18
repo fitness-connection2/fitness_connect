@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="border border-dark my-5 p-2">
+      <h4>サブスク詳細情報</h4>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-2">
+      <p><strong>トレーナー名</strong></p>
+      <p><strong>サブスクプラン</strong></p>
+      <p><strong>支払い方法</strong></p>
+      <p><strong>期間</strong></p>
+      <p><strong>合計金額</strong></p>
+    </div>
+
+    <div>
+      <p><%= @subscription.trainer.name %></p>
+      <p><%= @subscription.subscription_plan.plan %></p>
+      <p><%= @subscription.payment.payment_method %></p>
+      <p><%= @subscription.period %>ヶ月</p>
+      <p><%= @subscription.subtotal %>円</p>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <%= link_to "削除", subscriptions_destroy_path(@subscription.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "mt-2 btn btn-danger" %>
+  </div>
+</div>

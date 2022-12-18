@@ -1,0 +1,31 @@
+ja:
+  errors:
+    messages:
+      not_saved: "処理が実行されませんでした。"
+  activerecord:
+    attributes:
+      member:
+        email: メールアドレス
+        password: パスワード
+        name: 氏名
+        user_name: ユーザーネーム
+        telephone_number: 電話番号
+      trainer:
+        email: メールアドレス
+        password: パスワード
+        name: 氏名
+        user_name: ユーザーネーム
+        telephone_number: 電話番号
+      subscription_plan:
+        plan: サブスクプラン
+        price: 価格
+      payment:
+        payment_method: 支払い方法
+      post:
+        image: 画像
+        description: 投稿内容
+      subscription:
+        period: 期間
+        payment_id: 支払い方法
+        subscription_plan_id: サブスクプラン
+

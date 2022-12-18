@@ -1,0 +1,23 @@
+<div class="container">
+  <h2 class="mt-3">検索結果 --> <%= params[:keyword].blank? ? '条件なし' : params[:keyword] %></h2> <!--検索結果が空の場合は条件なし、それ以外はビューを表示-->
+
+  <% @posts.each do |post| %>
+    <%= link_to post_path(post.id), class: "text-decoration-none" do %>
+      <%= image_tag post.get_image(100,100) %>
+    <% end %>
+  <% end %>
+
+  <% @members.each do |member| %>
+    <%= link_to member_path(member.id), class: "text-decoration-none" do %>
+      <%= image_tag member.get_profile_image(100,100) %>
+    <% end %>
+    <%= member.user_name %>
+  <% end %>
+
+  <% @trainers.each do |trainer| %>
+    <%= link_to trainer_path(trainer.id), class: "text-decoration-none" do %>
+      <%= image_tag trainer.get_profile_image(100,100) %>
+    <% end %>
+    <%= trainer.user_name %>
+  <% end %>
+</div>

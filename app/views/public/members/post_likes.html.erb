@@ -1,0 +1,14 @@
+<% if member_signed_in? %>
+<div class="card-list container">
+  <div class="my-4 row">
+    <div class="border border-dark p-1">
+      <h4>いいね一覧</h4>
+    </div>
+  </div>
+  <% @likes.each do |like|%>
+    <div class="card w-50 mx-auto shadow-lg my-3">
+      <%= link_to image_tag(like.post.get_image(300, 300), class: "card-img-top"), post_path(like.post) %>
+    </div>
+  <% end %>
+<% end %>
+</div>

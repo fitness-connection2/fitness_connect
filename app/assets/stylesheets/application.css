@@ -13,3 +13,148 @@
  *= require_tree .
  *= require_self
  */
+
+.fieldAdmin {
+  width: 300px;
+  height: 40px;
+}
+
+.actionsAdmin {
+  width: 300px;
+  height: 40px;
+}
+
+.navGlay {
+  background-color: #EEEEEE;
+}
+
+.navOrange {
+  background-color: #FFCC99;
+}
+
+.navBlue {
+  background-color: #99CCFF;
+}
+
+.navItem {
+  background-color: #FFFFFF;
+  font-size: 125%;
+}
+
+.searchField {
+  width: 300px;
+  height: 30px;
+}
+
+.searchClick {
+  width: 50px;
+  height: 30px;
+}
+
+.postLink {
+  color: #000000;
+}
+
+.commentBox {
+  width: 100%
+}
+
+.thead_member {
+  background: #FFCC99;
+}
+
+.member_first_line {
+  text-align: center;
+  height: 90px;
+  padding-top: 30px;
+}
+
+#padding {
+  padding-top: 10px;
+}
+
+.member_second_line {
+  margin-top: 100px;
+}
+
+.thead_sub {
+  background: #FFCC99;
+}
+
+.actionsMember {
+  width: 189px;
+}
+
+.memberLogin {
+  text-align: center;
+}
+
+.trainerLogin {
+  text-align: center;
+}
+
+.actionsTrainer {
+  width: 189px;
+}
+
+.submit_post {
+  width: 190px;
+}
+
+.textPost {
+  width: 300px;
+  height: 100px;
+}
+
+.textPost::placeholder {
+  text-align: start;
+}
+
+.memberPost {
+  text-align: end;
+}
+
+.descriptionBox {
+  width: 100%;
+}
+
+.edit_post {
+  width: 190px;
+}
+
+.delete_member {
+  height: 400px;
+  align-items: center;
+}
+
+.trainer_first_line {
+  text-align: center;
+  height: 90px;
+  padding-top: 30px;
+}
+
+.trainer_second_line {
+  margin-top: 100px;
+}
+
+.delete_trainer {
+  height: 400px;
+  align-items: center;
+}
+
+.post_show {
+  float: right;
+}
+
+.post_images {
+  display: flex;
+  flex-wrap: wrap;
+  width: 900px;
+}
+
+.post_position {
+}
+
+.thead_trainer {
+  background: #FFCC99;
+}

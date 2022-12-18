@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row d-flex justify-content-center mt-3">
+    <div>
+      <strong>名前</strong></br>
+      <% @users.each do |user| %>
+      <p class="mt-2">
+        <%= user.name %>
+        フォロー数: <%= user.following_count %>
+        フォロワー数: <%= user.follower_count %>
+      </p>
+      <% end %>
+    </div>
+  </div>
+</div>

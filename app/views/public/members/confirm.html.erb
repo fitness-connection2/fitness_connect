@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row d-flex justify-content-center font-weight-bolder delete_member">
+    アカウントを削除すると全ての登録情報が消去されます。</br>
+    退会される場合は退会するをクリックしてください。
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <%= link_to "マイページへ戻る", member_path(@member.id), class: "btn btn-info" %>
+    <%= link_to "退会する", members_withdraw_path, method: :patch, "data-confirm" => "本当に退会しますか？", class: "offset-2 btn btn-danger" %>
+  </div>
+</div>

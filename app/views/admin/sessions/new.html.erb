@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="offset-sm-4 col-md-6">
+      <%= image_tag "logo.jpg", size: '300x300' %>
+    </div>
+
+    <div class="offset-sm-4 col-md-6">
+      <h4 class="mx-5 mt-4">管理者用ログイン</h4>
+    </div>
+
+    <div class="offset-sm-4 col-md-6">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス", class: "my-3 fieldAdmin" %>
+      </div>
+
+      <div>
+        <%= f.password_field :password, autocomplete: "current-password", placeholder: "パスワード", class: "fieldAdmin" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="my-2">
+          <%= f.check_box :remember_me %>
+          <%= f.label :ログイン情報を保持する %>
+        </div>
+      <% end %>
+
+      <div>
+        <%= f.submit "ログイン", class: "btn btn-primary actionsAdmin" %>
+      </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+  <%= render "admin/shared/links" %>
+</div>
