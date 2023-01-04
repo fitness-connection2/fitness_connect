@@ -33,8 +33,12 @@ class Member < ApplicationRecord
     PostComment.new_comments.joins(:post).distinct.where('post.member_id': self.id)
   end
 
-  def new_followed
-    Relationship.new_relationships.where('followed_id': self.id)
+  def new_member_followed
+    Relationship.new_relationships.where('followed_id': self.id).where('followed_type': 'member')
+  end
+
+  def new_trainer_followed
+    Relationship.new_relationships.where('followed_id': self.id).where('followed_type': 'trainer')
   end
 
   def get_profile_image(width, height)
