@@ -10,8 +10,12 @@ class PostCommentsController < ApplicationController
       comment = current_trainer.post_comments.new(post_comment_params) #コメントするトレーナーが現在のトレーナーの場合、コメントを保存
       comment.post_id = post.id
     end
-    comment.save
-    redirect_to post_path(post.id)
+    if comment.save
+      redirect_to post_path(post.id)
+    else
+      flash[:notice] = "コメントを入力してください"
+      redirect_to post_path(post.id)
+    end
   end
 
   def destroy
