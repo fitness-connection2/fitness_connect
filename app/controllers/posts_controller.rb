@@ -37,10 +37,7 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
-    if @post.member == current_member
-    elsif @post.trainer == current_trainer
-      render :edit
-    else
+    unless @post.member == current_member || @post.trainer == current_trainer || admin_signed_in?
       redirect_to posts_path
     end
   end
@@ -57,9 +54,13 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
-    @post.destroy
-    flash[:notice] = "投稿を削除しました。"
-    redirect_to posts_path
+    if @post.member == current_member || @post.trainer == current_trainer || admin_signed_in?
+      @post.destroy
+      flash[:notice] = "投稿を削除しました。"
+      redirect_to posts_path
+    else
+      render :index
+    end
   end
 
   private
