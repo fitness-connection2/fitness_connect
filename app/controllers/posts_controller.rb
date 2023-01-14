@@ -23,7 +23,8 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+    #@posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
   end
 
   def show
@@ -51,7 +52,7 @@ class PostsController < ApplicationController
       redirect_to post_path(@post.id)
     else
       render :edit
-      end
+    end
   end
 
   def destroy
