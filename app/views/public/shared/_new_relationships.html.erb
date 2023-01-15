@@ -8,11 +8,21 @@
     <div>
       <ul>
         <% if member_signed_in? %>
-          <li>ユーザーネーム：<%= Member.find(relationship.follower_id).user_name %></li>
-          <li><%= link_to "詳細", member_path(relationship.followed_id, relationship_id: relationship.id) %><li>
+          <% if relationship.followed_type == "member" && relationship.follower_type == 'member' %>
+            <li>ユーザーネーム：<%= Member.find(relationship.follower_id).user_name %></li>
+            <li><%= link_to "詳細", member_path(relationship.followed_id, relationship_id: relationship.id) %><li>
+          <% elsif relationship.followed_type == "member" && relationship.follower_type == 'trainer' %>
+            <li>ユーザーネーム：<%= Trainer.find(relationship.follower_id).user_name %></li>
+            <li><%= link_to "詳細", member_path(relationship.followed_id, relationship_id: relationship.id) %><li>
+          <% end %>
         <% elsif trainer_signed_in? %>
-          <li>ユーザーネーム：<%= Trainer.find(relationship.follower_id).user_name %></li>
-          <li><%= link_to "詳細", trainer_path(relationship.followed_id, relationship_id: relationship.id) %></li>
+          <% if relationship.followed_type == "trainer" && relationship.follower_type == 'member' %>
+            <li>ユーザーネーム：<%= Member.find(relationship.follower_id).user_name %></li>
+            <li><%= link_to "詳細", trainer_path(relationship.followed_id, relationship_id: relationship.id) %><li>
+          <% elsif relationship.followed_type == "trainer" && relationship.follower_type == 'trainer' %>
+            <li>ユーザーネーム：<%= Trainer.find(relationship.follower_id).user_name %></li>
+            <li><%= link_to "詳細", trainer_path(relationship.followed_id, relationship_id: relationship.id) %><li>
+          <% end %>
         <% end %>
       </ul>
     </div>

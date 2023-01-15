@@ -94,7 +94,8 @@ class Public::TrainersController < ApplicationController
     @trainer = Trainer.find(params[:id])
     @post_likes = @trainer.new_liked
     @post_comments = @trainer.new_commented
-    @relationships = @trainer.new_followed
+    @member_relationships = @trainer.new_member_followed
+    @trainer_relationships = @trainer.new_trainer_followed
     @subscriptions = @trainer.new_subscribed
     render 'public/shared/new_notifications' #Turbolinksを解除すると戻るで更新
   end
