@@ -1,5 +1,5 @@
 class Public::TrainersController < ApplicationController
-  before_action :authenticated_any
+  before_action :authenticated_any, except:[:followings, :followers]
 
   def show
     @trainer = Trainer.find(params[:id])

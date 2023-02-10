@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticated_any, except:[:index]
+  before_action :authenticated_any, except:[:new, :index, :show]
 
   def new
     @post = Post.new #空のモデル作成
@@ -23,7 +23,6 @@ class PostsController < ApplicationController
   end
 
   def index
-    #@posts = Post.all
     @posts = Post.all.order(created_at: :desc)
   end
 

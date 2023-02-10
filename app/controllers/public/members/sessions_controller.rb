@@ -31,6 +31,16 @@ class Public::Members::SessionsController < Devise::SessionsController
   def after_sign_out_path_for(resource)
     new_member_session_path
   end
+  
+  def guest_sign_in
+    member = Member.find_or_create_by(email: "guest@example.com") do |member|
+      member.password = SecureRandom.urlsafe_base64
+      member.confirmed_at = Time.now # ← Confirmable を設定している場合は追加
+      # user.name = "ゲストユーザー" # ←ユーザー名を設定している場合は追加
+    end
+    sign_in member # ← Deviseのログインメソッド
+    redirect_to root_path, notice: "ゲストユーザーとしてログインしました"
+  end
 
   protected
 

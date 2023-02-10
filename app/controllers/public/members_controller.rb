@@ -1,5 +1,5 @@
 class Public::MembersController < ApplicationController
-  before_action :authenticated_any
+  before_action :authenticated_any, except:[:followings, :followers]
 
   def show
     @member = Member.find(params[:id])
