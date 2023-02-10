@@ -31,6 +31,16 @@ class Public::Trainers::SessionsController < Devise::SessionsController
   def after_sign_out_path_for(resource)
     new_trainer_session_path
   end
+  
+  def guest_sign_in
+    trainer = Trainer.find_or_create_by(email: "guest@example.com") do |trainer|
+      trainer.password = SecureRandom.urlsafe_base64
+      trainer.confirmed_at = Time.now # ← Confirmable を設定している場合は追加
+      # trainer.name = "ゲストユーザー" # ←ユーザー名を設定している場合は追加
+    end
+    sign_in trainer # ← Deviseのログインメソッド
+    redirect_to root_path, notice: "ゲストユーザーとしてログインしました"
+  end
 
   private
 

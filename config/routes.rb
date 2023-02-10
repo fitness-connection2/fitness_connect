@@ -30,6 +30,11 @@ Rails.application.routes.draw do
   scope module: :public do
     devise_scope :member do
       root to: "members/sessions#new"
+      post "members/guest_sign_in", to: "members/session#guest_sign_in"
+    end
+
+    devise_scope :trainer do
+      post "trainers/guest_sign_in", to: "trainers/sessions#guest_sign_in"
     end
 
     patch "/members/withdraw" => "members#withdraw"
